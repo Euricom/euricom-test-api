@@ -1,10 +1,11 @@
 {
   "name": "euri-test-api",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "license": "MIT",
   "scripts": {
     "start": "node ./src/server.js",
-    "start:watch": "nodemon ./src/server.js"
+    "start:watch": "nodemon ./src/server.js",
+    "deploy": "now --public"
   },
   "private": true,
   "dependencies": {
@@ -15,8 +16,10 @@
     "express": "^4.15.2",
     "faker": "^4.1.0",
     "graphql": "^14.0.2",
+    "http-status-codes": "^1.3.0",
     "morgan": "^1.8.1",
     "nodemon": "^1.17.5",
+    "schema-inspector": "^1.6.8",
     "showdown": "^1.8.6",
     "sort-on": "^2.0.0",
     "underscore": "^1.8.3"

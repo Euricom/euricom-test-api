@@ -11,14 +11,6 @@ const typeDefs = gql`
     hasPreviousPage: Boolean!
   }
 
-  type AddOrUpdateProductPayload {
-    product: Product
-  }
-
-  type DeleteProductPayload {
-    product: Product
-  }
-
   type ProductEdge {
     node: Product
     cursor: String!
@@ -42,36 +34,14 @@ const typeDefs = gql`
     price: Float
   }
 
-  input ProductInput {
-    id: Int
-    sku: String!
-    title: String!
-    desc: String
-    image: String
-    stocked: Boolean
-    basePrice: Float
-    price: Float!
-  }
-
   type BasketItem {
     product: Product
     quantity: Int
   }
 
   type Basket {
+    checkoutID: ID
     items: [BasketItem]
-  }
-
-  type AddTaskPayload {
-    task: Task
-  }
-
-  type CompleteTaskPayload {
-    task: Task
-  }
-
-  type DeleteTaskPayload {
-    task: Task
   }
 
   type Task {
@@ -98,12 +68,16 @@ const typeDefs = gql`
     address: Address
   }
 
-  type AddOrUpdateUserPayload {
-    user: User
+  type UserEdge {
+    node: User
+    cursor: String!
   }
 
-  type DeleteUserPayload {
-    user: User
+  type UserConnection {
+    pageInfo: PageInfo!
+    edges: [UserEdge]
+    totalCount: Int
+    user: [User]
   }
 
   input AddressInput {
@@ -124,28 +98,90 @@ const typeDefs = gql`
     address: AddressInput
   }
 
-  type UserEdge {
-    node: User
-    cursor: String!
+  input ProductInput {
+    id: Int
+    sku: String!
+    title: String!
+    desc: String
+    image: String
+    stocked: Boolean
+    basePrice: Float
+    price: Float!
   }
 
-  type UserConnection {
-    pageInfo: PageInfo!
-    edges: [UserEdge]
-    totalCount: Int
-    user: [User]
+  input BasketItemInput {
+    quantity: Int!
+    productId: Int!
+  }
+
+  input AddItemToBasketInput {
+    checkoutID: ID!
+    item: BasketItemInput!
+  }
+
+  input RemoveItemFromBasketInput {
+    checkoutID: ID!
+    items: [Int!]!
+  }
+
+  type AddOrUpdateProductPayload {
+    product: Product
+  }
+
+  type DeleteProductPayload {
+    product: Product
+  }
+
+  type AddOrUpdateUserPayload {
+    user: User
+  }
+
+  type DeleteUserPayload {
+    user: User
+  }
+
+  type AddTaskPayload {
+    task: Task
+  }
+
+  type CompleteTaskPayload {
+    task: Task
+  }
+
+  type DeleteTaskPayload {
+    task: Task
+  }
+
+  type AddItemToBasketPayload {
+    basket: Basket
+  }
+
+  type RemoveItemFromBasketPayload {
+    basket: Basket
+  }
+
+  type ClearBasketPayload {
+    basket: Basket
   }
 
   type Mutation {
     addOrUpdateUser(input: UserInput!): AddOrUpdateUserPayload
-    deleteUser(id: Int): DeleteUserPayload
+    deleteUser(id: Int!): DeleteUserPayload
 
     addOrUpdateProduct(input: ProductInput!): AddOrUpdateProductPayload
-    deleteProduct(id: Int): DeleteProductPayload
+    deleteProduct(id: Int!): DeleteProductPayload
 
-    addTask(desc: String): AddTaskPayload
-    completeTask(id: Int): CompleteTaskPayload
-    deleteTask(id: Int): DeleteTaskPayload
+    addItemToBasket(input: AddItemToBasketInput!): AddItemToBasketPayload
+
+    removeItemFromBasket(
+      input: RemoveItemFromBasketInput!
+    ): RemoveItemFromBasketPayload
+
+    clearBasket(checkoutID: ID): ClearBasketPayload
+
+    addTask(desc: String!): AddTaskPayload
+    completeTask(id: Int!): CompleteTaskPayload
+    deleteTask(id: Int!): DeleteTaskPayload
   }
 
   type Query {
@@ -157,7 +193,7 @@ const typeDefs = gql`
       before: String
       last: Int
     ): ProductConnection
-    basket: Basket
+    basket(checkoutID: String!): Basket
 
     user(id: Int): User
     allUsers(
