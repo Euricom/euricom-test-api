@@ -1,6 +1,7 @@
 const _ = require('underscore');
 const express = require('express');
 const validate = require('./middleware/validator');
+const sortOn = require('sort-on');
 
 const {
   getAllProducts,

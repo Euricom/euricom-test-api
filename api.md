@@ -2,21 +2,21 @@
 
 Fake Online REST API for Testing and Prototyping
 Copyright (c) 2018 Euricom nv. Licensed under the [MIT license](https://opensource.org/licenses/MIT).
-v 0.3.1
+v 0.3.2
 
 ## System
 
 ```json
 # reset all data
-DELETE https://euri-test-api.now.sh/api/system
+DELETE /api/system
 ```
 
 <hr>
 
 ## Tasks
 
-GET [/api/tasks](https://euri-test-api.now.sh/api/tasks)
-GET [/api/tasks/1](https://euri-test-api.now.sh/api/tasks/1)
+GET [/api/tasks](/api/tasks)
+GET [/api/tasks/1](/api/tasks/1)
 
 ```
 POST /api/tasks
@@ -36,9 +36,9 @@ DELETE /api/tasks/122
 
 ## Users
 
-GET [/api/users](https://euri-test-api.now.sh/api/users)
-GET [/api/users/12](https://euri-test-api.now.sh/api/users/12)
-GET [/api/users?page=0&pageSize=10](https://euri-test-api.now.sh/api/users?page=0&pageSize=10)
+GET [/api/users](/api/users)
+GET [/api/users/12](/api/users/12)
+GET [/api/users?page=0&pageSize=10](/api/users?page=0&pageSize=10)
 
 ```
 POST /api/users
@@ -66,11 +66,11 @@ DELETE /api/users/12
 
 ## Products
 
-GET [/api/products](https://euri-test-api.now.sh/api/products)
-GET [/api/products/1](https://euri-test-api.now.sh/api/products/1)
-GET [/api/products?page=0&pageSize=10](https://euri-test-api.now.sh/api/products?page=0&pageSize=10)
-GET [/api/products?sort=price](https://euri-test-api.now.sh/api/products?sort=price)
-GET [/api/products?sort=-price](https://euri-test-api.now.sh/api/products?sort=-price)
+GET [/api/products](/api/products)
+GET [/api/products/1](/api/products/1)
+GET [/api/products?page=0&pageSize=10](/api/products?page=0&pageSize=10)
+GET [/api/products?sort=price](/api/products?sort=price)
+GET [/api/products?sort=-price](/api/products?sort=-price)
 
 ```
 # create a new product
@@ -99,7 +99,7 @@ DELETE /api/products/12
 
 ## Basket
 
-GET [/api/basket/xyz](https://euri-test-api.now.sh/api/basket/xyz)
+GET [/api/basket/xyz](/api/basket/xyz)
 
 ```
 # Get the basket with key
