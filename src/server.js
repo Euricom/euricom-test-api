@@ -7,7 +7,10 @@ const bodyParser = require('body-parser');
 const _ = require('underscore');
 const showdown = require('showdown');
 const fs = require('fs');
-const { ApolloServer, UserInputError } = require('apollo-server-express');
+const {
+  ApolloServer,
+  UserInputError
+} = require('apollo-server-express');
 
 const errorHandler = require('./api/middleware/errorHandler');
 
@@ -16,7 +19,7 @@ const {
   getAllUsers,
   getUser,
   deleteUser,
-  addUser,
+  addUser
 } = require('./data/users');
 
 const {
@@ -24,7 +27,7 @@ const {
   getAllTasks,
   getTask,
   deleteTask,
-  addTask,
+  addTask
 } = require('./data/tasks');
 
 const {
@@ -32,10 +35,13 @@ const {
   getAllProducts,
   getProduct,
   deleteProduct,
-  addProduct,
+  addProduct
 } = require('./data/products');
 
-const { getOrCreateBasket, clearBasket } = require('./data/basket');
+const {
+  getOrCreateBasket,
+  clearBasket
+} = require('./data/basket');
 
 const userRoutes = require('./api/userRoutes');
 const taskRoutes = require('./api/taskRoutes');
@@ -52,7 +58,7 @@ app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: true,
-  })
+  }),
 );
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -72,11 +78,15 @@ const converter = new showdown.Converter({
 const resolvers = {
   Mutation: {
     // users
-    addOrUpdateUser: (root, { input }) => {
+    addOrUpdateUser: (root, {
+      input
+    }) => {
       let user = getUser(input.id);
       if (!user) {
         const id = users.reduce((acc, user) => Math.max(acc, user.id), 0) + 1;
-        user = { id };
+        user = {
+          id,
+        };
         users.push(user);
       }
       user.firstName = input.firstName;
@@ -85,24 +95,36 @@ const resolvers = {
       user.age = input.age;
       user.company = input.company;
       console.log(user);
-      return { user };
+      return {
+        user,
+      };
     },
-    deleteUser: (root, { id }) => {
+    deleteUser: (root, {
+      id
+    }) => {
       const user = getUser(id);
       if (!user) {
-        return { user: null };
+        return {
+          user: null,
+        };
       }
       deleteUser(user);
-      return { user };
+      return {
+        user,
+      };
     },
 
     // products
-    addOrUpdateProduct: (root, { input }) => {
+    addOrUpdateProduct: (root, {
+      input
+    }) => {
       let product = getProduct(input.id);
+      const products = getAllProducts();
       if (!product) {
-        const id =
-          products.reduce((acc, product) => Math.max(acc, product.id), 0) + 1;
-        product = { id };
+        const id = products.reduce((acc, product) => Math.max(acc, product.id), 0) + 1;
+        product = {
+          id,
+        };
         addProduct(product);
       }
       product.sku = input.sku;
@@ -112,43 +134,109 @@ const resolvers = {
       product.stock = input.stock;
       product.basePrice = input.basePrice;
       product.price = input.price;
-      return { product };
+      return {
+        product,
+      };
     },
-    deleteProduct: (root, { id }) => {
+    deleteProduct: (root, {
+      id
+    }) => {
       const product = getProduct(id);
       if (!product) {
-        return { product: null };
+        return {
+          product: null,
+        };
       }
       deleteProduct(product);
-      return { product };
+      return {
+        product,
+      };
     },
 
     // basket
     addItemToBasket: (root, args) => {
       console.log('addItemToBasket', args);
+      const id = Number(args.input.item.productId);
+      const basket = getOrCreateBasket(args.input.checkoutID);
+      const product = getProduct(id);
+
       let errors = [];
-      errors.push({
-        key: 'email',
-        message: 'The email address must not be empty.',
+      if (!product)
+        errors.push({
+          key: 'id',
+          message: 'Product not found',
+        });
+
+      if (!product.stocked)
+        errors.push({
+          key: 'stocked',
+          message: 'Product not in stock',
+        });
+
+      if (errors.length) {
+        throw new UserInputError('One or more validation failed.', {
+          errors,
+        });
+      }
+
+      let quantity = Math.floor(Number(args.input.item.quantity) || 1);
+      const index = _.findIndex(basket, {
+        id: id,
       });
-      if (errors.length)
-        throw new UserInputError('One or more validation failed.', { errors });
+      if (index < 0)
+        basket.push({
+          id: id,
+          quantity: quantity,
+        });
+      if (index >= 0) {
+        quantity = (basket[index].quantity || 0) + quantity;
+        basket[index].quantity = quantity;
+      }
+      const newBasket = {
+        checkoutID: args.input.checkoutID,
+        items: basket
+      }
       return {
-        basket: null,
+        basket: newBasket
       };
     },
     removeItemFromBasket: (root, args) => {
       console.log('removeItemsFromBasket', args);
+
+      const id = Number(args.input.productId);
+      const basket = getOrCreateBasket(args.input.checkoutID);
+      const index = _.findIndex(basket, {
+        id: id
+      });
+      const product = getProduct(id);
+      if (!product || index === -1) {
+        throw new UserInputError("Product not found");
+      }
+      basket.splice(index, 1);
+      console.log(basket)
+      const newBasket = {
+        checkoutID: args.input.checkoutID,
+        items: basket
+      }
       return {
-        basket: null,
+        basket: newBasket
       };
     },
-    clearBasket: (root, { checkoutID }) => {
-      return { basket: { checkoutID, items: clearBasket(checkoutID) } };
+    clearBasket: (root, {
+      checkoutID
+    }) => {
+      return {
+        basket: {
+          checkoutID,
+          items: clearBasket(checkoutID),
+        },
+      };
     },
 
     // tasks
-    addTask: (root, { desc }) => {
+    addTask: (root, {
+      desc
+    }) => {
       const id = tasks.reduce((acc, task) => Math.max(acc, task.id), 0) + 1;
       const task = {
         id,
@@ -156,23 +244,37 @@ const resolvers = {
         completed: false,
       };
       addTask(task);
-      return { task };
+      return {
+        task,
+      };
     },
-    completeTask: (root, { id }) => {
+    completeTask: (root, {
+      id
+    }) => {
       const task = getTask(id);
       if (!task) {
-        return { task: null };
+        return {
+          task: null,
+        };
       }
       task.completed = true;
-      return { task };
+      return {
+        task,
+      };
     },
-    deleteTask: (root, { id }) => {
+    deleteTask: (root, {
+      id
+    }) => {
       const task = getTask(id);
       if (!task) {
-        return { task: null };
+        return {
+          task: null,
+        };
       }
       tasks = deleteTask(task);
-      return { task };
+      return {
+        task,
+      };
     },
   },
   Query: {
@@ -192,7 +294,10 @@ const resolvers = {
       if (args.orderBy) {
         sortedUsers = sortOn(sortedUsers, args.orderBy);
       }
-      return { ...arrayToConnection(sortedUsers, args), user: sortedUsers };
+      return {
+        ...arrayToConnection(sortedUsers, args),
+        user: sortedUsers,
+      };
     },
     product: (_, args) => {
       return getProduct(args.id);
@@ -208,7 +313,9 @@ const resolvers = {
         product: sortedProducts,
       };
     },
-    basket: (_, { checkoutID }) => {
+    basket: (_, {
+      checkoutID
+    }) => {
       const basket = getOrCreateBasket(checkoutID);
       return {
         checkoutID,
@@ -217,15 +324,20 @@ const resolvers = {
     },
   },
   BasketItem: {
-    product: item => {
+    product: (item) => {
       const product = getProduct(item.id);
       return product;
     },
   },
 };
 
-const grapqlServer = new ApolloServer({ typeDefs, resolvers });
-grapqlServer.applyMiddleware({ app });
+const grapqlServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+grapqlServer.applyMiddleware({
+  app,
+});
 
 //
 // REST Routes
@@ -260,7 +372,7 @@ app.all('/api/*', (req, res) =>
   res.status(404).json({
     code: 'NotFound',
     message: 'Resource not found or method not supprted',
-  })
+  }),
 );
 
 //
@@ -268,10 +380,6 @@ app.all('/api/*', (req, res) =>
 //
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
-  console.log(
-    `Express server listening on port: http://localhost:${
-      server.address().port
-    }/api/products`
-  );
+  console.log(`Express server listening on port: http://localhost:${server.address().port}/api/products`);
   console.log(`${grapqlServer.graphqlPath}`);
 });

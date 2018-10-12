@@ -1,9 +1,11 @@
-const { gql } = require('apollo-server');
+const {
+  gql
+} = require('apollo-server');
 
 //
 // GraphQL scheme
 //
-const typeDefs = gql`
+const typeDefs = gql `
   type PageInfo {
     startCursor: String
     endCursor: String
@@ -121,7 +123,7 @@ const typeDefs = gql`
 
   input RemoveItemFromBasketInput {
     checkoutID: ID!
-    items: [Int!]!
+    productId: Int!
   }
 
   type AddOrUpdateProductPayload {

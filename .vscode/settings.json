@@ -1,0 +1,35 @@
+{
+  // ===
+  // Spacing
+  // ===
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  // ===
+  // Files
+  // ===
+  "files.exclude": {
+    "**/*.log": true,
+    "**/*.log*": true,
+    "**/dist": false,
+    "**/coverage": true
+  },
+  // ===
+  // Event Triggers
+  // ===
+  "editor.formatOnSave": true,
+
+  // ===
+  // JS(ON)
+  // ===
+  "javascript.validate.enable": false,
+  "javascript.format.enable": true,
+  "json.format.enable": true,
+  "tslint.enable": true,
+  "tslint.autoFixOnSave": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+}
