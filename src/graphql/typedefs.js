@@ -1,11 +1,9 @@
-const {
-  gql
-} = require('apollo-server');
+const { gql } = require('apollo-server');
 
 //
 // GraphQL scheme
 //
-const typeDefs = gql `
+const typeDefs = gql`
   type PageInfo {
     startCursor: String
     endCursor: String
@@ -37,6 +35,7 @@ const typeDefs = gql `
   }
 
   type BasketItem {
+    id: ID
     product: Product
     quantity: Int
   }
@@ -175,9 +174,7 @@ const typeDefs = gql `
 
     addItemToBasket(input: AddItemToBasketInput!): AddItemToBasketPayload
 
-    removeItemFromBasket(
-      input: RemoveItemFromBasketInput!
-    ): RemoveItemFromBasketPayload
+    removeItemFromBasket(input: RemoveItemFromBasketInput!): RemoveItemFromBasketPayload
 
     clearBasket(checkoutID: ID): ClearBasketPayload
 
@@ -188,23 +185,11 @@ const typeDefs = gql `
 
   type Query {
     product(id: Int): Product
-    allProducts(
-      orderBy: String
-      first: Int
-      after: String
-      before: String
-      last: Int
-    ): ProductConnection
+    allProducts(orderBy: String, first: Int, after: String, before: String, last: Int): ProductConnection
     basket(checkoutID: String!): Basket
 
     user(id: Int): User
-    allUsers(
-      orderBy: String
-      first: Int
-      after: String
-      before: String
-      last: Int
-    ): UserConnection
+    allUsers(orderBy: String, first: Int, after: String, before: String, last: Int): UserConnection
 
     task(id: Int): Task
     tasks: [Task]

@@ -7,41 +7,17 @@ const bodyParser = require('body-parser');
 const _ = require('underscore');
 const showdown = require('showdown');
 const fs = require('fs');
-const {
-  ApolloServer,
-  UserInputError
-} = require('apollo-server-express');
+const { ApolloServer, UserInputError } = require('apollo-server-express');
 
 const errorHandler = require('./api/middleware/errorHandler');
 
-const {
-  seedUsers,
-  getAllUsers,
-  getUser,
-  deleteUser,
-  addUser
-} = require('./data/users');
+const { seedUsers, getAllUsers, getUser, deleteUser, addUser } = require('./data/users');
 
-const {
-  seedTasks,
-  getAllTasks,
-  getTask,
-  deleteTask,
-  addTask
-} = require('./data/tasks');
+const { seedTasks, getAllTasks, getTask, deleteTask, addTask } = require('./data/tasks');
 
-const {
-  seedProducts,
-  getAllProducts,
-  getProduct,
-  deleteProduct,
-  addProduct
-} = require('./data/products');
+const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('./data/products');
 
-const {
-  getOrCreateBasket,
-  clearBasket
-} = require('./data/basket');
+const { getOrCreateBasket, clearBasket } = require('./data/basket');
 
 const userRoutes = require('./api/userRoutes');
 const taskRoutes = require('./api/taskRoutes');
@@ -78,9 +54,7 @@ const converter = new showdown.Converter({
 const resolvers = {
   Mutation: {
     // users
-    addOrUpdateUser: (root, {
-      input
-    }) => {
+    addOrUpdateUser: (root, { input }) => {
       let user = getUser(input.id);
       if (!user) {
         const id = users.reduce((acc, user) => Math.max(acc, user.id), 0) + 1;
@@ -99,9 +73,7 @@ const resolvers = {
         user,
       };
     },
-    deleteUser: (root, {
-      id
-    }) => {
+    deleteUser: (root, { id }) => {
       const user = getUser(id);
       if (!user) {
         return {
@@ -115,9 +87,7 @@ const resolvers = {
     },
 
     // products
-    addOrUpdateProduct: (root, {
-      input
-    }) => {
+    addOrUpdateProduct: (root, { input }) => {
       let product = getProduct(input.id);
       const products = getAllProducts();
       if (!product) {
@@ -138,9 +108,7 @@ const resolvers = {
         product,
       };
     },
-    deleteProduct: (root, {
-      id
-    }) => {
+    deleteProduct: (root, { id }) => {
       const product = getProduct(id);
       if (!product) {
         return {
@@ -156,9 +124,9 @@ const resolvers = {
     // basket
     addItemToBasket: (root, args) => {
       console.log('addItemToBasket', args);
-      const id = Number(args.input.item.productId);
+      const productId = Number(args.input.item.productId);
       const basket = getOrCreateBasket(args.input.checkoutID);
-      const product = getProduct(id);
+      const product = getProduct(productId);
 
       let errors = [];
       if (!product)
@@ -180,51 +148,39 @@ const resolvers = {
       }
 
       let quantity = Math.floor(Number(args.input.item.quantity) || 1);
-      const index = _.findIndex(basket, {
-        id: id,
-      });
-      if (index < 0)
-        basket.push({
-          id: id,
-          quantity: quantity,
-        });
-      if (index >= 0) {
-        quantity = (basket[index].quantity || 0) + quantity;
-        basket[index].quantity = quantity;
+      let basketItem = basket.find((item) => item.id === productId);
+      if (!basketItem) {
+        basketItem = {
+          id: basket.reduce((acc, item) => Math.max(acc, item.id), 0) + 1,
+          productId,
+          quantity,
+        };
+        basket.push(basketItem);
       }
-      const newBasket = {
-        checkoutID: args.input.checkoutID,
-        items: basket
-      }
-      return {
-        basket: newBasket
-      };
+      basketItem.quantity = (basketItem.quantity || 0) + quantity;
+      return { basket: { checkoutID: args.input.checkoutID, items: basket } };
     },
+
     removeItemFromBasket: (root, args) => {
       console.log('removeItemsFromBasket', args);
 
-      const id = Number(args.input.productId);
+      const productId = Number(args.input.productId);
       const basket = getOrCreateBasket(args.input.checkoutID);
-      const index = _.findIndex(basket, {
-        id: id
-      });
-      const product = getProduct(id);
-      if (!product || index === -1) {
-        throw new UserInputError("Product not found");
+      const index = _.findIndex(basket, { productId: productId });
+      if (index === -1) {
+        throw new UserInputError('Product not found');
       }
       basket.splice(index, 1);
-      console.log(basket)
       const newBasket = {
         checkoutID: args.input.checkoutID,
-        items: basket
-      }
+        items: basket,
+      };
       return {
-        basket: newBasket
+        basket: newBasket,
       };
     },
-    clearBasket: (root, {
-      checkoutID
-    }) => {
+
+    clearBasket: (root, { checkoutID }) => {
       return {
         basket: {
           checkoutID,
@@ -234,9 +190,7 @@ const resolvers = {
     },
 
     // tasks
-    addTask: (root, {
-      desc
-    }) => {
+    addTask: (root, { desc }) => {
       const id = tasks.reduce((acc, task) => Math.max(acc, task.id), 0) + 1;
       const task = {
         id,
@@ -248,9 +202,7 @@ const resolvers = {
         task,
       };
     },
-    completeTask: (root, {
-      id
-    }) => {
+    completeTask: (root, { id }) => {
       const task = getTask(id);
       if (!task) {
         return {
@@ -262,9 +214,7 @@ const resolvers = {
         task,
       };
     },
-    deleteTask: (root, {
-      id
-    }) => {
+    deleteTask: (root, { id }) => {
       const task = getTask(id);
       if (!task) {
         return {
@@ -313,9 +263,7 @@ const resolvers = {
         product: sortedProducts,
       };
     },
-    basket: (_, {
-      checkoutID
-    }) => {
+    basket: (_, { checkoutID }) => {
       const basket = getOrCreateBasket(checkoutID);
       return {
         checkoutID,
@@ -325,7 +273,7 @@ const resolvers = {
   },
   BasketItem: {
     product: (item) => {
-      const product = getProduct(item.id);
+      const product = getProduct(item.productId);
       return product;
     },
   },
