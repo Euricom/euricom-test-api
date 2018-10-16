@@ -72,8 +72,7 @@ router.delete('/api/basket/:key/product/:id', (req, res) => {
   const id = Number(req.params.id);
   const basket = getOrCreateBasket(req.params.key);
   const index = _.findIndex(basket, { id: id });
-  const product = getProduct(id);
-  if (!product || index === -1)
+  if (index === -1)
     return res
       .status(404)
       .json({ code: 'NotFound', message: 'Product not found' });
