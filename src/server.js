@@ -264,7 +264,12 @@ const resolvers = {
       };
     },
     basket: (_, { checkoutID }) => {
-      const basket = getOrCreateBasket(checkoutID);
+      let basket = getOrCreateBasket(checkoutID);
+      // verify we still have a product for the items
+      basket = basket.filter((item) => {
+        const product = getProduct(item.productId);
+        return !!product;
+      });
       return {
         checkoutID,
         items: basket,
