@@ -124,7 +124,8 @@ const resolvers = {
     // basket
     addItemToBasket: (root, args) => {
       console.log('addItemToBasket', args);
-      const productId = Number(args.input.item.productId);
+      const productId = args.input.item.productId;
+      let quantity = args.input.item.quantity;
       const basket = getOrCreateBasket(args.input.checkoutID);
       const product = getProduct(productId);
 
@@ -147,17 +148,16 @@ const resolvers = {
         });
       }
 
-      let quantity = Math.floor(Number(args.input.item.quantity) || 1);
-      let basketItem = basket.find((item) => item.id === productId);
+      let basketItem = basket.find((item) => item.productId === productId);
       if (!basketItem) {
         basketItem = {
           id: basket.reduce((acc, item) => Math.max(acc, item.id), 0) + 1,
           productId,
-          quantity,
+          quantity: 0,
         };
         basket.push(basketItem);
       }
-      basketItem.quantity = (basketItem.quantity || 0) + quantity;
+      basketItem.quantity = basketItem.quantity + quantity;
       return { basket: { checkoutID: args.input.checkoutID, items: basket } };
     },
 
