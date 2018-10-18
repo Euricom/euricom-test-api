@@ -61,5 +61,5 @@ module.exports = {
   UnauthorizedError,
   ForbiddenError,
   ConflictError,
-  InternalServerError
+  InternalServerError,
 };
