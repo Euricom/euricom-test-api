@@ -21,7 +21,7 @@
   // ===
   // Event Triggers
   // ===
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
 
   // ===
   // JS(ON)
