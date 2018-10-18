@@ -26,7 +26,7 @@ module.exports = {
     return tasks;
   },
   getTask(id) {
-    return tasks.find(task => task.id === id);
+    return tasks.find((task) => task.id === id);
   },
   deleteTask(task) {
     tasks = _.without(tasks, task);

@@ -1,6 +1,4 @@
-const {
-  gql
-} = require('apollo-server');
+const { gql } = require('apollo-server');
 
 const BasketItem = gql`
   type BasketItem {
@@ -21,7 +19,7 @@ const BasketItemInput = gql`
   input BasketItemInput {
     quantity: Int!
     productId: Int!
-}
+  }
 `;
 
 const AddItemToBasketInput = gql`
@@ -36,7 +34,7 @@ const RemoveItemFromBasketInput = gql`
     checkoutID: ID!
     productId: Int!
   }
-  `;
+`;
 const AddItemToBasketPayload = gql`
   type AddItemToBasketPayload {
     basket: Basket
@@ -56,7 +54,7 @@ const ClearBasketPayload = gql`
 `;
 
 module.exports = {
-  getTypes: function () {
+  getTypes: function() {
     var moduleArray = [];
     moduleArray[0] = BasketItem;
     moduleArray[1] = Basket;
@@ -67,5 +65,5 @@ module.exports = {
     moduleArray[6] = ClearBasketPayload;
     moduleArray[7] = RemoveItemFromBasketPayload;
     return moduleArray;
-  }
-}
+  },
+};

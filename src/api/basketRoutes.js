@@ -61,7 +61,7 @@ router.post(
       basket[index].quantity = quantity;
     }
     res.status(201).json(basket);
-  }
+  },
 );
 
 // remove product from basket
@@ -103,7 +103,7 @@ router.patch(
     if (quantity == 0) basket.splice(index, 1);
 
     return res.json(basket);
-  }
+  },
 );
 
 // delete basket

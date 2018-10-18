@@ -1,6 +1,4 @@
-const {
-  gql
-} = require('apollo-server');
+const { gql } = require('apollo-server');
 
 const BasketQuery = gql`
   extend type Query {
@@ -11,16 +9,18 @@ const BasketQuery = gql`
 const BasketMutation = gql`
   extend type Mutation {
     addItemToBasket(input: AddItemToBasketInput!): AddItemToBasketPayload
-    removeItemFromBasket(input: RemoveItemFromBasketInput!): RemoveItemFromBasketPayload
+    removeItemFromBasket(
+      input: RemoveItemFromBasketInput!
+    ): RemoveItemFromBasketPayload
     clearBasket(checkoutID: ID): ClearBasketPayload
   }
 `;
 
 module.exports = {
-  getSchema: function () {
+  getSchema: function() {
     var moduleArray = [];
     moduleArray[0] = BasketQuery;
     moduleArray[1] = BasketMutation;
     return moduleArray;
-  }
-}
+  },
+};

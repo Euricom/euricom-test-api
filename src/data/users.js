@@ -14,13 +14,13 @@ function generateUsers(count) {
     if (random === 1) {
       firstName = faker.name.firstName(1);
       imageUrl = `http://api.randomuser.me/portraits/lego/${faker.random.number(
-        9
+        9,
       )}.jpg`;
       // imageUrl = `https://api.adorable.io/avatars/400/${firstName}-${lastName}`;
     } else {
       firstName = faker.name.firstName(0);
       imageUrl = `http://api.randomuser.me/portraits/lego/${faker.random.number(
-        9
+        9,
       )}.jpg`;
       // imageUrl = `https://api.adorable.io/avatars/400/${firstName}-${lastName}`;
     }
@@ -51,7 +51,7 @@ module.exports = {
     return users;
   },
   getUser(id) {
-    return users.find(user => user.id === id);
+    return users.find((user) => user.id === id);
   },
   deleteUser(user) {
     users = _.without(users, user);

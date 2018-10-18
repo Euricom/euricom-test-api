@@ -3,7 +3,7 @@ const {
   getAllProducts,
   getProduct,
   deleteProduct,
-  addProduct
+  addProduct,
 } = require('../../data/products');
 const sortOn = require('sort-on');
 const arrayToConnection = require('../arrayToConnection');
@@ -26,13 +26,12 @@ const productResolvers = {
     },
   },
   Mutation: {
-    addOrUpdateProduct: (root, {
-      input
-    }) => {
+    addOrUpdateProduct: (root, { input }) => {
       let product = getProduct(input.id);
       const products = getAllProducts();
       if (!product) {
-        const id = products.reduce((acc, product) => Math.max(acc, product.id), 0) + 1;
+        const id =
+          products.reduce((acc, product) => Math.max(acc, product.id), 0) + 1;
         product = {
           id,
         };
@@ -50,9 +49,7 @@ const productResolvers = {
         product,
       };
     },
-    deleteProduct: (root, {
-      id
-    }) => {
+    deleteProduct: (root, { id }) => {
       const product = getProduct(id);
       if (!product) {
         return {
@@ -65,6 +62,6 @@ const productResolvers = {
       };
     },
   },
-}
+};
 
 module.exports = productResolvers;

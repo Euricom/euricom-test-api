@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./src/server.js",
     "start:watch": "nodemon ./src/server.js",
-    "deploy": "now --public"
+    "deploy": "now --public",
+    "format": "prettier --write '**/*.{js,json}'"
   },
   "private": true,
   "dependencies": {

@@ -58,7 +58,7 @@ function arrayToConnectionSlice(arraySlice, args, meta) {
   // If supplied slice is too large, trim it down before mapping over it.
   const slice = arraySlice.slice(
     Math.max(startOffset - sliceStart, 0),
-    arraySlice.length - (sliceEnd - endOffset)
+    arraySlice.length - (sliceEnd - endOffset),
   );
 
   const edges = slice.map((value, index) => ({

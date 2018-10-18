@@ -7,16 +7,13 @@ const bodyParser = require('body-parser');
 const _ = require('underscore');
 const showdown = require('showdown');
 const fs = require('fs');
-const {
-  ApolloServer,
-  UserInputError
-} = require('apollo-server-express');
+const { ApolloServer, UserInputError } = require('apollo-server-express');
 const {
   seedProducts,
   getAllProducts,
   getProduct,
   deleteProduct,
-  addProduct
+  addProduct,
 } = require('./data/products');
 
 const errorHandler = require('./api/middleware/errorHandler');
@@ -26,7 +23,7 @@ const {
   getAllUsers,
   getUser,
   deleteUser,
-  addUser
+  addUser,
 } = require('./data/users');
 
 const {
@@ -34,15 +31,10 @@ const {
   getAllTasks,
   getTask,
   deleteTask,
-  addTask
+  addTask,
 } = require('./data/tasks');
 
-
-
-const {
-  getOrCreateBasket,
-  clearBasket
-} = require('./data/basket');
+const { getOrCreateBasket, clearBasket } = require('./data/basket');
 
 const userRoutes = require('./api/userRoutes');
 const taskRoutes = require('./api/taskRoutes');
@@ -113,7 +105,6 @@ const converter = new showdown.Converter({
 //     },
 
 //     // products
-
 
 //     // basket
 //     addItemToBasket: (root, args) => {
@@ -265,7 +256,7 @@ const converter = new showdown.Converter({
 // };
 
 const grapqlServer = new ApolloServer({
-  schema
+  schema,
 });
 grapqlServer.applyMiddleware({
   app,
@@ -312,6 +303,10 @@ app.all('/api/*', (req, res) =>
 //
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
-  console.log(`Express server listening on port: http://localhost:${server.address().port}/api/products`);
+  console.log(
+    `Express server listening on port: http://localhost:${
+      server.address().port
+    }/api/products`,
+  );
   console.log(`${grapqlServer.graphqlPath}`);
 });

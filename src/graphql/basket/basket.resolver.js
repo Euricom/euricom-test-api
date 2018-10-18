@@ -1,39 +1,34 @@
-const {
-  getOrCreateBasket,
-  clearBasket
-} = require('../../data/basket');
+const { getOrCreateBasket, clearBasket } = require('../../data/basket');
 
 const {
   seedProducts,
   getAllProducts,
   getProduct,
   deleteProduct,
-  addProduct
+  addProduct,
 } = require('../../data/products');
 
 const basketResolvers = {
   Query: {
-    basket: (_, {
-      checkoutID
-    }) => {
+    basket: (_, { checkoutID }) => {
       let basket = getOrCreateBasket(checkoutID);
       // verify we still have a product for the items
       basket = basket.filter((item) => {
         const product = getProduct(item.productId);
         return !!product;
       });
-      console.log('basket', basket)
+      console.log('basket', basket);
       return {
         checkoutID,
         items: basket,
       };
     },
-    // BasketItem: {
-    //   product: (item) => {
-    //     const product = getProduct(item.productId);
-    //     return product;
-    //   },
-    // },
+  },
+  BasketItem: {
+    product: (item) => {
+      const product = getProduct(item.productId);
+      return product;
+    },
   },
   Mutation: {
     addItemToBasket: (root, args) => {
@@ -75,8 +70,8 @@ const basketResolvers = {
       return {
         basket: {
           checkoutID: args.input.checkoutID,
-          items: basket
-        }
+          items: basket,
+        },
       };
     },
 
@@ -86,7 +81,7 @@ const basketResolvers = {
       const productId = Number(args.input.productId);
       const basket = getOrCreateBasket(args.input.checkoutID);
       const index = _.findIndex(basket, {
-        productId: productId
+        productId: productId,
       });
       if (index === -1) {
         throw new UserInputError('Product not found');
@@ -101,9 +96,7 @@ const basketResolvers = {
       };
     },
 
-    clearBasket: (root, {
-      checkoutID
-    }) => {
+    clearBasket: (root, { checkoutID }) => {
       return {
         basket: {
           checkoutID,
@@ -111,7 +104,7 @@ const basketResolvers = {
         },
       };
     },
-  }
+  },
 };
 
 module.exports = basketResolvers;

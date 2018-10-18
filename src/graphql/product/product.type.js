@@ -1,6 +1,4 @@
-const {
-  gql
-} = require('apollo-server');
+const { gql } = require('apollo-server');
 
 const Product = gql`
   type Product {
@@ -57,16 +55,16 @@ const DeleteProductPayload = gql`
 `;
 
 const pageInfo = gql`
-type PageInfo {
-  startCursor: String
-  endCursor: String
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-}`;
-
+  type PageInfo {
+    startCursor: String
+    endCursor: String
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+  }
+`;
 
 module.exports = {
-  getTypes: function () {
+  getTypes: function() {
     var moduleArray = [];
     moduleArray[0] = Product;
     moduleArray[1] = ProductEdge;
@@ -76,5 +74,5 @@ module.exports = {
     moduleArray[5] = ProductInput;
     moduleArray[6] = pageInfo;
     return moduleArray;
-  }
-}
+  },
+};

@@ -43,7 +43,7 @@ class ForbiddenError extends HttpError {
   constructor(path = 'this resource') {
     super(
       httpStatus.FORBIDDEN,
-      `Forbidden, you don't have permission to access ${path}`
+      `Forbidden, you don't have permission to access ${path}`,
     );
   }
 }

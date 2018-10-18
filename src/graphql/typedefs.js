@@ -1,13 +1,9 @@
-const {
-  gql
-} = require('apollo-server');
+const { gql } = require('apollo-server');
 
 //
 // GraphQL scheme
 //
-const typeDefs = gql `
-
-
+const typeDefs = gql`
   type Task {
     id: Int
     desc: String
@@ -62,8 +58,6 @@ const typeDefs = gql `
     address: AddressInput
   }
 
-
-
   input BasketItemInput {
     quantity: Int!
     productId: Int!
@@ -117,7 +111,9 @@ const typeDefs = gql `
 
     addItemToBasket(input: AddItemToBasketInput!): AddItemToBasketPayload
 
-    removeItemFromBasket(input: RemoveItemFromBasketInput!): RemoveItemFromBasketPayload
+    removeItemFromBasket(
+      input: RemoveItemFromBasketInput!
+    ): RemoveItemFromBasketPayload
 
     clearBasket(checkoutID: ID): ClearBasketPayload
 
@@ -127,11 +123,16 @@ const typeDefs = gql `
   }
 
   type Query {
-
     basket(checkoutID: String!): Basket
 
     user(id: Int): User
-    allUsers(orderBy: String, first: Int, after: String, before: String, last: Int): UserConnection
+    allUsers(
+      orderBy: String
+      first: Int
+      after: String
+      before: String
+      last: Int
+    ): UserConnection
 
     task(id: Int): Task
     tasks: [Task]

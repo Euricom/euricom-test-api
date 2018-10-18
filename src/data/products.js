@@ -12,7 +12,7 @@ module.exports = {
     return products;
   },
   getProduct(id) {
-    return products.find(product => product.id === id);
+    return products.find((product) => product.id === id);
   },
   deleteProduct(product) {
     products = _.without(products, product);

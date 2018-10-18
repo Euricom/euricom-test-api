@@ -50,7 +50,7 @@ router.get('/api/products', async (req, res) => {
   // skip and take
   selectedProducts = selectedProducts.slice(
     page * pageSize,
-    page * pageSize + pageSize
+    page * pageSize + pageSize,
   );
 
   res.json({ total: products.length, page, pageSize, selectedProducts });

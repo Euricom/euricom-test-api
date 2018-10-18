@@ -1,11 +1,15 @@
-const {
-  gql
-} = require('apollo-server');
+const { gql } = require('apollo-server');
 
 const ProductQuery = gql`
   extend type Query {
     product(id: Int): Product
-    allProducts(orderBy: String, first: Int, after: String, before: String, last: Int): ProductConnection
+    allProducts(
+      orderBy: String
+      first: Int
+      after: String
+      before: String
+      last: Int
+    ): ProductConnection
   }
 `;
 
@@ -17,10 +21,10 @@ const ProductMutation = gql`
 `;
 
 module.exports = {
-  getSchema: function () {
+  getSchema: function() {
     var moduleArray = [];
     moduleArray[0] = ProductMutation;
     moduleArray[1] = ProductQuery;
     return moduleArray;
-  }
+  },
 };
