@@ -25,8 +25,8 @@ const addProductSchema = {
 
 // get basket for session
 // GET /api/basket/xyz
-router.get('/api/basket/:key', (req, res) => {
-  const basket = getOrCreateBasket(req.params.key);
+router.get('/api/basket/:key', async (req, res) => {
+  const basket = await getOrCreateBasket(req.params.key);
   if (basket.length > 5)
     return res.status(500).json({
       code: 'InteralServerError',
@@ -43,10 +43,10 @@ router.get('/api/basket/:key', (req, res) => {
 router.post(
   '/api/basket/:key/product/:id',
   validate(addProductSchema),
-  (req, res) => {
+  async (req, res) => {
     const id = Number(req.params.id);
-    const basket = getOrCreateBasket(req.params.key);
-    const product = getProduct(id);
+    const basket = await getOrCreateBasket(req.params.key);
+    const product = await getProduct(id);
     if (!product)
       return res
         .status(404)
@@ -68,9 +68,9 @@ router.post(
 
 // remove product from basket
 // DELETE /api/basket/xyz/product/46
-router.delete('/api/basket/:key/product/:id', (req, res) => {
+router.delete('/api/basket/:key/product/:id', async (req, res) => {
   const id = Number(req.params.id);
-  const basket = getOrCreateBasket(req.params.key);
+  const basket = await getOrCreateBasket(req.params.key);
   const index = _.findIndex(basket, { id: id });
   if (index === -1)
     return res
@@ -88,12 +88,12 @@ router.delete('/api/basket/:key/product/:id', (req, res) => {
 router.patch(
   '/api/basket/:key/product/:id',
   validate(addProductSchema),
-  (req, res) => {
+  async (req, res) => {
     const id = Number(req.params.id);
-    const basket = getOrCreateBasket(req.params.key);
+    const basket = await getOrCreateBasket(req.params.key);
     const quantity = Math.floor(Number(req.body.quantity)) || 0;
     const index = _.findIndex(basket, { id: id });
-    const product = getProduct(id);
+    const product = await getProduct(id);
     if (!product)
       return res
         .status(404)
@@ -113,16 +113,16 @@ router.patch(
 
 // delete basket
 // DELETE /api/basket/xyz
-router.delete('/api/basket/:key', (req, res) => {
-  const previosBasket = clearBasket(req.params.key);
+router.delete('/api/basket/:key', async (req, res) => {
+  const previosBasket = await clearBasket(req.params.key);
   res.json(previosBasket);
 });
 
 // delete basket (and restore default content)
 // DELETE /api/basket/xyz/reset
-router.delete('/api/basket/:key/reset', (req, res) => {
+router.delete('/api/basket/:key/reset', async (req, res) => {
   clearBasket(req.params.key, true);
-  const basket = getOrCreateBasket(req.params.key);
+  const basket = await getOrCreateBasket(req.params.key);
   res.json(basket);
 });
 

@@ -5,22 +5,25 @@ const productSchema = require('./product/product.schema');
 const basketResolvers = require("./basket/basket.resolver");
 const basketType = require("./basket/basket.type");
 const basketSchema = require("./basket/basket.schema");
+const {
+  gql
+} = require('apollo-server');
 
 const resolvers = [productResolvers, basketResolvers];
 
-const Query = `
+const Query = gql`
   type Query {
     _empty: String
   }
 `;
 
-const Mutation = `
+const Mutation = gql`
   type Mutation {
     _empty: String
   }
 `;
 
-const SchemaDefinition = `
+const SchemaDefinition = gql`
 schema {
   query: Query
   mutation: Mutation

@@ -32,14 +32,14 @@ const router = express.Router();
 
 // returning products
 // GET /api/products
-router.get('/api/products', (req, res) => {
+router.get('/api/products', async (req, res) => {
   const page = Number(req.query.page) || 0;
   const pageSize = Number(req.query.pageSize) || 20;
   const sortExpression = req.query.sort;
 
   // sort
   console.log(sortExpression);
-  const products = getAllProducts();
+  const products = await getAllProducts();
   let selectedProducts = products;
   console.log({ selectedProducts });
   if (sortExpression) {
@@ -57,9 +57,9 @@ router.get('/api/products', (req, res) => {
 
 // get single product by id
 // GET /api/products/1
-router.get('/api/products/:id', (req, res) => {
+router.get('/api/products/:id', async (req, res) => {
   const id = Number(req.params.id);
-  const product = getProduct(id);
+  const product = await getProduct(id);
   if (!product)
     return res
       .status(404)
@@ -76,7 +76,7 @@ router.get('/api/products/:id', (req, res) => {
       "image": "https://dummyimage.com/300x300.jpg"
    }
 */
-router.post('/api/products', validate(productSchema), (req, res) => {
+router.post('/api/products', validate(productSchema), async (req, res) => {
   // Get resource
   const resource = req.body;
 
@@ -89,7 +89,7 @@ router.post('/api/products', validate(productSchema), (req, res) => {
   }
 
   // Add to users's
-  addProduct(resource);
+  await addProduct(resource);
 
   // return resource
   res.status(200).json(resource);
@@ -104,13 +104,13 @@ router.post('/api/products', validate(productSchema), (req, res) => {
     "image": "https://dummyimage.com/300x300.jpg"
   }
 */
-router.put('/api/products/:id', validate(productSchema), (req, res) => {
+router.put('/api/products/:id', validate(productSchema), async (req, res) => {
   // Get resource
   const resource = req.body;
   console.log('put', req.body);
 
   // Find and update
-  const product = getProduct(Number(req.params.id));
+  const product = await getProduct(Number(req.params.id));
   if (!product) {
     return res
       .status(404)
@@ -129,8 +129,8 @@ router.put('/api/products/:id', validate(productSchema), (req, res) => {
 });
 
 // DELETE /api/products/1
-router.delete('/api/products/:id', (req, res) => {
-  const product = getProduct(Number(req.params.id));
+router.delete('/api/products/:id', async (req, res) => {
+  const product = await getProduct(Number(req.params.id));
   if (!product) {
     return res.status(204).json();
   }

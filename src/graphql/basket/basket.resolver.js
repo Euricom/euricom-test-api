@@ -28,12 +28,12 @@ const basketResolvers = {
         items: basket,
       };
     },
-    BasketItem: {
-      product: (item) => {
-        const product = getProduct(item.productId);
-        return product;
-      },
-    },
+    // BasketItem: {
+    //   product: (item) => {
+    //     const product = getProduct(item.productId);
+    //     return product;
+    //   },
+    // },
   },
   Mutation: {
     addItemToBasket: (root, args) => {
