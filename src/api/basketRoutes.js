@@ -9,6 +9,7 @@ const {
 } = require('../data/products');
 const { getOrCreateBasket, clearBasket } = require('../data/basket');
 const validate = require('./middleware/validator');
+const httpErrors = require('../httpErrors');
 
 const router = express.Router();
 
@@ -27,11 +28,9 @@ const addProductSchema = {
 // GET /api/basket/xyz
 router.get('/api/basket/:key', async (req, res) => {
   const basket = await getOrCreateBasket(req.params.key);
-  if (basket.length > 5)
-    return res.status(500).json({
-      code: 'InteralServerError',
-      message: 'Oops, something went wrong',
-    });
+  if (basket.length > 5) {
+    throw new httpErrors.InternalServerError();
+  }
   res.json(basket);
 });
 
@@ -47,14 +46,13 @@ router.post(
     const id = Number(req.params.id);
     const basket = await getOrCreateBasket(req.params.key);
     const product = await getProduct(id);
-    if (!product)
-      return res
-        .status(404)
-        .json({ code: 'NotFound', message: 'Product not found' });
-    if (!product.stocked)
-      return res
-        .status(409)
-        .json({ code: 'Conflict', message: 'Product not in stock' });
+    if (!product) {
+      throw new httpErrors.NotFoundError('Product not found');
+    }
+    if (!product.stocked) {
+      throw new httpErrors.ConflictError('Product not in stock');
+    }
+
     let quantity = Math.floor(Number(req.body.quantity) || 1);
     const index = _.findIndex(basket, { id: id });
     if (index < 0) basket.push({ id: id, quantity: quantity });
@@ -72,10 +70,9 @@ router.delete('/api/basket/:key/product/:id', async (req, res) => {
   const id = Number(req.params.id);
   const basket = await getOrCreateBasket(req.params.key);
   const index = _.findIndex(basket, { id: id });
-  if (index === -1)
-    return res
-      .status(404)
-      .json({ code: 'NotFound', message: 'Product not found' });
+  if (index === -1) {
+    throw new httpErrors.NotFoundError('Product not found');
+  }
   basket.splice(index, 1);
   res.json(basket);
 });
@@ -94,14 +91,12 @@ router.patch(
     const quantity = Math.floor(Number(req.body.quantity)) || 0;
     const index = _.findIndex(basket, { id: id });
     const product = await getProduct(id);
-    if (!product)
-      return res
-        .status(404)
-        .json({ code: 'NotFound', message: 'Product not found' });
-    if (!product.stocked)
-      return res
-        .status(409)
-        .json({ code: 'Conflict', message: 'Product not in stock' });
+    if (!product) {
+      throw new httpErrors.NotFoundError('Product not found');
+    }
+    if (!product.stocked) {
+      throw new httpErrors.ConflictError('Product not in stock');
+    }
 
     if (index >= 0 && quantity) basket[index].quantity = quantity;
     if (index === -1 && quantity) basket.push({ id: id, quantity: quantity });

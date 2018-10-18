@@ -15,6 +15,12 @@ class HttpError extends Error {
   }
 }
 
+class InternalServerError extends HttpError {
+  constructor(message = 'Oops, something went wrong on the server') {
+    super(httpStatus.InternalServerError);
+  }
+}
+
 class NotFoundError extends HttpError {
   constructor(message = 'The resource was not found') {
     super(httpStatus.NOT_FOUND, message);
@@ -55,4 +61,5 @@ module.exports = {
   UnauthorizedError,
   ForbiddenError,
   ConflictError,
+  InternalServerError
 };

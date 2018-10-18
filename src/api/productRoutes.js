@@ -2,6 +2,7 @@ const _ = require('underscore');
 const express = require('express');
 const validate = require('./middleware/validator');
 const sortOn = require('sort-on');
+const httpErrors = require('../httpErrors');
 
 const {
   getAllProducts,
@@ -60,10 +61,9 @@ router.get('/api/products', async (req, res) => {
 router.get('/api/products/:id', async (req, res) => {
   const id = Number(req.params.id);
   const product = await getProduct(id);
-  if (!product)
-    return res
-      .status(404)
-      .json({ code: 'NotFound', message: 'Product not found' });
+  if (!product) {
+    throw new httpErrors.NotFoundError('Product not found');
+  }
   return res.json(product);
 });
 
@@ -112,9 +112,7 @@ router.put('/api/products/:id', validate(productSchema), async (req, res) => {
   // Find and update
   const product = await getProduct(Number(req.params.id));
   if (!product) {
-    return res
-      .status(404)
-      .json({ code: 'NotFound', message: 'Product not found' });
+    throw new httpErrors.NotFoundError('Product not found');
   }
 
   product.sku = resource.sku;
