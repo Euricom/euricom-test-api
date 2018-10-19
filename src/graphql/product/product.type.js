@@ -1,6 +1,8 @@
-const { gql } = require('apollo-server');
+const {
+  gql
+} = require('apollo-server');
 
-const Product = gql`
+const Product = gql `
   type Product {
     id: Int
     sku: String
@@ -13,7 +15,7 @@ const Product = gql`
   }
 `;
 
-const ProductInput = gql`
+const ProductInput = gql `
   input ProductInput {
     id: Int
     sku: String!
@@ -26,14 +28,14 @@ const ProductInput = gql`
   }
 `;
 
-const ProductEdge = gql`
+const ProductEdge = gql `
   type ProductEdge {
     node: Product
     cursor: String!
   }
 `;
 
-const ProductConnection = gql`
+const ProductConnection = gql `
   type ProductConnection {
     pageInfo: PageInfo!
     edges: [ProductEdge]
@@ -42,19 +44,19 @@ const ProductConnection = gql`
   }
 `;
 
-const AddOrUpdateProductPayload = gql`
+const AddOrUpdateProductPayload = gql `
   type AddOrUpdateProductPayload {
     product: Product
   }
 `;
 
-const DeleteProductPayload = gql`
+const DeleteProductPayload = gql `
   type DeleteProductPayload {
     product: Product
   }
 `;
 
-const pageInfo = gql`
+const pageInfo = gql `
   type PageInfo {
     startCursor: String
     endCursor: String
@@ -64,7 +66,7 @@ const pageInfo = gql`
 `;
 
 module.exports = {
-  getTypes: function() {
+  getTypes() {
     var moduleArray = [];
     moduleArray[0] = Product;
     moduleArray[1] = ProductEdge;
@@ -76,3 +78,16 @@ module.exports = {
     return moduleArray;
   },
 };
+
+// var moduleArray = [];
+//     moduleArray[0] = Product;
+//     moduleArray[1] = ProductEdge;
+//     moduleArray[2] = ProductConnection;
+//     moduleArray[3] = AddOrUpdateProductPayload;
+//     moduleArray[4] = DeleteProductPayload;
+//     moduleArray[5] = ProductInput;
+//     moduleArray[6] = pageInfo;
+
+// module.exports = [
+//   Product,
+// ];

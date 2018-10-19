@@ -14,14 +14,35 @@ const {
 const productSchema = {
   type: 'object',
   properties: {
-    id: { type: 'number', optional: true },
-    sku: { type: 'string' },
-    title: { type: 'string' },
-    desc: { type: 'string', optional: true },
-    image: { type: 'string', optional: true },
-    stocked: { type: 'boolean', optional: true },
-    basePrice: { type: 'number' },
-    price: { type: 'number', optional: true },
+    id: {
+      type: 'number',
+      optional: true
+    },
+    sku: {
+      type: 'string'
+    },
+    title: {
+      type: 'string'
+    },
+    desc: {
+      type: 'string',
+      optional: true
+    },
+    image: {
+      type: 'string',
+      optional: true
+    },
+    stocked: {
+      type: 'boolean',
+      optional: true
+    },
+    basePrice: {
+      type: 'number'
+    },
+    price: {
+      type: 'number',
+      optional: true
+    },
   },
 };
 
@@ -42,7 +63,6 @@ router.get('/api/products', async (req, res) => {
   console.log(sortExpression);
   const products = await getAllProducts();
   let selectedProducts = products;
-  console.log({ selectedProducts });
   if (sortExpression) {
     selectedProducts = sortOn(selectedProducts, sortExpression);
   }
@@ -53,7 +73,12 @@ router.get('/api/products', async (req, res) => {
     page * pageSize + pageSize,
   );
 
-  res.json({ total: products.length, page, pageSize, selectedProducts });
+  res.json({
+    total: products.length,
+    page,
+    pageSize,
+    selectedProducts
+  });
 });
 
 // get single product by id

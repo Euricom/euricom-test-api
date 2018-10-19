@@ -1,8 +1,3 @@
 package.json
-tslint.json
-tsconfig.json
-tsconfig.app.json
-tsconfig.spec.json
-angular.json
 .vscode/
 now.json

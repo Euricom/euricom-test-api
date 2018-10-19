@@ -4,6 +4,9 @@ const seedProducts = require('./productList');
 let products = [];
 
 module.exports = {
+  clearProducts() {
+    products = [];
+  },
   seedProducts() {
     // copy from seed products
     products = JSON.parse(JSON.stringify(seedProducts));

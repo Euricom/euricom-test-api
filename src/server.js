@@ -1,61 +1,17 @@
-const express = require('express');
-const morgan = require('morgan');
-const path = require('path');
-const cors = require('cors');
-const sortOn = require('sort-on');
-const bodyParser = require('body-parser');
+const express = require('./express');
 const _ = require('underscore');
 const showdown = require('showdown');
-const fs = require('fs');
-const { ApolloServer, UserInputError } = require('apollo-server-express');
+
 const {
   seedProducts,
-  getAllProducts,
-  getProduct,
-  deleteProduct,
-  addProduct,
 } = require('./data/products');
-
-const errorHandler = require('./api/middleware/errorHandler');
-
 const {
   seedUsers,
-  getAllUsers,
-  getUser,
-  deleteUser,
-  addUser,
 } = require('./data/users');
 
 const {
   seedTasks,
-  getAllTasks,
-  getTask,
-  deleteTask,
-  addTask,
 } = require('./data/tasks');
-
-const { getOrCreateBasket, clearBasket } = require('./data/basket');
-
-const userRoutes = require('./api/userRoutes');
-const taskRoutes = require('./api/taskRoutes');
-const productRoutes = require('./api/productRoutes');
-const basketRoutes = require('./api/basketRoutes');
-
-const arrayToConnection = require('./graphql/arrayToConnection');
-const typeDefs = require('./graphql/typedefs');
-const schema = require('./graphql/schema');
-
-// app setup
-const app = express();
-app.use(morgan('dev'));
-app.use(cors());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  }),
-);
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
 function generateSeedData() {
   seedProducts();
@@ -255,58 +211,19 @@ const converter = new showdown.Converter({
 //   },
 // };
 
-const grapqlServer = new ApolloServer({
-  schema,
-});
-grapqlServer.applyMiddleware({
-  app,
-});
 
-//
-// REST Routes
-//
 
-app.get('/', (req, res) => {
-  const text = fs.readFileSync('./api.md', 'utf8');
-  console.log(text);
-  const html = converter.makeHtml(text);
-  console.log(html);
-  res.send(html);
-});
 
-app.delete('/api/system', (req, res) => {
-  generateSeedData();
-  res.json({
-    code: 200,
-    message: 'All the data is resetted',
-  });
-});
-
-app.use('/', userRoutes);
-app.use('/', taskRoutes);
-app.use('/', productRoutes);
-app.use('/', basketRoutes);
-
-// Error handler
-app.use(errorHandler);
-
-// fallback not found
-app.all('/api/*', (req, res) =>
-  res.status(404).json({
-    code: 'NotFound',
-    message: 'Resource not found or method not supprted',
-  }),
-);
 
 //
 // listen for requests
 //
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () => {
+const server = express.app.listen(port, () => {
   console.log(
     `Express server listening on port: http://localhost:${
       server.address().port
     }/api/products`,
   );
-  console.log(`${grapqlServer.graphqlPath}`);
+  console.log(`${express.graphQlServer.graphqlPath}`);
 });

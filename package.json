@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./src/server.js",
     "start:watch": "nodemon ./src/server.js",
+    "test": "jest --watch --runInBand",
     "deploy": "now --public",
     "format": "prettier --write '**/*.{js,json}'"
   },
@@ -15,18 +16,31 @@
     "asyncawait": "^1.0.7",
     "body-parser": "^1.17.1",
     "cors": "^2.8.4",
+    "expect-more-jest": "^2.3.0",
     "express": "^4.15.2",
+    "express-asyncify": "^1.0.0",
     "faker": "^4.1.0",
     "graphql": "^14.0.2",
     "http-status-codes": "^1.3.0",
+    "intl": "^1.2.5",
+    "jest": "^23.6.0",
     "morgan": "^1.8.1",
     "nodemon": "^1.17.5",
     "schema-inspector": "^1.6.8",
     "showdown": "^1.8.6",
     "sort-on": "^2.0.0",
+    "supertest": "^3.3.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
     "prettier": "^1.5.3"
+  },
+  "jest": {
+    "verbose": false,
+    "setupTestFrameworkScriptFile": "<rootDir>/test/jest.setup.js",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)(test).js?(x)"
+    ]
   }
 }
