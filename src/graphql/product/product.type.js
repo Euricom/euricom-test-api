@@ -56,7 +56,7 @@ const DeleteProductPayload = gql `
   }
 `;
 
-const pageInfo = gql `
+const PageInfo = gql `
   type PageInfo {
     startCursor: String
     endCursor: String
@@ -67,27 +67,16 @@ const pageInfo = gql `
 
 module.exports = {
   getTypes() {
-    var moduleArray = [];
+    const moduleArray = [];
     moduleArray[0] = Product;
     moduleArray[1] = ProductEdge;
     moduleArray[2] = ProductConnection;
     moduleArray[3] = AddOrUpdateProductPayload;
     moduleArray[4] = DeleteProductPayload;
     moduleArray[5] = ProductInput;
-    moduleArray[6] = pageInfo;
+    moduleArray[6] = PageInfo;
     return moduleArray;
   },
 };
 
-// var moduleArray = [];
-//     moduleArray[0] = Product;
-//     moduleArray[1] = ProductEdge;
-//     moduleArray[2] = ProductConnection;
-//     moduleArray[3] = AddOrUpdateProductPayload;
-//     moduleArray[4] = DeleteProductPayload;
-//     moduleArray[5] = ProductInput;
-//     moduleArray[6] = pageInfo;
-
-// module.exports = [
-//   Product,
-// ];
+// module.exports = [Product, ProductEdge, ProductConnection, AddOrUpdateProductPayload, DeleteProductPayload, ProductInput, PageInfo]

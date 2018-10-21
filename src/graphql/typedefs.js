@@ -1,9 +1,11 @@
-const { gql } = require('apollo-server');
+const {
+  gql
+} = require('apollo-server');
 
 //
 // GraphQL scheme
 //
-const typeDefs = gql`
+const typeDefs = gql `
   type Task {
     id: Int
     desc: String

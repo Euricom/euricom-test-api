@@ -7,9 +7,16 @@ module.exports = {
   clearProducts() {
     products = [];
   },
-  seedProducts() {
+  seedProducts(count) {
+    // count fallback
+    if (!count || !Number.isInteger(count)) {
+      count = 100;
+    }
     // copy from seed products
-    products = JSON.parse(JSON.stringify(seedProducts));
+    for (let i = 0; i < count; i++) {
+      products.push(seedProducts[i]);
+    }
+    return products;
   },
   getAllProducts() {
     return products;

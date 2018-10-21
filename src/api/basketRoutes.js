@@ -8,7 +8,10 @@ const {
   deleteProduct,
   addProduct,
 } = require('../data/products');
-const { getOrCreateBasket, clearBasket } = require('../data/basket');
+const {
+  getOrCreateBasket,
+  clearBasket
+} = require('../data/basket');
 const validate = require('./middleware/validator');
 const httpErrors = require('../httpErrors');
 
@@ -32,6 +35,7 @@ const addProductSchema = {
 // GET /api/basket/xyz
 router.get('/api/basket/:key', async (req, res) => {
   const basket = await getOrCreateBasket(req.params.key);
+  // what does this even mean?
   if (basket.length > 5) {
     throw new httpErrors.InternalServerError();
   }
@@ -51,7 +55,7 @@ router.post(
     const basket = await getOrCreateBasket(req.params.key);
     const product = await getProduct(id);
     if (!product) {
-      new httpErrors.NotFoundError('Product not found');
+      throw new httpErrors.NotFoundError('Product not found');
     }
     if (!product.stocked) {
       throw new httpErrors.ConflictError('Product not in stock');

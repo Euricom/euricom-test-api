@@ -3,6 +3,7 @@ const express = require('express');
 const validate = require('./middleware/validator');
 const sortOn = require('sort-on');
 const httpErrors = require('../httpErrors');
+const asyncify = require('express-asyncify');
 
 const {
   getAllProducts,
@@ -50,7 +51,7 @@ const productSchema = {
 // Products
 //
 
-const router = express.Router();
+const router = asyncify(express.Router());
 
 // returning products
 // GET /api/products
@@ -132,7 +133,6 @@ router.post('/api/products', validate(productSchema), async (req, res) => {
 router.put('/api/products/:id', validate(productSchema), async (req, res) => {
   // Get resource
   const resource = req.body;
-  console.log('put', req.body);
 
   // Find and update
   const product = await getProduct(Number(req.params.id));

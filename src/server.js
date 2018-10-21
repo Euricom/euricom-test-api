@@ -1,6 +1,5 @@
 const express = require('./express');
 const _ = require('underscore');
-const showdown = require('showdown');
 
 const {
   seedProducts,
@@ -19,11 +18,6 @@ function generateSeedData() {
   seedTasks();
 }
 generateSeedData();
-
-showdown.setFlavor('github');
-const converter = new showdown.Converter({
-  completeHTMLDocument: true,
-});
 
 // const resolvers = {
 //   Mutation: {

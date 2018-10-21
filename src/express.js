@@ -5,6 +5,7 @@ const cors = require('cors');
 const sortOn = require('sort-on');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const asyncify = require('express-asyncify');
 
 const userRoutes = require('./api/userRoutes');
 const taskRoutes = require('./api/taskRoutes');
@@ -44,9 +45,15 @@ const {
   UserInputError
 } = require('apollo-server-express');
 const schema = require('./graphql/schema');
+const showdown = require('showdown');
+
+showdown.setFlavor('github');
+const converter = new showdown.Converter({
+  completeHTMLDocument: true,
+});
 
 // app setup
-const app = express();
+const app = asyncify(express());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(
@@ -63,7 +70,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // REST Routes
 //
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   const text = fs.readFileSync('./api.md', 'utf8');
   console.log(text);
   const html = converter.makeHtml(text);
@@ -71,7 +78,7 @@ app.get('/', (req, res) => {
   res.send(html);
 });
 
-app.delete('/api/system', (req, res) => {
+app.delete('/api/system', async (req, res) => {
   generateSeedData();
   res.json({
     code: 200,
@@ -88,12 +95,11 @@ app.use('/', basketRoutes);
 app.use(errorHandler);
 
 // fallback not found
-app.all('/api/*', (req, res) =>
+app.all('/api/*', async (req, res) =>
   res.status(404).json({
     code: 'NotFound',
     message: 'Resource not found or method not supprted',
-  }),
-);
+  }), );
 
 const graphQlServer = new ApolloServer({
   schema,

@@ -1,5 +1,4 @@
-module.exports = [
-  {
+module.exports = [{
     id: 1,
     sku: '254267942-8',
     title: 'pellentesque',
@@ -13,10 +12,9 @@ module.exports = [
     id: 2,
     sku: '253267343-5',
     title: 'ut',
-    desc:
-      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere ácubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.',
+    desc: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere ácubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.',
     image: 'https://dummyimage.com/300x300.png/cc0000/ffffff',
-    stocked: true,
+    stocked: false,
     basePrice: 13.72,
     price: 6.31,
   },
@@ -24,8 +22,7 @@ module.exports = [
     id: 3,
     sku: '883697330-2',
     title: 'sapien',
-    desc:
-      'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
+    desc: 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: false,
     basePrice: 16.86,
@@ -35,8 +32,7 @@ module.exports = [
     id: 4,
     sku: '048608527-9',
     title: 'aenean',
-    desc:
-      'Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum.',
+    desc: 'Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum.',
     image: 'https://dummyimage.com/300x300.bmp/eeeeee/000000',
     stocked: true,
     basePrice: 3.1,
@@ -56,10 +52,9 @@ module.exports = [
     id: 6,
     sku: '422252776-9',
     title: 'imperdiet',
-    desc:
-      'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti.',
+    desc: 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti.',
     image: 'https://dummyimage.com/300x300.jpg/afafaf/000000',
-    stocked: false,
+    stocked: true,
     basePrice: 18.31,
     price: 10.07,
   },
@@ -67,10 +62,9 @@ module.exports = [
     id: 7,
     sku: '083480061-6',
     title: 'lacus',
-    desc:
-      'Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.',
+    desc: 'Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
-    stocked: false,
+    stocked: true,
     basePrice: 16.4,
     price: 7.83,
   },
@@ -78,10 +72,9 @@ module.exports = [
     id: 8,
     sku: '650428725-2',
     title: 'vitae',
-    desc:
-      'Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.',
+    desc: 'Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.',
     image: 'https://dummyimage.com/300x300.bmp/ccFFFF/000000',
-    stocked: false,
+    stocked: true,
     basePrice: 12.68,
     price: 5.27,
   },
@@ -89,8 +82,7 @@ module.exports = [
     id: 9,
     sku: '554662316-0',
     title: 'posuere',
-    desc:
-      'Vivamus tortor. Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.',
+    desc: 'Vivamus tortor. Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.',
     image: 'https://dummyimage.com/300x300.jpg/cc0000/ffffff',
     stocked: true,
     basePrice: 14.12,
@@ -120,8 +112,7 @@ module.exports = [
     id: 12,
     sku: '085016692-6',
     title: 'ultricies',
-    desc:
-      'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.',
+    desc: 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.',
     image: 'https://dummyimage.com/300x300.png/EE00FF/ffffff',
     stocked: false,
     basePrice: 9.54,
@@ -131,8 +122,7 @@ module.exports = [
     id: 13,
     sku: '119522284-X',
     title: 'cursus',
-    desc:
-      'Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
+    desc: 'Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
     image: 'https://dummyimage.com/300x300.png/ff00dd/000000',
     stocked: true,
     basePrice: 14.34,
@@ -162,8 +152,7 @@ module.exports = [
     id: 16,
     sku: '620403688-2',
     title: 'curabitur',
-    desc:
-      'Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.',
+    desc: 'Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.',
     image: 'https://dummyimage.com/300x300.bmp/afc/000',
     stocked: true,
     basePrice: 14.58,
@@ -173,8 +162,7 @@ module.exports = [
     id: 17,
     sku: '704622032-8',
     title: 'mauris',
-    desc:
-      'Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis.',
+    desc: 'Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis.',
     image: 'https://dummyimage.com/300x300.png/234/ffffff',
     stocked: false,
     basePrice: 3.4,
@@ -184,8 +172,7 @@ module.exports = [
     id: 18,
     sku: '776809405-0',
     title: 'primis',
-    desc:
-      'Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.',
+    desc: 'Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.',
     image: 'https://dummyimage.com/300x300.png/ff4444/ffffff',
     stocked: false,
     basePrice: 3.37,
@@ -195,8 +182,7 @@ module.exports = [
     id: 19,
     sku: '337410990-X',
     title: 'at',
-    desc:
-      'Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla.',
+    desc: 'Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla.',
     image: 'https://dummyimage.com/300x300.jpg/5fa2dd/ffffff',
     stocked: false,
     basePrice: 3.05,
@@ -206,8 +192,7 @@ module.exports = [
     id: 20,
     sku: '585346899-5',
     title: 'tortor',
-    desc:
-      'Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.',
+    desc: 'Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.',
     image: 'https://dummyimage.com/300x300.png/dddddd/000000',
     stocked: false,
     basePrice: 10.69,
@@ -217,8 +202,7 @@ module.exports = [
     id: 21,
     sku: '692351345-6',
     title: 'nibh',
-    desc:
-      'Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
+    desc: 'Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
     image: 'https://dummyimage.com/300x300.jpg/5fa2dd/ffffff',
     stocked: false,
     basePrice: 16.81,
@@ -228,8 +212,7 @@ module.exports = [
     id: 22,
     sku: '112369344-7',
     title: 'turpis',
-    desc:
-      'Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.',
+    desc: 'Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.',
     image: 'https://dummyimage.com/300x300.bmp/ff4444/000',
     stocked: false,
     basePrice: 3.61,
@@ -239,8 +222,7 @@ module.exports = [
     id: 23,
     sku: '958880245-8',
     title: 'neque',
-    desc:
-      'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst.',
+    desc: 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst.',
     image: 'https://dummyimage.com/300x300.jpg/AAA/000',
     stocked: false,
     basePrice: 16.47,
@@ -250,8 +232,7 @@ module.exports = [
     id: 24,
     sku: '273723504-9',
     title: 'rhoncus',
-    desc:
-      'Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.',
+    desc: 'Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.',
     image: 'https://dummyimage.com/300x300.jpg/5fa2dd/ffffff',
     stocked: false,
     basePrice: 6.04,
@@ -261,8 +242,7 @@ module.exports = [
     id: 25,
     sku: '116345449-4',
     title: 'quis',
-    desc:
-      'Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.',
+    desc: 'Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.',
     image: 'https://dummyimage.com/300x300.jpg/AFc/000000',
     stocked: false,
     basePrice: 7.88,
@@ -272,8 +252,7 @@ module.exports = [
     id: 26,
     sku: '904893230-0',
     title: 'molestie',
-    desc:
-      'Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est. Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy.',
+    desc: 'Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est. Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy.',
     image: 'https://dummyimage.com/300x300.jpg/5fa2dd/ffffff',
     stocked: false,
     basePrice: 0.32,
@@ -283,8 +262,7 @@ module.exports = [
     id: 27,
     sku: '929859046-6',
     title: 'nisl',
-    desc:
-      'Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus.',
+    desc: 'Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus.',
     image: 'https://dummyimage.com/300x300.png/554/fff',
     stocked: true,
     basePrice: 12.16,
@@ -294,8 +272,7 @@ module.exports = [
     id: 28,
     sku: '983672501-6',
     title: 'erat',
-    desc:
-      'Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus.',
+    desc: 'Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: true,
     basePrice: 18.61,
@@ -325,8 +302,7 @@ module.exports = [
     id: 31,
     sku: '039973919-X',
     title: 'vestibulum',
-    desc:
-      'Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum.',
+    desc: 'Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: false,
     basePrice: 15.39,
@@ -336,8 +312,7 @@ module.exports = [
     id: 32,
     sku: '293784267-4',
     title: 'adipiscing',
-    desc:
-      'Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero.',
+    desc: 'Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero.',
     image: 'https://dummyimage.com/300x300.bmp/dddddd/000000',
     stocked: false,
     basePrice: 1.59,
@@ -347,8 +322,7 @@ module.exports = [
     id: 33,
     sku: '747847110-2',
     title: 'aliquam',
-    desc:
-      'In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy.',
+    desc: 'In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy.',
     image: 'https://dummyimage.com/300x300.png/5fa/000',
     stocked: true,
     basePrice: 1.45,
@@ -358,8 +332,7 @@ module.exports = [
     id: 34,
     sku: '548522127-0',
     title: 'vitae',
-    desc:
-      'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.',
+    desc: 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.',
     image: 'https://dummyimage.com/300x300.bmp/cc0/000',
     stocked: true,
     basePrice: 0.48,
@@ -369,8 +342,7 @@ module.exports = [
     id: 35,
     sku: '640763797-X',
     title: 'tincidunt',
-    desc:
-      'Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.',
+    desc: 'Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: false,
     basePrice: 1.63,
@@ -380,8 +352,7 @@ module.exports = [
     id: 36,
     sku: '165509768-7',
     title: 'phasellus',
-    desc:
-      'Morbi a ipsum. Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam.',
+    desc: 'Morbi a ipsum. Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: false,
     basePrice: 0.85,
@@ -391,8 +362,7 @@ module.exports = [
     id: 37,
     sku: '650666336-7',
     title: 'sit',
-    desc:
-      'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.',
+    desc: 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.',
     image: 'https://dummyimage.com/300x300.bmp/fed/000000',
     stocked: true,
     basePrice: 8.45,
@@ -402,8 +372,7 @@ module.exports = [
     id: 38,
     sku: '811986976-1',
     title: 'sociis',
-    desc:
-      'Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero.',
+    desc: 'Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: false,
     basePrice: 10.71,
@@ -413,8 +382,7 @@ module.exports = [
     id: 39,
     sku: '833439032-7',
     title: 'augue',
-    desc:
-      'Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros. Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.',
+    desc: 'Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros. Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.',
     image: 'https://dummyimage.com/300x300.png/af0/fff',
     stocked: true,
     basePrice: 5.69,
@@ -424,8 +392,7 @@ module.exports = [
     id: 40,
     sku: '091124675-4',
     title: 'risus',
-    desc:
-      'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
+    desc: 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
     image: 'https://dummyimage.com/300x300.jpg/5fa/000',
     stocked: true,
     basePrice: 11.19,
@@ -435,8 +402,7 @@ module.exports = [
     id: 41,
     sku: '207564308-3',
     title: 'interdum',
-    desc:
-      'Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
+    desc: 'Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
     image: 'https://dummyimage.com/300x300.bmp/2dd/ffffff',
     stocked: true,
     basePrice: 8.8,
@@ -446,8 +412,7 @@ module.exports = [
     id: 42,
     sku: '258747579-1',
     title: 'molestie',
-    desc:
-      'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.',
+    desc: 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.',
     image: 'https://dummyimage.com/300x300.bmp/e01/fff',
     stocked: false,
     basePrice: 10.83,
@@ -457,8 +422,7 @@ module.exports = [
     id: 43,
     sku: '909242255-X',
     title: 'tincidunt',
-    desc:
-      'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero.',
+    desc: 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero.',
     image: 'https://dummyimage.com/300x300.bmp/1f4/000',
     stocked: false,
     basePrice: 7.5,
@@ -468,8 +432,7 @@ module.exports = [
     id: 44,
     sku: '455149194-2',
     title: 'pretium',
-    desc:
-      'Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti.',
+    desc: 'Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti.',
     image: 'https://dummyimage.com/300x300.jpg/ef4/000000',
     stocked: true,
     basePrice: 13.51,
@@ -479,8 +442,7 @@ module.exports = [
     id: 45,
     sku: '218088348-X',
     title: 'ante',
-    desc:
-      'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
+    desc: 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
     image: 'https://dummyimage.com/300x300.png/cc0/ffffff',
     stocked: false,
     basePrice: 19.03,
@@ -490,8 +452,7 @@ module.exports = [
     id: 46,
     sku: '635847347-6',
     title: 'eu',
-    desc:
-      'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
+    desc: 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
     image: 'https://dummyimage.com/300x300.png/cc0/000',
     stocked: true,
     basePrice: 11.95,
@@ -501,8 +462,7 @@ module.exports = [
     id: 47,
     sku: '307930680-5',
     title: 'lacinia',
-    desc:
-      'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla.',
+    desc: 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla.',
     image: 'https://dummyimage.com/300x300.png/234/ffffff',
     stocked: false,
     basePrice: 8.18,
@@ -512,8 +472,7 @@ module.exports = [
     id: 48,
     sku: '143463636-4',
     title: 'primis',
-    desc:
-      'Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis.',
+    desc: 'Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis.',
     image: 'https://dummyimage.com/300x300.jpg/ff4/000',
     stocked: true,
     basePrice: 19.28,
@@ -523,8 +482,7 @@ module.exports = [
     id: 49,
     sku: '412762293-8',
     title: 'turpis',
-    desc:
-      'Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.',
+    desc: 'Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.',
     image: 'https://dummyimage.com/300x300.png/ddd/000000',
     stocked: true,
     basePrice: 14.65,
@@ -534,8 +492,7 @@ module.exports = [
     id: 50,
     sku: '147766535-8',
     title: 'id',
-    desc:
-      'Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.',
+    desc: 'Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.',
     image: 'https://dummyimage.com/300x300.png/ff4444/ffffff',
     stocked: false,
     basePrice: 12.6,
@@ -545,8 +502,7 @@ module.exports = [
     id: 51,
     sku: '864606905-2',
     title: 'pede',
-    desc:
-      'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.',
+    desc: 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.',
     image: 'https://dummyimage.com/300x300.jpg/5fa2dd/ffffff',
     stocked: true,
     basePrice: 6.43,
@@ -556,8 +512,7 @@ module.exports = [
     id: 52,
     sku: '916783703-4',
     title: 'ac',
-    desc:
-      'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat. Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.',
+    desc: 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat. Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.',
     image: 'https://dummyimage.com/300x300.bmp/ff4444/ffffff',
     stocked: false,
     basePrice: 4.73,
@@ -567,8 +522,7 @@ module.exports = [
     id: 53,
     sku: '289247914-2',
     title: 'tristique',
-    desc:
-      'Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
+    desc: 'Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
     image: 'https://dummyimage.com/300x300.bmp/cc0000/ffffff',
     stocked: true,
     basePrice: 12.91,
@@ -578,8 +532,7 @@ module.exports = [
     id: 54,
     sku: '225226915-4',
     title: 'nulla',
-    desc:
-      'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus.',
+    desc: 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus.',
     image: 'https://dummyimage.com/300x300.jpg/cc0000/ffffff',
     stocked: false,
     basePrice: 16.09,
@@ -589,8 +542,7 @@ module.exports = [
     id: 55,
     sku: '802904451-8',
     title: 'pede',
-    desc:
-      'Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.',
+    desc: 'Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.',
     image: 'https://dummyimage.com/300x300.jpg/cc0000/ffffff',
     stocked: true,
     basePrice: 9.09,
@@ -600,8 +552,7 @@ module.exports = [
     id: 56,
     sku: '688445810-0',
     title: 'sed',
-    desc:
-      'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.',
+    desc: 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.',
     image: 'https://dummyimage.com/300x300.png/dddddd/000000',
     stocked: false,
     basePrice: 17.75,
@@ -611,8 +562,7 @@ module.exports = [
     id: 57,
     sku: '271307597-1',
     title: 'erat',
-    desc:
-      'Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim.',
+    desc: 'Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim.',
     image: 'https://dummyimage.com/300x300.bmp/ff4444/ffffff',
     stocked: true,
     basePrice: 14.95,
@@ -632,8 +582,7 @@ module.exports = [
     id: 59,
     sku: '118952080-X',
     title: 'quis',
-    desc:
-      'Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis.',
+    desc: 'Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis.',
     image: 'https://dummyimage.com/300x300.bmp/ff4444/ffffff',
     stocked: false,
     basePrice: 19.24,
@@ -643,8 +592,7 @@ module.exports = [
     id: 60,
     sku: '048252913-X',
     title: 'metus',
-    desc:
-      'Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.',
+    desc: 'Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.',
     image: 'https://dummyimage.com/300x300.png/ff4444/ffffff',
     stocked: false,
     basePrice: 18.66,
@@ -654,8 +602,7 @@ module.exports = [
     id: 61,
     sku: '257379866-6',
     title: 'blandit',
-    desc:
-      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.',
+    desc: 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: true,
     basePrice: 8.7,
@@ -665,8 +612,7 @@ module.exports = [
     id: 62,
     sku: '658830898-1',
     title: 'quam',
-    desc:
-      'In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.',
+    desc: 'In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: true,
     basePrice: 13.05,
@@ -676,8 +622,7 @@ module.exports = [
     id: 63,
     sku: '651779360-7',
     title: 'ante',
-    desc:
-      'Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui.',
+    desc: 'Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: true,
     basePrice: 17.29,
@@ -697,8 +642,7 @@ module.exports = [
     id: 65,
     sku: '196421904-3',
     title: 'amet',
-    desc:
-      'Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
+    desc: 'Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
     image: 'https://dummyimage.com/300x300.png/5fa2dd/ffffff',
     stocked: true,
     basePrice: 7.59,
@@ -708,8 +652,7 @@ module.exports = [
     id: 66,
     sku: '164473725-6',
     title: 'nulla',
-    desc:
-      'Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio.',
+    desc: 'Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio.',
     image: 'https://dummyimage.com/300x300.jpg/cc0000/ffffff',
     stocked: false,
     basePrice: 12.29,
@@ -719,8 +662,7 @@ module.exports = [
     id: 67,
     sku: '434262272-6',
     title: 'augue',
-    desc:
-      'Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi.',
+    desc: 'Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: false,
     basePrice: 6.43,
@@ -730,8 +672,7 @@ module.exports = [
     id: 68,
     sku: '825744803-6',
     title: 'pellentesque',
-    desc:
-      'Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam.',
+    desc: 'Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam.',
     image: 'https://dummyimage.com/300x300.png/dddddd/000000',
     stocked: false,
     basePrice: 16.71,
@@ -741,8 +682,7 @@ module.exports = [
     id: 69,
     sku: '276619635-8',
     title: 'mi',
-    desc:
-      'Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.',
+    desc: 'Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.',
     image: 'https://dummyimage.com/300x300.bmp/ff4444/ffffff',
     stocked: true,
     basePrice: 11.27,
@@ -752,8 +692,7 @@ module.exports = [
     id: 70,
     sku: '703593213-5',
     title: 'nunc',
-    desc:
-      'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc.',
+    desc: 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc.',
     image: 'https://dummyimage.com/300x300.png/cc0000/ffffff',
     stocked: true,
     basePrice: 11.62,
@@ -763,8 +702,7 @@ module.exports = [
     id: 71,
     sku: '787634205-1',
     title: 'leo',
-    desc:
-      'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.',
+    desc: 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.',
     image: 'https://dummyimage.com/300x300.jpg/cc0000/ffffff',
     stocked: true,
     basePrice: 19.05,
@@ -774,8 +712,7 @@ module.exports = [
     id: 72,
     sku: '617956099-4',
     title: 'morbi',
-    desc:
-      'Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue.',
+    desc: 'Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: false,
     basePrice: 14.67,
@@ -785,8 +722,7 @@ module.exports = [
     id: 73,
     sku: '211183080-1',
     title: 'morbi',
-    desc:
-      'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.',
+    desc: 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.',
     image: 'https://dummyimage.com/300x300.bmp/cc0000/ffffff',
     stocked: true,
     basePrice: 12.61,
@@ -806,8 +742,7 @@ module.exports = [
     id: 75,
     sku: '375600309-4',
     title: 'eget',
-    desc:
-      'Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
+    desc: 'Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
     image: 'https://dummyimage.com/300x300.png/ff4444/ffffff',
     stocked: true,
     basePrice: 11.78,
@@ -817,8 +752,7 @@ module.exports = [
     id: 76,
     sku: '818261196-2',
     title: 'mauris',
-    desc:
-      'Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
+    desc: 'Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
     image: 'https://dummyimage.com/300x300.bmp/dddddd/000000',
     stocked: false,
     basePrice: 2.13,
@@ -828,8 +762,7 @@ module.exports = [
     id: 77,
     sku: '437757279-2',
     title: 'eu',
-    desc:
-      'Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
+    desc: 'Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: false,
     basePrice: 17.25,
@@ -839,8 +772,7 @@ module.exports = [
     id: 78,
     sku: '345659775-4',
     title: 'tellus',
-    desc:
-      'Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
+    desc: 'Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
     image: 'https://dummyimage.com/300x300.bmp/cc0000/ffffff',
     stocked: true,
     basePrice: 12.36,
@@ -850,8 +782,7 @@ module.exports = [
     id: 79,
     sku: '260997678-X',
     title: 'aliquet',
-    desc:
-      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo.',
+    desc: 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo.',
     image: 'https://dummyimage.com/300x300.jpg/5fa2dd/ffffff',
     stocked: true,
     basePrice: 13.78,
@@ -861,8 +792,7 @@ module.exports = [
     id: 80,
     sku: '529163443-X',
     title: 'in',
-    desc:
-      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.',
+    desc: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: false,
     basePrice: 1.85,
@@ -872,8 +802,7 @@ module.exports = [
     id: 81,
     sku: '872121580-4',
     title: 'platea',
-    desc:
-      'Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem.',
+    desc: 'Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: false,
     basePrice: 6.32,
@@ -883,8 +812,7 @@ module.exports = [
     id: 82,
     sku: '696378986-X',
     title: 'in',
-    desc:
-      'Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.',
+    desc: 'Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.',
     image: 'https://dummyimage.com/300x300.jpg/dddddd/000000',
     stocked: true,
     basePrice: 8.46,
@@ -894,8 +822,7 @@ module.exports = [
     id: 83,
     sku: '519045393-6',
     title: 'in',
-    desc:
-      'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio.',
+    desc: 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio.',
     image: 'https://dummyimage.com/300x300.png/cc0000/ffffff',
     stocked: true,
     basePrice: 2.0,
@@ -905,8 +832,7 @@ module.exports = [
     id: 84,
     sku: '181093238-6',
     title: 'in',
-    desc:
-      'Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.',
+    desc: 'Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.',
     image: 'https://dummyimage.com/300x300.png/ff4444/ffffff',
     stocked: true,
     basePrice: 18.13,
@@ -916,8 +842,7 @@ module.exports = [
     id: 85,
     sku: '901371527-3',
     title: 'quis',
-    desc:
-      'Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.',
+    desc: 'Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: true,
     basePrice: 7.0,
@@ -927,8 +852,7 @@ module.exports = [
     id: 86,
     sku: '108714107-9',
     title: 'sollicitudin',
-    desc:
-      'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat. Nulla nisl.',
+    desc: 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat. Nulla nisl.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: true,
     basePrice: 13.05,
@@ -938,8 +862,7 @@ module.exports = [
     id: 87,
     sku: '166959050-X',
     title: 'iaculis',
-    desc:
-      'Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien.',
+    desc: 'Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien.',
     image: 'https://dummyimage.com/300x300.jpg/cc0000/ffffff',
     stocked: false,
     basePrice: 4.23,
@@ -949,8 +872,7 @@ module.exports = [
     id: 88,
     sku: '639538639-5',
     title: 'a',
-    desc:
-      'Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus.',
+    desc: 'Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus.',
     image: 'https://dummyimage.com/300x300.png/dddddd/000000',
     stocked: true,
     basePrice: 4.29,
@@ -960,8 +882,7 @@ module.exports = [
     id: 89,
     sku: '441812521-3',
     title: 'blandit',
-    desc:
-      'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.',
+    desc: 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.',
     image: 'https://dummyimage.com/300x300.jpg/5fa2dd/ffffff',
     stocked: false,
     basePrice: 15.17,
@@ -971,8 +892,7 @@ module.exports = [
     id: 90,
     sku: '773018543-1',
     title: 'tempus',
-    desc:
-      'Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque.',
+    desc: 'Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque.',
     image: 'https://dummyimage.com/300x300.bmp/dddddd/000000',
     stocked: true,
     basePrice: 19.71,
@@ -982,8 +902,7 @@ module.exports = [
     id: 91,
     sku: '919509943-3',
     title: 'convallis',
-    desc:
-      'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui.',
+    desc: 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui.',
     image: 'https://dummyimage.com/300x300.bmp/dddddd/000000',
     stocked: true,
     basePrice: 0.06,
@@ -993,8 +912,7 @@ module.exports = [
     id: 92,
     sku: '410440535-3',
     title: 'nec',
-    desc:
-      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.',
+    desc: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.',
     image: 'https://dummyimage.com/300x300.jpg/dddddd/000000',
     stocked: false,
     basePrice: 10.31,
@@ -1004,8 +922,7 @@ module.exports = [
     id: 93,
     sku: '313896790-6',
     title: 'consequat',
-    desc:
-      'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue.',
+    desc: 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue.',
     image: 'https://dummyimage.com/300x300.bmp/cc0000/ffffff',
     stocked: false,
     basePrice: 16.72,
@@ -1015,8 +932,7 @@ module.exports = [
     id: 94,
     sku: '559105426-9',
     title: 'duis',
-    desc:
-      'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.',
+    desc: 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.',
     image: 'https://dummyimage.com/300x300.jpg/cc0000/ffffff',
     stocked: false,
     basePrice: 4.28,
@@ -1026,8 +942,7 @@ module.exports = [
     id: 95,
     sku: '714826109-0',
     title: 'nibh',
-    desc:
-      'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat.',
+    desc: 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: true,
     basePrice: 4.48,
@@ -1057,8 +972,7 @@ module.exports = [
     id: 98,
     sku: '400511200-5',
     title: 'nibh',
-    desc:
-      'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy.',
+    desc: 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy.',
     image: 'https://dummyimage.com/300x300.jpg/ff4444/ffffff',
     stocked: false,
     basePrice: 5.13,
@@ -1068,8 +982,7 @@ module.exports = [
     id: 99,
     sku: '670264132-X',
     title: 'semper',
-    desc:
-      'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.',
+    desc: 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.',
     image: 'https://dummyimage.com/300x300.png/ff4444/ffffff',
     stocked: false,
     basePrice: 6.25,
@@ -1079,8 +992,7 @@ module.exports = [
     id: 100,
     sku: '796017116-5',
     title: 'ac',
-    desc:
-      'Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.',
+    desc: 'Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.',
     image: 'https://dummyimage.com/300x300.bmp/cc0000/ffffff',
     stocked: false,
     basePrice: 1.64,
