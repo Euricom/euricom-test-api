@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GraphQL Products query allProducts 1`] = `
+Object {
+  "allProducts": Object {
+    "edges": Array [
+      Object {
+        "node": Object {
+          "basePrice": null,
+          "id": 1,
+          "price": null,
+          "stocked": false,
+          "title": "apple",
+        },
+      },
+      Object {
+        "node": Object {
+          "basePrice": null,
+          "id": 2,
+          "price": null,
+          "stocked": false,
+          "title": "orange",
+        },
+      },
+    ],
+    "pageInfo": Object {
+      "hasNextPage": false,
+      "hasPreviousPage": false,
+    },
+    "totalCount": 2,
+  },
+}
+`;

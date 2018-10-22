@@ -29,10 +29,11 @@
     "schema-inspector": "^1.6.8",
     "showdown": "^1.8.6",
     "sort-on": "^2.0.0",
-    "supertest": "^3.3.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "supertest": "^3.3.0",
+    "jest-watch-typeahead": "^0.2.0",
     "prettier": "^1.5.3"
   },
   "jest": {
@@ -41,6 +42,10 @@
     "testEnvironment": "node",
     "testMatch": [
       "**/?(*.)(test).js?(x)"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
     ]
   }
 }

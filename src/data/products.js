@@ -38,4 +38,9 @@ module.exports = {
     products.push(product);
     return product;
   },
+  addProducts(products) {
+    products.forEach((product) => {
+      this.addProduct(product);
+    });
+  },
 };
