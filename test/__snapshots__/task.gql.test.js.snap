@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GraphQL Tasks query tasks 1`] = `
+Object {
+  "tasks": Array [
+    Object {
+      "completed": true,
+      "desc": "Drink coffee",
+      "id": 1,
+    },
+    Object {
+      "completed": false,
+      "desc": "Write code",
+      "id": 2,
+    },
+    Object {
+      "completed": false,
+      "desc": "Document work",
+      "id": 3,
+    },
+  ],
+}
+`;

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GraphQL Basket query basket 1`] = `
+Object {
+  "basket": Object {
+    "checkoutID": "basketKey",
+    "items": Array [
+      Object {
+        "product": Object {
+          "basePrice": null,
+          "desc": null,
+          "id": 1,
+          "image": null,
+          "price": null,
+          "sku": null,
+          "stocked": false,
+          "title": "apple",
+        },
+        "quantity": 1,
+      },
+      Object {
+        "product": Object {
+          "basePrice": null,
+          "desc": null,
+          "id": 2,
+          "image": null,
+          "price": null,
+          "sku": null,
+          "stocked": false,
+          "title": "orange",
+        },
+        "quantity": 4,
+      },
+    ],
+  },
+}
+`;

@@ -1,5 +1,5 @@
 const { getOrCreateBasket, clearBasket } = require('../../data/basket');
-
+const { UserInputError } = require('apollo-server-express');
 const {
   seedProducts,
   getAllProducts,
@@ -7,12 +7,14 @@ const {
   deleteProduct,
   addProduct,
 } = require('../../data/products');
+const _ = require('underscore');
 
 const basketResolvers = {
   Query: {
     basket: (_, { checkoutID }) => {
       let basket = getOrCreateBasket(checkoutID);
       // verify we still have a product for the items
+      console.log('wowbasket', basket);
       basket = basket.filter((item) => {
         const product = getProduct(item.productId);
         return !!product;
@@ -32,32 +34,34 @@ const basketResolvers = {
   },
   Mutation: {
     addItemToBasket: (root, args) => {
-      console.log('addItemToBasket', args);
       const productId = args.input.item.productId;
       let quantity = args.input.item.quantity;
       const basket = getOrCreateBasket(args.input.checkoutID);
       const product = getProduct(productId);
 
       let errors = [];
-      if (!product)
+      if (!product) {
+        console.log('srfsf');
         errors.push({
           key: 'id',
           message: 'Product not found',
         });
+      }
 
-      if (!product.stocked)
+      if (product && !product.stocked) {
         errors.push({
           key: 'stocked',
           message: 'Product not in stock',
         });
+      }
 
       if (errors.length) {
         throw new UserInputError('One or more validation failed.', {
           errors,
         });
       }
-
       let basketItem = basket.find((item) => item.productId === productId);
+      console.log(basketItem);
       if (!basketItem) {
         basketItem = {
           id: basket.reduce((acc, item) => Math.max(acc, item.id), 0) + 1,
