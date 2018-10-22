@@ -10,10 +10,10 @@ const arrayToConnection = require('../arrayToConnection');
 
 const productResolvers = {
   Query: {
-    product: (_, args) => {
+    product: (root, args) => {
       return getProduct(args.id);
     },
-    allProducts: (_, args) => {
+    allProducts: (root, args) => {
       const products = getAllProducts();
       let sortedProducts = products;
       if (args.orderBy) {

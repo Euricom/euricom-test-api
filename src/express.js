@@ -21,29 +21,13 @@ const {
 
 const errorHandler = require('./api/middleware/errorHandler');
 
-const {
-  getAllUsers,
-  getUser,
-  deleteUser,
-  addUser,
-} = require('./data/users');
+const { getAllUsers, getUser, deleteUser, addUser } = require('./data/users');
 
-const {
-  getAllTasks,
-  getTask,
-  deleteTask,
-  addTask,
-} = require('./data/tasks');
+const { getAllTasks, getTask, deleteTask, addTask } = require('./data/tasks');
 
-const {
-  getOrCreateBasket,
-  clearBasket
-} = require('./data/basket');
+const { getOrCreateBasket, clearBasket } = require('./data/basket');
 
-const {
-  ApolloServer,
-  UserInputError
-} = require('apollo-server-express');
+const { ApolloServer, UserInputError } = require('apollo-server-express');
 const schema = require('./graphql/schema');
 const showdown = require('showdown');
 
@@ -63,8 +47,6 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 //
 // REST Routes
@@ -99,7 +81,8 @@ app.all('/api/*', async (req, res) =>
   res.status(404).json({
     code: 'NotFound',
     message: 'Resource not found or method not supprted',
-  }), );
+  }),
+);
 
 const graphQlServer = new ApolloServer({
   schema,
@@ -110,5 +93,5 @@ graphQlServer.applyMiddleware({
 
 module.exports = {
   app,
-  graphQlServer
+  graphQlServer,
 };

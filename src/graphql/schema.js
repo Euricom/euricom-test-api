@@ -7,14 +7,17 @@ const userResolvers = require('./user/user.resolver');
 const basketType = require('./basket/basket.type');
 const taskType = require('./task/task.type');
 const userType = require('./user/user.type');
-const {
-    gql
-} = require('apollo-server');
-const rootSchema = require('./root/root.schema')
+const { gql } = require('apollo-server');
+const rootSchema = require('./root/root.schema');
 
-const resolvers = [productResolvers, basketResolvers, taskResolvers, userResolvers];
+const resolvers = [
+  productResolvers,
+  basketResolvers,
+  taskResolvers,
+  userResolvers,
+];
 
-const SchemaDefinition = gql `
+const SchemaDefinition = gql`
   schema {
     query: Query
     mutation: Mutation
@@ -22,14 +25,14 @@ const SchemaDefinition = gql `
 `;
 
 const schema = graphqlTools.makeExecutableSchema({
-    typeDefs: [
-        ...rootSchema.getSchema(),
-        ...productType.getTypes(),
-        ...basketType.getTypes(),
-        ...taskType.getTypes(),
-        ...userType.getTypes()
-    ],
-    resolvers,
+  typeDefs: [
+    ...rootSchema.getSchema(),
+    ...productType.getTypes(),
+    ...basketType.getTypes(),
+    ...taskType.getTypes(),
+    ...userType.getTypes(),
+  ],
+  resolvers,
 });
 
 module.exports = schema;

@@ -1,4 +1,3 @@
-const _ = require('underscore');
 const seedProducts = require('./productList');
 
 let products = [];
@@ -25,7 +24,7 @@ module.exports = {
     return products.find((product) => product.id === id);
   },
   deleteProduct(product) {
-    products = _.without(products, product);
+    products = products.filter((item) => product.id !== item.id);
     return products;
   },
   addProduct(product) {

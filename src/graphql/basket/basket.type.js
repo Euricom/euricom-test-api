@@ -1,8 +1,6 @@
-const {
-  gql
-} = require('apollo-server');
+const { gql } = require('apollo-server');
 
-const BasketItem = gql `
+const BasketItem = gql`
   type BasketItem {
     id: ID
     product: Product
@@ -10,46 +8,46 @@ const BasketItem = gql `
   }
 `;
 
-const Basket = gql `
+const Basket = gql`
   type Basket {
     checkoutID: ID
     items: [BasketItem]
   }
 `;
 
-const BasketItemInput = gql `
+const BasketItemInput = gql`
   input BasketItemInput {
     quantity: Int!
     productId: Int!
   }
 `;
 
-const AddItemToBasketInput = gql `
+const AddItemToBasketInput = gql`
   input AddItemToBasketInput {
     checkoutID: ID!
     item: BasketItemInput!
   }
 `;
 
-const RemoveItemFromBasketInput = gql `
+const RemoveItemFromBasketInput = gql`
   input RemoveItemFromBasketInput {
     checkoutID: ID!
     productId: Int!
   }
 `;
-const AddItemToBasketPayload = gql `
+const AddItemToBasketPayload = gql`
   type AddItemToBasketPayload {
     basket: Basket
   }
 `;
 
-const RemoveItemFromBasketPayload = gql `
+const RemoveItemFromBasketPayload = gql`
   type RemoveItemFromBasketPayload {
     basket: Basket
   }
 `;
 
-const ClearBasketPayload = gql `
+const ClearBasketPayload = gql`
   type ClearBasketPayload {
     basket: Basket
   }

@@ -1,5 +1,3 @@
-const _ = require('underscore');
-
 let baskets = [];
 
 function getOrCreateBasket(checkoutID) {

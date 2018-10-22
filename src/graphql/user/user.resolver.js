@@ -1,16 +1,15 @@
 const arrayToConnection = require('../arrayToConnection');
 const sortOn = require('sort-on');
-const _ = require('underscore');
 
 const { getAllUsers, getUser, deleteUser } = require('../../data/users');
 
 const userResolver = {
   Query: {
-    user: (_, args) => {
+    user: (root, args) => {
       console.log(args);
       return getUser(args.id);
     },
-    allUsers: (_, args) => {
+    allUsers: (root, args) => {
       const users = getAllUsers();
       let sortedUsers = users;
       if (args.orderBy) {

@@ -10,9 +10,7 @@ const {
   getOrCreateBasket,
 } = require('../src/data/basket');
 
-const {
-  seedProducts
-} = require('../src/data/products');
+const { seedProducts } = require('../src/data/products');
 
 const basketKey = '123';
 
@@ -26,7 +24,7 @@ describe('Basket Routes', () => {
     clearBasket(basketKey, true);
   });
 
-  it("fetches the basket", async () => {
+  it('fetches the basket', async () => {
     const response = await request(app.app)
       .get(`/api/basket/${basketKey}`)
       .expect(200);
@@ -35,7 +33,7 @@ describe('Basket Routes', () => {
     expect(response.body[0]).toHaveProperty('id');
     expect(response.body[0]).toHaveProperty('quantity');
     expect(response.body[0]).toHaveProperty('productId');
-  })
+  });
 
   it('adds a product to the basket', async () => {
     const response = await request(app.app)
@@ -71,7 +69,7 @@ describe('Basket Routes', () => {
       .delete(`/api/basket/${basketKey}/product/1`)
       .expect(200);
 
-    expect(response.body.find(item => item.id === 1)).toEqual(undefined);
+    expect(response.body.find((item) => item.id === 1)).toEqual(undefined);
   });
 
   it('should throw an error on faulty product id', async () => {
@@ -87,11 +85,11 @@ describe('Basket Routes', () => {
     const response = await request(app.app)
       .patch(`/api/basket/${basketKey}/product/1`)
       .send({
-        quantity: 10
+        quantity: 10,
       })
       .expect(200);
 
-    const item = response.body.find(item => item.id === 1);
+    const item = response.body.find((item) => item.id === 1);
 
     expect(item.quantity).toEqual(10);
   });
@@ -100,7 +98,7 @@ describe('Basket Routes', () => {
     const response = await request(app.app)
       .patch(`/api/basket/${basketKey}/product/11`)
       .send({
-        quantity: 10
+        quantity: 10,
       })
       .expect(404);
 
@@ -112,7 +110,7 @@ describe('Basket Routes', () => {
     const response = await request(app.app)
       .patch(`/api/basket/${basketKey}/product/10`)
       .send({
-        quantity: 10
+        quantity: 10,
       })
       .expect(409);
 
@@ -123,18 +121,18 @@ describe('Basket Routes', () => {
   it('should delete the basket', async () => {
     const response = await request(app.app)
       .delete(`/api/basket/${basketKey}`)
-      .expect(200)
+      .expect(200);
 
     // default is 2 so it returns the previous basket
     expect(response.body.length).toEqual(2);
-  })
+  });
 
   it('should reset the basket', async () => {
     const response = await request(app.app)
       .delete(`/api/basket/${basketKey}/reset`)
-      .expect(200)
+      .expect(200);
 
     // default is 2
     expect(response.body.length).toEqual(2);
-  })
+  });
 });

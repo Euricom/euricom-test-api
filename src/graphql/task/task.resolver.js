@@ -4,11 +4,10 @@ const {
   addTask,
   deleteTask,
 } = require('../../data/tasks');
-const _ = require('underscore');
 
 const taskResolvers = {
   Query: {
-    task: (_, args) => {
+    task: (root, args) => {
       return getTask(args.id);
     },
     tasks: () => {

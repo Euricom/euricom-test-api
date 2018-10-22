@@ -8,7 +8,7 @@ const {
   seedProducts,
   clearProducts,
   getProduct,
-  getAllProducts
+  getAllProducts,
 } = require('../src/data/products');
 
 describe('Product Routes', () => {

@@ -7,14 +7,12 @@ const {
   deleteProduct,
   addProduct,
 } = require('../../data/products');
-const _ = require('underscore');
 
 const basketResolvers = {
   Query: {
-    basket: (_, { checkoutID }) => {
+    basket: (root, { checkoutID }) => {
       let basket = getOrCreateBasket(checkoutID);
       // verify we still have a product for the items
-      console.log('wowbasket', basket);
       basket = basket.filter((item) => {
         const product = getProduct(item.productId);
         return !!product;
@@ -80,21 +78,19 @@ const basketResolvers = {
     },
 
     removeItemFromBasket: (root, args) => {
-      console.log('removeItemsFromBasket', args);
-
       const productId = Number(args.input.productId);
-      const basket = getOrCreateBasket(args.input.checkoutID);
-      const index = _.findIndex(basket, {
-        productId: productId,
-      });
-      if (index === -1) {
+      let basket = getOrCreateBasket(args.input.checkoutID);
+      const index = basket.find((item) => item.id === productId);
+      if (!index) {
         throw new UserInputError('Product not found');
       }
-      basket.splice(index, 1);
+      console.log(index, basket.filter((item) => item.id !== index.id));
+      basket = basket.filter((item) => item.id !== index.id);
       const newBasket = {
         checkoutID: args.input.checkoutID,
         items: basket,
       };
+      console.log(newBasket);
       return {
         basket: newBasket,
       };

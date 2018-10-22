@@ -192,13 +192,14 @@ describe('GraphQL Basket', () => {
       { key: basketKey, productId: 2 },
       200,
     );
+    console.log(data.data);
     const product = data.data.removeItemFromBasket.basket.items.find(
       (item) => item.product.id === 2,
     );
     expect(product).toBe(undefined);
   });
 
-  test('mutation removeItemFromBasket', async () => {
+  test('throw product not found on mutation removeItemFromBasket', async () => {
     const mutation = `
     mutation removeItemFromBasket($key: ID!, $productId: Int!) {
       removeItemFromBasket(input: { checkoutID: $key, productId: $productId }) {
@@ -227,7 +228,7 @@ describe('GraphQL Basket', () => {
       { key: basketKey, productId: 10 },
       200,
     );
-
+    console.log(data.data);
     expect(data.data.removeItemFromBasket).toBe(null);
     expect(data.errors[0].message).toBe('Product not found');
   });

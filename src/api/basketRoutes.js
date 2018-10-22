@@ -1,4 +1,3 @@
-const _ = require('underscore');
 const express = require('express');
 const asyncify = require('express-asyncify');
 
@@ -8,10 +7,7 @@ const {
   deleteProduct,
   addProduct,
 } = require('../data/products');
-const {
-  getOrCreateBasket,
-  clearBasket
-} = require('../data/basket');
+const { getOrCreateBasket, clearBasket } = require('../data/basket');
 const validate = require('./middleware/validator');
 const httpErrors = require('../httpErrors');
 
@@ -62,15 +58,13 @@ router.post(
     }
 
     let quantity = Math.floor(Number(req.body.quantity) || 1);
-    const index = _.findIndex(basket, {
-      id: id,
-    });
-    if (index < 0)
+    const index = basket.find((item) => item.id === id);
+    if (!index)
       basket.push({
         id: id,
         quantity: quantity,
       });
-    if (index >= 0) {
+    else {
       quantity = (basket[index].quantity || 0) + quantity;
       basket[index].quantity = quantity;
     }
@@ -83,10 +77,8 @@ router.post(
 router.delete('/api/basket/:key/product/:id', async (req, res) => {
   const id = Number(req.params.id);
   const basket = await getOrCreateBasket(req.params.key);
-  const index = _.findIndex(basket, {
-    id: id,
-  });
-  if (index === -1) {
+  const index = basket.find((item) => item.id === id);
+  if (!index) {
     throw new httpErrors.NotFoundError('Product not found');
   }
   basket.splice(index, 1);
@@ -103,12 +95,17 @@ router.patch(
   validate(addProductSchema),
   async (req, res) => {
     const id = Number(req.params.id);
-    const basket = await getOrCreateBasket(req.params.key);
+    let basket = await getOrCreateBasket(req.params.key);
     const quantity = Math.floor(Number(req.body.quantity)) || 0;
-    const index = _.findIndex(basket, {
-      id: id,
+    let basketItemIndex;
+    const basketItem = basket.find((item, i) => {
+      if (item.id === id) {
+        basketItemIndex = i;
+        return item;
+      }
     });
     const product = await getProduct(id);
+    console.log(quantity, product);
     if (!product) {
       throw new httpErrors.NotFoundError('Product not found');
     }
@@ -116,14 +113,18 @@ router.patch(
       throw new httpErrors.ConflictError('Product not in stock');
     }
 
-    if (index >= 0 && quantity) basket[index].quantity = quantity;
-    if (index === -1 && quantity)
+    if (basketItem && quantity) {
+      basket[basketItemIndex].quantity = quantity;
+    }
+    if (!basketItem && quantity)
       basket.push({
         id: id,
         quantity: quantity,
       });
-    if (quantity == 0) basket.splice(index, 1);
-
+    if (quantity == 0) {
+      basket = basket.filter((item) => basketItem.id !== item.id);
+    }
+    console.log(basket);
     return res.json(basket);
   },
 );

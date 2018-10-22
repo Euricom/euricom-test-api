@@ -1,4 +1,3 @@
-const _ = require('underscore');
 const express = require('express');
 const validate = require('./middleware/validator');
 const sortOn = require('sort-on');
@@ -17,32 +16,32 @@ const productSchema = {
   properties: {
     id: {
       type: 'number',
-      optional: true
+      optional: true,
     },
     sku: {
-      type: 'string'
+      type: 'string',
     },
     title: {
-      type: 'string'
+      type: 'string',
     },
     desc: {
       type: 'string',
-      optional: true
+      optional: true,
     },
     image: {
       type: 'string',
-      optional: true
+      optional: true,
     },
     stocked: {
       type: 'boolean',
-      optional: true
+      optional: true,
     },
     basePrice: {
-      type: 'number'
+      type: 'number',
     },
     price: {
       type: 'number',
-      optional: true
+      optional: true,
     },
   },
 };
@@ -78,7 +77,7 @@ router.get('/api/products', async (req, res) => {
     total: products.length,
     page,
     pageSize,
-    selectedProducts
+    selectedProducts,
   });
 });
 

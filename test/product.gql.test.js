@@ -38,10 +38,10 @@ describe('GraphQL Products', () => {
     const data = await helpers.executeQuery(query, {}, 200);
 
     // assert
-    expect(data.allProducts.totalCount).toBe(2);
-    expect(data.allProducts.pageInfo.hasNextPage).toBe(false);
-    expect(data.allProducts.pageInfo.hasPreviousPage).toBe(false);
-    expect(data).toMatchSnapshot();
+    expect(data.data.allProducts.totalCount).toBe(2);
+    expect(data.data.allProducts.pageInfo.hasNextPage).toBe(false);
+    expect(data.data.allProducts.pageInfo.hasPreviousPage).toBe(false);
+    expect(data.data).toMatchSnapshot();
   });
 
   test('query product', async () => {
@@ -64,8 +64,8 @@ describe('GraphQL Products', () => {
     // console.log(data);
 
     // assert
-    expect(data.product.id).toBe(1);
-    expect(data.product.title).toBe(apple.title);
+    expect(data.data.product.id).toBe(1);
+    expect(data.data.product.title).toBe(apple.title);
   });
 
   test('mutate addOrUpdateProduct', async () => {
@@ -92,9 +92,9 @@ describe('GraphQL Products', () => {
 
     const data = await helpers.executeMutation(mutation, { product }, 200);
 
-    expect(data.addOrUpdateProduct.product.title).toBe(product.title);
-    expect(data.addOrUpdateProduct.product.sku).toBe(product.sku);
-    expect(data.addOrUpdateProduct.product.price).toBe(product.price);
+    expect(data.data.addOrUpdateProduct.product.title).toBe(product.title);
+    expect(data.data.addOrUpdateProduct.product.sku).toBe(product.sku);
+    expect(data.data.addOrUpdateProduct.product.price).toBe(product.price);
   });
 
   test('mutate deleteProduct', async () => {
@@ -116,7 +116,7 @@ describe('GraphQL Products', () => {
 
     const data = await helpers.executeMutation(mutation, { productId: 1 }, 200);
 
-    expect(data.deleteProduct.product.id).toBe(1);
+    expect(data.data.deleteProduct.product.id).toBe(1);
   });
 
   test('return 200 when product was not found on deleteProduct', async () => {
@@ -138,6 +138,6 @@ describe('GraphQL Products', () => {
 
     const data = await helpers.executeMutation(mutation, { productId: 3 }, 200);
 
-    expect(data.deleteProduct.product).toBe(null);
+    expect(data.data.deleteProduct.product).toBe(null);
   });
 });
