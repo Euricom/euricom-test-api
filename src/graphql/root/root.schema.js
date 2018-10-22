@@ -1,5 +1,5 @@
 const {
-  gql
+    gql
 } = require('apollo-server');
 
 const Query = `
@@ -14,6 +14,18 @@ const Query = `
     ): ProductConnection
 
     basket(checkoutID: String!): Basket
+
+    task(id: Int): Task
+    tasks: [Task]
+
+    user(id: Int): User
+    allUsers(
+      orderBy: String
+      first: Int
+      after: String
+      before: String
+      last: Int
+    ): UserConnection
   }
 `;
 
@@ -27,14 +39,21 @@ const Mutation = gql `
       input: RemoveItemFromBasketInput!
     ): RemoveItemFromBasketPayload
     clearBasket(checkoutID: ID): ClearBasketPayload
+
+    addTask(desc: String!): AddTaskPayload
+    completeTask(id: Int!): CompleteTaskPayload
+    deleteTask(id: Int!): DeleteTaskPayload
+
+    addOrUpdateUser(input: UserInput!): AddOrUpdateUserPayload
+    deleteUser(id: Int!): DeleteUserPayload
   }
 `;
 
 module.exports = {
-  getSchema() {
-    const moduleArray = [];
-    moduleArray[0] = Query;
-    moduleArray[1] = Mutation;
-    return moduleArray;
-  }
+    getSchema() {
+        const moduleArray = [];
+        moduleArray[0] = Query;
+        moduleArray[1] = Mutation;
+        return moduleArray;
+    }
 };

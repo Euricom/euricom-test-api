@@ -1,28 +1,37 @@
 const _ = require('underscore');
 const express = require('express');
-const { getAllTasks, getTask, deleteTask, addTask } = require('../data/tasks');
+const asyncify = require('express-asyncify');
+const {
+    getAllTasks,
+    getTask,
+    deleteTask,
+    addTask
+} = require('../data/tasks');
 
 //
 // task routes
 //
 
-const router = express.Router();
+const router = asyncify(express.Router());
 
-router.get('/api/tasks', (req, res) => {
-  const tasks = getAllTasks();
-  res.json(tasks);
+router.get('/api/tasks', async (req, res) => {
+    const tasks = await getAllTasks();
+    res.json(tasks);
 });
-router.get('/api/tasks/:id', (req, res) => {
-  // find user
-  const task = getTask(+req.params.id);
-  if (!task) {
-    return res
-      .status(404)
-      .json({ code: 'NotFound', message: 'Task not found' });
-  }
+router.get('/api/tasks/:id', async (req, res) => {
+    // find user
+    const task = await getTask(+req.params.id);
+    if (!task) {
+        return res
+            .status(404)
+            .json({
+                code: 'Not Found',
+                message: 'Task not found'
+            });
+    }
 
-  // return resource
-  return res.json(task);
+    // return resource
+    return res.json(task);
 });
 
 /* POST /api/tasks
@@ -30,13 +39,13 @@ router.get('/api/tasks/:id', (req, res) => {
      "completed": true
    }
   */
-router.post('/api/tasks', (req, res) => {
-  // Get resource
-  const resource = req.body;
-  resource.id = new Date().valueOf();
-  resource.completed = false;
-  addTask(resource);
-  res.status(200).json(resource);
+router.post('/api/tasks', async (req, res) => {
+    // Get resource
+    const resource = req.body;
+    resource.id = new Date().valueOf();
+    resource.completed = false;
+    await addTask(resource);
+    res.status(201).json(resource);
 });
 
 /* PATCH /api/tasks/12
@@ -44,29 +53,32 @@ router.post('/api/tasks', (req, res) => {
      "completed": true
    }
   */
-router.patch('/api/tasks/:id', (req, res) => {
-  // Get resource
-  const resource = req.body;
-  const task = getTask(+req.params.id);
-  if (!task) {
-    return res
-      .status(404)
-      .json({ code: 'NotFound', message: 'Task not found' });
-  }
+router.patch('/api/tasks/:id', async (req, res) => {
+    // Get resource
+    const resource = req.body;
+    const task = await getTask(+req.params.id);
+    if (!task) {
+        return res
+            .status(404)
+            .json({
+                code: 'Not Found',
+                message: 'Task not found'
+            });
+    }
 
-  task.completed = resource.completed;
-  return res.status(200).json(task);
+    task.completed = resource.completed;
+    return res.status(200).json(task);
 });
 
 // DELETE /api/tasks/12
-router.delete('/api/tasks/:id', (req, res) => {
-  const task = getTask(+req.params.id);
-  if (!task) {
-    return res.status(204).json();
-  }
+router.delete('/api/tasks/:id', async (req, res) => {
+    const task = await getTask(+req.params.id);
+    if (!task) {
+        return res.status(204).json();
+    }
 
-  tasks = deleteTask(task);
-  return res.status(200).json(task);
+    tasks = await deleteTask(task);
+    return res.status(200).json(task);
 });
 
 module.exports = router;
