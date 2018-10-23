@@ -12,15 +12,11 @@ function generateUsers(count) {
     const lastName = faker.name.lastName();
     if (random === 1) {
       firstName = faker.name.firstName(1);
-      imageUrl = `http://api.randomuser.me/portraits/lego/${faker.random.number(
-        9,
-      )}.jpg`;
+      imageUrl = `http://api.randomuser.me/portraits/lego/${faker.random.number(9)}.jpg`;
       // imageUrl = `https://api.adorable.io/avatars/400/${firstName}-${lastName}`;
     } else {
       firstName = faker.name.firstName(0);
-      imageUrl = `http://api.randomuser.me/portraits/lego/${faker.random.number(
-        9,
-      )}.jpg`;
+      imageUrl = `http://api.randomuser.me/portraits/lego/${faker.random.number(9)}.jpg`;
       // imageUrl = `https://api.adorable.io/avatars/400/${firstName}-${lastName}`;
     }
     users.push({

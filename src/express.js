@@ -12,12 +12,7 @@ const taskRoutes = require('./api/taskRoutes');
 const productRoutes = require('./api/productRoutes');
 const basketRoutes = require('./api/basketRoutes');
 
-const {
-  getAllProducts,
-  getProduct,
-  deleteProduct,
-  addProduct,
-} = require('./data/products');
+const { getAllProducts, getProduct, deleteProduct, addProduct } = require('./data/products');
 
 const errorHandler = require('./api/middleware/errorHandler');
 
@@ -54,9 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
   const text = fs.readFileSync('./api.md', 'utf8');
-  console.log(text);
   const html = converter.makeHtml(text);
-  console.log(html);
   res.send(html);
 });
 

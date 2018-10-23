@@ -1,10 +1,4 @@
-const {
-  seedProducts,
-  getAllProducts,
-  getProduct,
-  deleteProduct,
-  addProduct,
-} = require('../../data/products');
+const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('../../data/products');
 const sortOn = require('sort-on');
 const arrayToConnection = require('../arrayToConnection');
 
@@ -30,8 +24,7 @@ const productResolvers = {
       let product = getProduct(input.id);
       const products = getAllProducts();
       if (!product) {
-        const id =
-          products.reduce((acc, product) => Math.max(acc, product.id), 0) + 1;
+        const id = products.reduce((acc, product) => Math.max(acc, product.id), 0) + 1;
         product = {
           id,
         };

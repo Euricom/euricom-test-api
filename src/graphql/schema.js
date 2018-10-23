@@ -10,12 +10,7 @@ const userType = require('./user/user.type');
 const { gql } = require('apollo-server');
 const rootSchema = require('./root/root.schema');
 
-const resolvers = [
-  productResolvers,
-  basketResolvers,
-  taskResolvers,
-  userResolvers,
-];
+const resolvers = [productResolvers, basketResolvers, taskResolvers, userResolvers];
 
 const SchemaDefinition = gql`
   schema {

@@ -14,8 +14,8 @@ const router = asyncify(express.Router());
 router.get('/api/users', async (req, res) => {
   const page = req.query.page || 0;
   const pageSize = req.query.pageSize || 20;
-  console.log('page:', page);
-  console.log('pageSize:', pageSize);
+  // console.log('page:', page);
+  // console.log('pageSize:', pageSize);
 
   const users = await getAllUsers();
   const userSet = _.chain(users)
@@ -56,7 +56,6 @@ router.get('/api/users/:id', async (req, res) => {
 router.post('/api/users', async (req, res) => {
   // Get resource
   const resource = req.body;
-  console.log('post', req.body);
 
   // Assign number
   resource.id = new Date().valueOf();
@@ -80,7 +79,6 @@ router.post('/api/users', async (req, res) => {
 router.put('/api/users/:id', async (req, res) => {
   // Get resource
   const resource = req.body;
-  console.log('put', req.body);
 
   // Find and update
   const user = await getUser(Number(req.params.id));

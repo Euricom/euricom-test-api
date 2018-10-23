@@ -4,12 +4,7 @@ const path = require('path');
 const request = require('supertest');
 const app = require('../src/express');
 
-const {
-  seedUsers,
-  getAllUsers,
-  getUser,
-  clearUsers,
-} = require('../src/data/users');
+const { seedUsers, getAllUsers, getUser, clearUsers } = require('../src/data/users');
 
 describe('User Routes', () => {
   beforeEach(() => {

@@ -6,7 +6,6 @@ const { getAllUsers, getUser, deleteUser } = require('../../data/users');
 const userResolver = {
   Query: {
     user: (root, args) => {
-      console.log(args);
       return getUser(args.id);
     },
     allUsers: (root, args) => {
@@ -37,7 +36,6 @@ const userResolver = {
       user.email = input.email;
       user.age = input.age;
       user.company = input.company;
-      console.log(user);
       return {
         user,
       };

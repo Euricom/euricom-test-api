@@ -17,10 +17,6 @@ generateSeedData();
 //
 const port = process.env.PORT || 3000;
 const server = express.app.listen(port, () => {
-  console.log(
-    `Express server listening on port: http://localhost:${
-      server.address().port
-    }/api/products`,
-  );
+  console.log(`Express server listening on port: http://localhost:${server.address().port}/api/products`);
   console.log(`${express.graphQlServer.graphqlPath}`);
 });

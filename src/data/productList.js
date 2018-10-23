@@ -131,8 +131,7 @@ module.exports = [
     id: 13,
     sku: '119522284-X',
     title: 'cursus',
-    desc:
-      'Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
+    desc: 'Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
     image: 'https://dummyimage.com/300x300.png/ff00dd/000000',
     stocked: true,
     basePrice: 14.34,
@@ -468,8 +467,7 @@ module.exports = [
     id: 44,
     sku: '455149194-2',
     title: 'pretium',
-    desc:
-      'Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti.',
+    desc: 'Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti.',
     image: 'https://dummyimage.com/300x300.jpg/ef4/000000',
     stocked: true,
     basePrice: 13.51,
@@ -600,8 +598,7 @@ module.exports = [
     id: 56,
     sku: '688445810-0',
     title: 'sed',
-    desc:
-      'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.',
+    desc: 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.',
     image: 'https://dummyimage.com/300x300.png/dddddd/000000',
     stocked: false,
     basePrice: 17.75,
@@ -719,8 +716,7 @@ module.exports = [
     id: 67,
     sku: '434262272-6',
     title: 'augue',
-    desc:
-      'Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi.',
+    desc: 'Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi.',
     image: 'https://dummyimage.com/300x300.bmp/5fa2dd/ffffff',
     stocked: false,
     basePrice: 6.43,
@@ -817,8 +813,7 @@ module.exports = [
     id: 76,
     sku: '818261196-2',
     title: 'mauris',
-    desc:
-      'Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
+    desc: 'Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
     image: 'https://dummyimage.com/300x300.bmp/dddddd/000000',
     stocked: false,
     basePrice: 2.13,
@@ -905,8 +900,7 @@ module.exports = [
     id: 84,
     sku: '181093238-6',
     title: 'in',
-    desc:
-      'Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.',
+    desc: 'Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.',
     image: 'https://dummyimage.com/300x300.png/ff4444/ffffff',
     stocked: true,
     basePrice: 18.13,

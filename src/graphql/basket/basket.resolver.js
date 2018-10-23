@@ -1,12 +1,6 @@
 const { getOrCreateBasket, clearBasket } = require('../../data/basket');
 const { UserInputError } = require('apollo-server-express');
-const {
-  seedProducts,
-  getAllProducts,
-  getProduct,
-  deleteProduct,
-  addProduct,
-} = require('../../data/products');
+const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('../../data/products');
 
 const basketResolvers = {
   Query: {
@@ -17,7 +11,6 @@ const basketResolvers = {
         const product = getProduct(item.productId);
         return !!product;
       });
-      console.log('basket', basket);
       return {
         checkoutID,
         items: basket,
@@ -39,7 +32,6 @@ const basketResolvers = {
 
       let errors = [];
       if (!product) {
-        console.log('srfsf');
         errors.push({
           key: 'id',
           message: 'Product not found',
@@ -59,7 +51,6 @@ const basketResolvers = {
         });
       }
       let basketItem = basket.find((item) => item.productId === productId);
-      console.log(basketItem);
       if (!basketItem) {
         basketItem = {
           id: basket.reduce((acc, item) => Math.max(acc, item.id), 0) + 1,
@@ -84,13 +75,12 @@ const basketResolvers = {
       if (!index) {
         throw new UserInputError('Product not found');
       }
-      console.log(index, basket.filter((item) => item.id !== index.id));
+      // console.log(index, basket.filter((item) => item.id !== index.id));
       basket = basket.filter((item) => item.id !== index.id);
       const newBasket = {
         checkoutID: args.input.checkoutID,
         items: basket,
       };
-      console.log(newBasket);
       return {
         basket: newBasket,
       };

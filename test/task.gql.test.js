@@ -9,13 +9,14 @@ describe('GraphQL Tasks', () => {
   });
   test('query tasks', async () => {
     const query = `
-    {
-      tasks {
-        id
-        desc
-        completed
+      {
+        tasks {
+          id
+          desc
+          completed
+        }
       }
-    }`;
+    `;
 
     const data = await helpers.executeQuery(query, {}, 200);
 
@@ -40,37 +41,32 @@ describe('GraphQL Tasks', () => {
 
   test('mutation addTask', async () => {
     const mutation = `
-    mutation addTask($desc: String!) {
-      addTask(desc: $desc) {
-        task{
-          id
-          desc
-          completed
+      mutation addTask($desc: String!) {
+        addTask(desc: $desc) {
+          task{
+            id
+            desc
+            completed
+          }
         }
       }
-    }
     `;
 
-    const data = await helpers.executeMutation(
-      mutation,
-      { desc: 'an apple' },
-      200,
-    );
-    console.log(data.data);
+    const data = await helpers.executeMutation(mutation, { desc: 'an apple' }, 200);
     expect(data.data.addTask.task.desc).toBe('an apple');
   });
 
   test('mutation completeTask', async () => {
     const mutation = `
-    mutation completeTask($id: Int!) {
-      completeTask(id: $id) {
-        task{
-          id
-          desc
-          completed
+      mutation completeTask($id: Int!) {
+        completeTask(id: $id) {
+          task{
+            id
+            desc
+            completed
+          }
         }
       }
-    }
     `;
 
     const data = await helpers.executeMutation(mutation, { id: 1 }, 200);

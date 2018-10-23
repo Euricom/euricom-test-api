@@ -4,12 +4,7 @@ const path = require('path');
 const request = require('supertest');
 const app = require('../src/express');
 
-const {
-  seedProducts,
-  clearProducts,
-  getProduct,
-  getAllProducts,
-} = require('../src/data/products');
+const { seedProducts, clearProducts, getProduct, getAllProducts } = require('../src/data/products');
 
 describe('Product Routes', () => {
   beforeEach(() => {

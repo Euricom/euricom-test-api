@@ -4,12 +4,7 @@ const sortOn = require('sort-on');
 const httpErrors = require('../httpErrors');
 const asyncify = require('express-asyncify');
 
-const {
-  getAllProducts,
-  getProduct,
-  deleteProduct,
-  addProduct,
-} = require('../data/products');
+const { getAllProducts, getProduct, deleteProduct, addProduct } = require('../data/products');
 
 const productSchema = {
   type: 'object',
@@ -60,7 +55,6 @@ router.get('/api/products', async (req, res) => {
   const sortExpression = req.query.sort;
 
   // sort
-  console.log(sortExpression);
   const products = await getAllProducts();
   let selectedProducts = products;
   if (sortExpression) {
@@ -68,10 +62,7 @@ router.get('/api/products', async (req, res) => {
   }
 
   // skip and take
-  selectedProducts = selectedProducts.slice(
-    page * pageSize,
-    page * pageSize + pageSize,
-  );
+  selectedProducts = selectedProducts.slice(page * pageSize, page * pageSize + pageSize);
 
   res.json({
     total: products.length,

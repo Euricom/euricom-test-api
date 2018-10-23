@@ -104,12 +104,8 @@ describe('GraphQL User', () => {
 
     expect(data.data.addOrUpdateUser.user).toHaveProperty('id');
     expect(data.data.addOrUpdateUser.user.email).toBe(newUser.input.email);
-    expect(data.data.addOrUpdateUser.user.lastName).toBe(
-      newUser.input.lastName,
-    );
-    expect(data.data.addOrUpdateUser.user.firstName).toBe(
-      newUser.input.firstName,
-    );
+    expect(data.data.addOrUpdateUser.user.lastName).toBe(newUser.input.lastName);
+    expect(data.data.addOrUpdateUser.user.firstName).toBe(newUser.input.firstName);
   });
 
   test('update user on mutation addOrUpdateUser', async () => {
@@ -147,12 +143,8 @@ describe('GraphQL User', () => {
 
     expect(data.data.addOrUpdateUser.user.id).toBe(newUser.input.id);
     expect(data.data.addOrUpdateUser.user.email).toBe(newUser.input.email);
-    expect(data.data.addOrUpdateUser.user.lastName).toBe(
-      newUser.input.lastName,
-    );
-    expect(data.data.addOrUpdateUser.user.firstName).toBe(
-      newUser.input.firstName,
-    );
+    expect(data.data.addOrUpdateUser.user.lastName).toBe(newUser.input.lastName);
+    expect(data.data.addOrUpdateUser.user.firstName).toBe(newUser.input.firstName);
   });
 
   test('mutation deleteUser', async () => {

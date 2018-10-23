@@ -1,7 +1,6 @@
 let baskets = [];
 
 function getOrCreateBasket(checkoutID) {
-  console.log('checkoutID', checkoutID);
   let basket = baskets[checkoutID];
   if (!baskets[checkoutID]) {
     baskets[checkoutID] = [];

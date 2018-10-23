@@ -51,9 +51,7 @@ const Mutation = gql`
     """
     ### &nbsp;&nbsp;Remove the product from the basket
     """
-    removeItemFromBasket(
-      input: RemoveItemFromBasketInput!
-    ): RemoveItemFromBasketPayload
+    removeItemFromBasket(input: RemoveItemFromBasketInput!): RemoveItemFromBasketPayload
     """
     ### &nbsp;&nbsp;Empty the basket
     """

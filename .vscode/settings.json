@@ -9,6 +9,7 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
+  "files.autoSave": "onFocusChange",
   // ===
   // Files
   // ===

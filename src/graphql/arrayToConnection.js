@@ -56,10 +56,7 @@ function arrayToConnectionSlice(arraySlice, args, meta) {
   }
 
   // If supplied slice is too large, trim it down before mapping over it.
-  const slice = arraySlice.slice(
-    Math.max(startOffset - sliceStart, 0),
-    arraySlice.length - (sliceEnd - endOffset),
-  );
+  const slice = arraySlice.slice(Math.max(startOffset - sliceStart, 0), arraySlice.length - (sliceEnd - endOffset));
 
   const edges = slice.map((value, index) => ({
     cursor: offsetToCursor(startOffset + index),
@@ -76,8 +73,7 @@ function arrayToConnectionSlice(arraySlice, args, meta) {
     pageInfo: {
       startCursor: firstEdge ? firstEdge.cursor : null,
       endCursor: lastEdge ? lastEdge.cursor : null,
-      hasPreviousPage:
-        typeof last === 'number' ? startOffset > lowerBound : false,
+      hasPreviousPage: typeof last === 'number' ? startOffset > lowerBound : false,
       hasNextPage: typeof first === 'number' ? endOffset < upperBound : false,
     },
   };

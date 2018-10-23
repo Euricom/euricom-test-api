@@ -1,12 +1,7 @@
 const express = require('express');
 const asyncify = require('express-asyncify');
 
-const {
-  getAllProducts,
-  getProduct,
-  deleteProduct,
-  addProduct,
-} = require('../data/products');
+const { getAllProducts, getProduct, deleteProduct, addProduct } = require('../data/products');
 const { getOrCreateBasket, clearBasket } = require('../data/basket');
 const validate = require('./middleware/validator');
 const httpErrors = require('../httpErrors');
@@ -31,7 +26,8 @@ const addProductSchema = {
 // GET /api/basket/xyz
 router.get('/api/basket/:key', async (req, res) => {
   const basket = await getOrCreateBasket(req.params.key);
-  // what does this even mean?
+  // what does this even mean?z
+  // it's a test api, to simulate a 500 error
   if (basket.length > 5) {
     throw new httpErrors.InternalServerError();
   }
@@ -43,34 +39,30 @@ router.get('/api/basket/:key', async (req, res) => {
 // {
 //    quantity: 10
 // }
-router.post(
-  '/api/basket/:key/product/:id',
-  validate(addProductSchema),
-  async (req, res, next) => {
-    const id = Number(req.params.id);
-    const basket = await getOrCreateBasket(req.params.key);
-    const product = await getProduct(id);
-    if (!product) {
-      throw new httpErrors.NotFoundError('Product not found');
-    }
-    if (!product.stocked) {
-      throw new httpErrors.ConflictError('Product not in stock');
-    }
+router.post('/api/basket/:key/product/:id', validate(addProductSchema), async (req, res, next) => {
+  const id = Number(req.params.id);
+  const basket = await getOrCreateBasket(req.params.key);
+  const product = await getProduct(id);
+  if (!product) {
+    throw new httpErrors.NotFoundError('Product not found');
+  }
+  if (!product.stocked) {
+    throw new httpErrors.ConflictError('Product not in stock');
+  }
 
-    let quantity = Math.floor(Number(req.body.quantity) || 1);
-    const index = basket.find((item) => item.id === id);
-    if (!index)
-      basket.push({
-        id: id,
-        quantity: quantity,
-      });
-    else {
-      quantity = (basket[index].quantity || 0) + quantity;
-      basket[index].quantity = quantity;
-    }
-    res.status(201).json(basket);
-  },
-);
+  let quantity = Math.floor(Number(req.body.quantity) || 1);
+  const index = basket.find((item) => item.id === id);
+  if (!index) {
+    basket.push({
+      id: id,
+      quantity: quantity,
+    });
+  } else {
+    quantity = (basket[index].quantity || 0) + quantity;
+    basket[index].quantity = quantity;
+  }
+  res.status(201).json(basket);
+});
 
 // remove product from basket
 // DELETE /api/basket/xyz/product/46
@@ -90,44 +82,38 @@ router.delete('/api/basket/:key/product/:id', async (req, res) => {
 // {
 //    quantity: 10
 // }
-router.patch(
-  '/api/basket/:key/product/:id',
-  validate(addProductSchema),
-  async (req, res) => {
-    const id = Number(req.params.id);
-    let basket = await getOrCreateBasket(req.params.key);
-    const quantity = Math.floor(Number(req.body.quantity)) || 0;
-    let basketItemIndex;
-    const basketItem = basket.find((item, i) => {
-      if (item.id === id) {
-        basketItemIndex = i;
-        return item;
-      }
-    });
-    const product = await getProduct(id);
-    console.log(quantity, product);
-    if (!product) {
-      throw new httpErrors.NotFoundError('Product not found');
+router.patch('/api/basket/:key/product/:id', validate(addProductSchema), async (req, res) => {
+  const id = Number(req.params.id);
+  let basket = await getOrCreateBasket(req.params.key);
+  const quantity = Math.floor(Number(req.body.quantity)) || 0;
+  let basketItemIndex;
+  const basketItem = basket.find((item, i) => {
+    if (item.id === id) {
+      basketItemIndex = i;
+      return item;
     }
-    if (!product.stocked) {
-      throw new httpErrors.ConflictError('Product not in stock');
-    }
+  });
+  const product = await getProduct(id);
+  if (!product) {
+    throw new httpErrors.NotFoundError('Product not found');
+  }
+  if (!product.stocked) {
+    throw new httpErrors.ConflictError('Product not in stock');
+  }
 
-    if (basketItem && quantity) {
-      basket[basketItemIndex].quantity = quantity;
-    }
-    if (!basketItem && quantity)
-      basket.push({
-        id: id,
-        quantity: quantity,
-      });
-    if (quantity == 0) {
-      basket = basket.filter((item) => basketItem.id !== item.id);
-    }
-    console.log(basket);
-    return res.json(basket);
-  },
-);
+  if (basketItem && quantity) {
+    basket[basketItemIndex].quantity = quantity;
+  }
+  if (!basketItem && quantity)
+    basket.push({
+      id: id,
+      quantity: quantity,
+    });
+  if (quantity == 0) {
+    basket = basket.filter((item) => basketItem.id !== item.id);
+  }
+  return res.json(basket);
+});
 
 // delete basket
 // DELETE /api/basket/xyz

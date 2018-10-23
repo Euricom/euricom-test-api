@@ -4,11 +4,7 @@ const path = require('path');
 const request = require('supertest');
 const app = require('../src/express');
 
-const {
-  clearBasket,
-  seedBasket,
-  getOrCreateBasket,
-} = require('../src/data/basket');
+const { clearBasket, seedBasket, getOrCreateBasket } = require('../src/data/basket');
 
 const { seedProducts } = require('../src/data/products');
 

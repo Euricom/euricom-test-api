@@ -2,7 +2,11 @@
 
 Fake Online REST API for Testing and Prototyping
 Copyright (c) 2018 Euricom nv. Licensed under the [MIT license](https://opensource.org/licenses/MIT).
-v 0.3.2
+v 0.4.0
+
+## GraphQL
+
+Open [/graphql](/graphql) to view the graphQL playground
 
 ## System
 
@@ -103,6 +107,7 @@ GET [/api/basket/xyz](/api/basket/xyz)
 
 ```
 # Get the basket with key
+# If there are more the 5 items in the basket the request will throw an internal server error
 GET /api/basket/{yourKey}
 ```
 
