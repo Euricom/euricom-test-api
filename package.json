@@ -7,7 +7,8 @@
     "start:watch": "nodemon ./src/server.js",
     "test": "jest --watch --runInBand",
     "deploy": "now --public",
-    "format": "prettier --write '**/*.{js,json}'"
+    "format": "prettier --write '**/*.{js,json}'",
+    "sls": "handler.js"
   },
   "private": true,
   "dependencies": {
@@ -32,9 +33,13 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "supertest": "^3.3.0",
     "jest-watch-typeahead": "^0.2.0",
-    "prettier": "^1.5.3"
+    "prettier": "^1.5.3",
+    "serverless-offline": "^3.28.1",
+    "serverless-webpack": "^5.1.1",
+    "source-map-support": "^0.5.6",
+    "supertest": "^3.3.0",
+    "webpack": "^4.5.0"
   },
   "jest": {
     "verbose": false,
