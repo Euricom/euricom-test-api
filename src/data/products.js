@@ -23,7 +23,7 @@ module.exports = {
   getProduct(id) {
     return products.find((product) => product.id === id);
   },
-  deleteProduct(product) {
+  removeProduct(product) {
     products = products.filter((item) => product.id !== item.id);
     return products;
   },

@@ -60,12 +60,41 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handlers/productHandler.hello
+  getAllProducts:
+    handler: handlers/productHandler.getAll
     events:
         - http:
             method: get
-            path: hello
+            path: /products
+            cors: true
+  getProduct:
+    handler: handlers/productHandler.getById
+    events:
+        - http:
+            method: get
+            path: /products/{id}
+            cors: true
+  createProduct:
+    handler: handlers/productHandler.create
+    events:
+        - http:
+            method: post
+            path: /products
+            cors: true
+  updateProduct:
+    handler: handlers/productHandler.update
+    events:
+        - http:
+            method: put
+            path: /products/{id}
+            cors: true
+  deleteProduct:
+    handler: handlers/productHandler.delete
+    events:
+        - http:
+            method: delete
+            path: /products/{id}
+            cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
