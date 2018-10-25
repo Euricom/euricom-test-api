@@ -1,4 +1,4 @@
-const { getAllTasks, getTask, addTask, deleteTask } = require('../../data/tasks');
+const { getAllTasks, getTask, addTask, deleteTask } = require('../../repository/tasks');
 
 const taskResolvers = {
   Query: {

@@ -1,6 +1,6 @@
 const express = require('express');
 const asyncify = require('express-asyncify');
-const { getAllTasks, getTask, deleteTask, addTask } = require('../data/tasks');
+const { getAllTasks, getTask, deleteTask, addTask } = require('../../../repository/tasks');
 
 //
 // task routes

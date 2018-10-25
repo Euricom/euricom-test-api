@@ -1,6 +1,6 @@
-const { getOrCreateBasket, clearBasket } = require('../../data/basket');
+const { getOrCreateBasket, clearBasket } = require('../../repository/basket');
 const { UserInputError } = require('apollo-server-express');
-const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('../../data/products');
+const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('../../repository/products');
 
 const basketResolvers = {
   Query: {

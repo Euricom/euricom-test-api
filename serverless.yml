@@ -60,36 +60,36 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  getAllProducts:
-    handler: handlers/productHandler.getAll
+  getProducts:
+    handler: src/api/serverless/handlers/productHandler.getAll
     events:
         - http:
             method: get
             path: /products
             cors: true
   getProduct:
-    handler: handlers/productHandler.getById
+    handler: src/api/serverless/handlers/productHandler.getById
     events:
         - http:
             method: get
             path: /products/{id}
             cors: true
   createProduct:
-    handler: handlers/productHandler.create
+    handler: src/api/serverless/handlers/productHandler.create
     events:
         - http:
             method: post
             path: /products
             cors: true
   updateProduct:
-    handler: handlers/productHandler.update
+    handler: src/api/serverless/handlers/productHandler.update
     events:
         - http:
             method: put
             path: /products/{id}
             cors: true
   deleteProduct:
-    handler: handlers/productHandler.delete
+    handler: src/api/serverless/handlers/productHandler.delete
     events:
         - http:
             method: delete

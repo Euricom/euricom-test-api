@@ -7,20 +7,12 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const asyncify = require('express-asyncify');
 
-const userRoutes = require('./api/userRoutes');
-const taskRoutes = require('./api/taskRoutes');
-const productRoutes = require('./api/productRoutes');
-const basketRoutes = require('./api/basketRoutes');
+const userRoutes = require('./api/express/routes/userRoutes');
+const taskRoutes = require('./api/express/routes/taskRoutes');
+const productRoutes = require('./api/express/routes/productRoutes');
+const basketRoutes = require('./api/express/routes/basketRoutes');
 
-const { getAllProducts, getProduct, deleteProduct, addProduct } = require('./data/products');
-
-const errorHandler = require('./api/middleware/errorHandler');
-
-const { getAllUsers, getUser, deleteUser, addUser } = require('./data/users');
-
-const { getAllTasks, getTask, deleteTask, addTask } = require('./data/tasks');
-
-const { getOrCreateBasket, clearBasket } = require('./data/basket');
+const errorHandler = require('./api/express/middleware/errorHandler');
 
 const { ApolloServer, UserInputError } = require('apollo-server-express');
 const schema = require('./graphql/schema');

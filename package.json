@@ -15,6 +15,7 @@
     "apollo-server": "^2.1.0",
     "apollo-server-express": "^2.1.0",
     "asyncawait": "^1.0.7",
+    "aws-sdk": "^2.342.0",
     "body-parser": "^1.17.1",
     "cors": "^2.8.4",
     "expect-more-jest": "^2.3.0",
@@ -26,13 +27,12 @@
     "intl": "^1.2.5",
     "jest": "^23.6.0",
     "joi": "^14.0.1",
+    "middy": "^0.19.1",
     "morgan": "^1.8.1",
     "nodemon": "^1.17.5",
     "schema-inspector": "^1.6.8",
     "showdown": "^1.8.6",
-    "sort-on": "^2.0.0",
-    "underscore": "^1.8.3",
-    "validator": "^10.8.0"
+    "sort-on": "^2.0.0"
   },
   "devDependencies": {
     "jest-watch-typeahead": "^0.2.0",

@@ -1,9 +1,9 @@
 const express = require('./express');
 
-const { seedProducts } = require('./data/products');
-const { seedUsers } = require('./data/users');
+const { seedProducts } = require('./repository/products');
+const { seedUsers } = require('./repository/users');
 
-const { seedTasks } = require('./data/tasks');
+const { seedTasks } = require('./repository/tasks');
 
 function generateSeedData() {
   seedProducts();

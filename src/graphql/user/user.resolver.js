@@ -1,7 +1,7 @@
 const arrayToConnection = require('../arrayToConnection');
 const sortOn = require('sort-on');
 
-const { getAllUsers, getUser, deleteUser } = require('../../data/users');
+const { getAllUsers, getUser, deleteUser } = require('../../repository/users');
 
 const userResolver = {
   Query: {

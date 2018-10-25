@@ -1,10 +1,10 @@
 const express = require('express');
 const asyncify = require('express-asyncify');
 
-const { getAllProducts, getProduct, deleteProduct, addProduct } = require('../data/products');
-const { getOrCreateBasket, clearBasket } = require('../data/basket');
-const validate = require('./middleware/validator');
-const httpErrors = require('../httpErrors');
+const { getAllProducts, getProduct, deleteProduct, addProduct } = require('../../../repository/products');
+const { getOrCreateBasket, clearBasket } = require('../../../repository/basket');
+const validate = require('../middleware/validator');
+const httpErrors = require('../../../httpErrors');
 
 const router = asyncify(express.Router());
 

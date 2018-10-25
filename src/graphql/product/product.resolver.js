@@ -1,4 +1,4 @@
-const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('../../data/products');
+const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('../../repository/products');
 const sortOn = require('sort-on');
 const arrayToConnection = require('../arrayToConnection');
 
@@ -8,11 +8,12 @@ const productResolvers = {
       return getProduct(args.id);
     },
     allProducts: (root, args) => {
-      const products = getAllProducts();
-      let sortedProducts = products;
-      if (args.orderBy) {
-        sortedProducts = sortOn(sortedProducts, args.orderBy);
-      }
+      // const products = getAllProducts();
+      // let sortedProducts = products;
+      // if (args.orderBy) {
+      //   sortedProducts = sortOn(sortedProducts, args.orderBy);
+      // }
+      const products = getAllProducts(0, 100, args.orderBy);
       return {
         ...arrayToConnection(sortedProducts, args),
         product: sortedProducts,

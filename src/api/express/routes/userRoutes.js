@@ -1,7 +1,6 @@
 const express = require('express');
 const asyncify = require('express-asyncify');
-const { getAllUsers, getUser, deleteUser, addUser } = require('../data/users');
-const _ = require('underscore');
+const { getAllUsers, getUser, deleteUser, addUser } = require('../../../repository/users');
 
 //
 // user routes
