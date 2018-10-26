@@ -6,23 +6,13 @@ const repository = require('../../../repository/products');
 const mapper = require('../../mappers/productToResource');
 const httpErrors = require('../../../httpErrors');
 const httpErrorHandler = require('../middleware/errorHandler');
-const productSchema = require('../schemas/product');
+const productSchema = require('../../schemas/product');
 const validator = require('../middleware/validator');
 
-const Joi = require('joi');
 const middy = require('middy');
 const { cors, jsonBodyParser } = require('middy/middlewares');
 
 repository.seedProducts();
-
-const requestValidation = async (event) => {
-  const errors = [];
-  const validation = Joi.validate(event.body, productSchema, { abortEarly: false });
-  if (validation.error) {
-    validation.error.details.map((item) => errors.push(item.message.replace(/['"]+/g, '')));
-  }
-  return errors.length > 0 ? errors : null;
-};
 
 module.exports.getAll = middy(async (event, context) => {
   const page = event.queryStringParameters ? Number(event.queryStringParameters.page) : 0;
@@ -54,12 +44,9 @@ module.exports.getById = middy(async (event, context) => {
   return createResponse(200, resource);
 })
   .use(cors())
-  .use(validator(productSchema))
   .use(httpErrorHandler());
 
 module.exports.create = middy(async (event, context) => {
-  event.body = JSON.parse(event.body);
-
   const product = await createProductCommand.execute(event.body);
   const resource = mapper.map(product);
 
@@ -72,7 +59,6 @@ module.exports.create = middy(async (event, context) => {
 
 module.exports.update = middy(async (event, context) => {
   const id = Number(event.pathParameters.id);
-  event.body = JSON.parse(event.body);
 
   const oldProduct = await repository.getProduct(id);
 
@@ -86,6 +72,8 @@ module.exports.update = middy(async (event, context) => {
   return createResponse(200, resource);
 })
   .use(cors())
+  .use(jsonBodyParser())
+  .use(validator(productSchema))
   .use(httpErrorHandler());
 
 module.exports.delete = middy(async (event, context) => {

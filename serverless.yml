@@ -95,6 +95,48 @@ functions:
             method: delete
             path: /products/{id}
             cors: true
+  getBasket:
+    handler: src/api/serverless/handlers/basketHandler.get
+    events:
+      - http:
+          method: get
+          path: /basket/{checkoutID}
+          cors: true
+  addProductToBasket:
+    handler: src/api/serverless/handlers/basketHandler.addProduct
+    events:
+      - http:
+          method: post
+          path: /basket/{checkoutID}/product/{productId}
+          cors: true
+  deleteProductFromBasket:
+      handler: src/api/serverless/handlers/basketHandler.deleteProduct
+      events:
+        - http:
+            method: delete
+            path: /basket/{checkoutID}/product/{productId}
+            cors: true
+  updateProductInBasket:
+    handler: src/api/serverless/handlers/basketHandler.updateProduct
+    events:
+      - http:
+          method: patch
+          path: /basket/{checkoutID}/product/{productId}
+          cors: true
+  clearBasket:
+    handler: src/api/serverless/handlers/basketHandler.clear
+    events:
+      - http:
+          method: delete
+          path: /basket/{checkoutID}
+          cors: true
+  resetBasket:
+    handler: src/api/serverless/handlers/basketHandler.reset
+    events:
+      - http:
+          method: delete
+          path: /basket/{checkoutID}/reset
+          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

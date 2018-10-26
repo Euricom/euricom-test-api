@@ -1,6 +1,6 @@
 const helpers = require('./helpers/helpers');
 
-const tasksData = require('../src/data/tasks');
+const tasksData = require('../src/repository/tasks');
 
 describe('GraphQL Tasks', () => {
   beforeEach(() => {

@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('supertest');
 const app = require('../src/express');
 
-const { getAllTasks, getTask, clearTasks, seedTasks } = require('../src/data/tasks');
+const { getAllTasks, getTask, clearTasks, seedTasks } = require('../src/repository/tasks');
 
 describe('Task Routes', () => {
   beforeEach(() => {

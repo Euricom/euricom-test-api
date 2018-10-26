@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('supertest');
 const app = require('../src/express');
 
-const { seedProducts, clearProducts, getProduct, getAllProducts } = require('../src/data/products');
+const { seedProducts, clearProducts, getProduct, getAllProducts } = require('../src/repository/products');
 
 describe('Product Routes', () => {
   beforeEach(() => {
@@ -58,7 +58,7 @@ describe('Product Routes', () => {
     const response = await request(app.app)
       .post('/api/products')
       .send(product)
-      .expect(200);
+      .expect(201);
 
     const products = getAllProducts();
 
@@ -155,12 +155,12 @@ describe('Product Routes', () => {
     expect(newProduct).toEqual(undefined);
   });
 
-  it('should return a 204 when the product id on delete is faulty', async () => {
+  it('should return a 404 when the product id on delete is faulty', async () => {
     seedProducts(1);
     const products = getAllProducts();
 
     const response = await request(app.app)
       .delete(`/api/products/${products.length + 1}`)
-      .expect(204);
+      .expect(404);
   });
 });

@@ -23,7 +23,6 @@ module.exports = {
     return products.length;
   },
   getAllProducts(page = 0, pageSize = 20, sortExpression = '') {
-    console.log(products);
     let selectedProducts = products;
     if (sortExpression) {
       selectedProducts = sortOn(selectedProducts, sortExpression);

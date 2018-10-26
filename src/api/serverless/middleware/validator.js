@@ -3,9 +3,7 @@ const { BadRequestError } = require('../../../httpErrors');
 
 module.exports = (schema) => ({
   before: (handler, next) => {
-    console.log(handler.event);
     const result = inspector.validate(schema, handler.event.body);
-    console.log(result.error);
 
     if (!result.valid) {
       const errorArray = [];

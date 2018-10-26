@@ -1,6 +1,6 @@
 const helpers = require('./helpers/helpers');
 
-const userData = require('../src/data/users');
+const userData = require('../src/repository/users');
 
 describe('GraphQL User', () => {
   beforeEach(() => {

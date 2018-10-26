@@ -1,6 +1,6 @@
 const express = require('express');
 const asyncify = require('express-asyncify');
-const { getAllUsers, getUser, deleteUser, addUser } = require('../../../repository/users');
+const { getAllUsers, getUser, deleteUser, addUser, getUsersCount } = require('../../../repository/users');
 
 //
 // user routes
@@ -16,15 +16,15 @@ router.get('/api/users', async (req, res) => {
   // console.log('page:', page);
   // console.log('pageSize:', pageSize);
 
-  const users = await getAllUsers();
-  const userSet = _.chain(users)
-    .rest(page * pageSize)
-    .first(pageSize)
-    .value();
+  const users = await getAllUsers(page, pageSize);
+  const total = await getUsersCount();
+
   // return all resource
-  res.json({
-    total: userSet.length,
-    users: userSet,
+  return res.json({
+    total,
+    page,
+    pageSize,
+    users: users,
   });
 });
 

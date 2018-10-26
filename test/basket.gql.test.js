@@ -1,7 +1,7 @@
 const helpers = require('./helpers/helpers');
 
-const basketData = require('../src/data/basket');
-const productData = require('../src/data/products');
+const basketData = require('../src/repository/basket');
+const productData = require('../src/repository/products');
 
 describe('GraphQL Basket', () => {
   const basketKey = 'basketKey';

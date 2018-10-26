@@ -45,8 +45,15 @@ module.exports = {
   seedUsers(numberOfUsers) {
     users = generateUsers(numberOfUsers);
   },
-  getAllUsers() {
-    return users;
+  getUsersCount() {
+    return users.length;
+  },
+  getAllUsers(page = 0, pageSize = 20) {
+    let selectedUsers = users;
+
+    selectedUsers = selectedUsers.slice(page * pageSize, page * pageSize + pageSize);
+
+    return selectedUsers;
   },
   getUser(id) {
     return users.find((user) => user.id === id);

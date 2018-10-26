@@ -1,5 +1,5 @@
 const helpers = require('./helpers/helpers');
-const productData = require('../src/data/products');
+const productData = require('../src/repository/products');
 
 describe('GraphQL Products', () => {
   let apple;
@@ -61,7 +61,6 @@ describe('GraphQL Products', () => {
 
     // act
     const data = await helpers.executeQuery(query, { id: 1 }, 200);
-    // console.log(data);
 
     // assert
     expect(data.data.product.id).toBe(1);

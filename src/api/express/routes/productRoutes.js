@@ -30,7 +30,7 @@ router.get('/api/products', async (req, res) => {
     total,
     page,
     pageSize,
-    seletedProducts: products.map((item) => mapper.map(products)),
+    selectedProducts: products.map((item) => mapper.map(products)),
   };
 
   return res.json(resource);

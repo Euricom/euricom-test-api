@@ -1,6 +1,7 @@
 module.exports = () => ({
   onError: (handler, next) => {
     if (handler.error instanceof Error) {
+      console.log(handler.error)
       handler.response = {
         statusCode: handler.error.statusCode,
         body: JSON.stringify({
