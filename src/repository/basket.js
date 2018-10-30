@@ -1,9 +1,15 @@
+const db = require('../dbConnection');
+
 let baskets = [];
 
-const getOrCreateBasket = (checkoutID) => {
-  let basket = baskets[checkoutID];
-  if (!baskets[checkoutID]) {
-    baskets[checkoutID] = [];
+const getOrCreateBasket = async (checkoutID) => {
+  // let basket = baskets[checkoutID];
+  // if (!baskets[checkoutID]) {
+  //   baskets[checkoutID] = [];
+  //   return seedBasket(checkoutID);
+  // }
+  let basket = await db.collection('baskets').findOne({ checkoutID: checkoutID });
+  if (!basket) {
     return seedBasket(checkoutID);
   }
   return basket;
@@ -38,18 +44,24 @@ const removeProductFromBasket = (checkoutID, productId) => {
     : baskets[checkoutID];
 };
 
-const seedBasket = (checkoutID) => {
-  baskets[checkoutID].push({
-    id: 1,
-    productId: 1,
-    quantity: 1,
-  });
-  baskets[checkoutID].push({
-    id: 2,
-    productId: 2,
-    quantity: 4,
-  });
-  return baskets[checkoutID];
+const seedBasket = async (checkoutID) => {
+  let basket = {
+    checkoutID: checkoutID,
+    items: [
+      {
+        id: 1,
+        productId: 1,
+        quantity: 1,
+      },
+      {
+        id: 2,
+        productId: 2,
+        quantity: 4,
+      },
+    ],
+  };
+
+  return await db.collection('baskets').insertOne(basket);
 };
 
 module.exports = {

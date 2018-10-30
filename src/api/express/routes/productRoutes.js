@@ -30,7 +30,7 @@ router.get('/api/products', async (req, res) => {
     total,
     page,
     pageSize,
-    selectedProducts: products.map((item) => mapper.map(products)),
+    selectedProducts: products.map((item) => mapper.map(item)),
   };
 
   return res.json(resource);
@@ -82,7 +82,7 @@ router.put('/api/products/:id', validate(productSchema), async (req, res) => {
     throw new httpErrors.NotFoundError('Product not found');
   }
   const newProduct = await updateProductCommand.execute(req.body, Number(req.params.id));
-  const resource = mapper.map(newProduct);
+  const resource = mapper.map(newProduct.value);
   return res.status(200).json(resource);
 });
 

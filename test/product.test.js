@@ -1,18 +1,22 @@
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 
 const request = require('supertest');
 const app = require('../src/express');
+const db = require('../src/dbConnection');
 
 const { seedProducts, clearProducts, getProduct, getAllProducts } = require('../src/repository/products');
 
 describe('Product Routes', () => {
-  beforeEach(() => {
-    clearProducts();
+  beforeEach(async () => {
+    await db.connectToDb();
+    // await clearProducts();
+    await db.dropDb();
   });
 
   it('fetches products', async () => {
-    seedProducts(3);
+    await seedProducts(3);
 
     const response = await request(app.app)
       .get('/api/products')
@@ -23,19 +27,19 @@ describe('Product Routes', () => {
   });
 
   it('fetches a product', async () => {
-    seedProducts(1);
-    const newProduct = getProduct(1);
+    await seedProducts(1);
+    const newProduct = await getProduct(1);
 
     const response = await request(app.app)
-      .get(`/api/products/${newProduct.id}`)
+      .get(`/api/products/${newProduct._id}`)
       .expect(200);
 
     expect(response.body).not.toBe(null);
-    expect(response.body.id).toBe(newProduct.id);
+    expect(response.body.id).toBe(newProduct._id);
   });
 
   it('throws a 404 on wrong product ID', async () => {
-    seedProducts(1);
+    await seedProducts(1);
 
     const response = await request(app.app)
       .get('/api/products/2')
@@ -60,7 +64,7 @@ describe('Product Routes', () => {
       .send(product)
       .expect(201);
 
-    const products = getAllProducts();
+    const products = await getAllProducts();
 
     expect(products.length).toBe(1);
     expect(response.body).toHaveProperty('id');
@@ -90,8 +94,8 @@ describe('Product Routes', () => {
   });
 
   it('saves a product', async () => {
-    seedProducts(1);
-    const oldProduct = getProduct(1);
+    await seedProducts(1);
+    const oldProduct = await getProduct(1);
 
     //changing title and price
     const newProduct = {
@@ -105,19 +109,19 @@ describe('Product Routes', () => {
     };
 
     const response = await request(app.app)
-      .put(`/api/products/${oldProduct.id}`)
+      .put(`/api/products/${oldProduct._id}`)
       .send(newProduct)
       .expect(200);
 
-    expect(response.body.id).toEqual(oldProduct.id);
+    expect(response.body.id).toEqual(oldProduct._id);
     expect(response.body.sku).toEqual(oldProduct.sku);
     expect(response.body.title).toEqual(newProduct.title);
     expect(response.body.price).toEqual(newProduct.price);
   });
 
   it('should throw validation errors on update', async () => {
-    seedProducts(1);
-    const oldProduct = getProduct(1);
+    await seedProducts(1);
+    const oldProduct = await getProduct(1);
 
     //changing title and price
     const newProduct = {
@@ -131,7 +135,7 @@ describe('Product Routes', () => {
     };
 
     const response = await request(app.app)
-      .put(`/api/products/${oldProduct.id}`)
+      .put(`/api/products/${oldProduct._id}`)
       .send(newProduct)
       .expect(400);
 
@@ -141,23 +145,23 @@ describe('Product Routes', () => {
   });
 
   it('deletes a product', async () => {
-    seedProducts(1);
-    const oldProduct = getProduct(1);
+    await seedProducts(1);
+    const oldProduct = await getProduct(1);
 
     const response = await request(app.app)
-      .delete(`/api/products/${oldProduct.id}`)
+      .delete(`/api/products/${oldProduct._id}`)
       .expect(200);
 
-    const newProduct = getProduct(1);
+    const newProduct = await getProduct(1);
 
     // we expect back the product we just deleted
-    expect(response.body.id).toEqual(oldProduct.id);
-    expect(newProduct).toEqual(undefined);
+    expect(response.body.id).toEqual(oldProduct._id);
+    expect(newProduct).toEqual(null);
   });
 
   it('should return a 404 when the product id on delete is faulty', async () => {
-    seedProducts(1);
-    const products = getAllProducts();
+    await seedProducts(1);
+    const products = await getAllProducts();
 
     const response = await request(app.app)
       .delete(`/api/products/${products.length + 1}`)

@@ -26,7 +26,7 @@ router.get('/api/basket/:key', async (req, res) => {
   if (basket.length > 5) {
     throw new httpErrors.InternalServerError();
   }
-  const resource = mapper.map(basket);
+  const resource = mapper.map(basket.items);
   return res.json(resource);
 });
 
