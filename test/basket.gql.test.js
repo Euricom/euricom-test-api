@@ -1,24 +1,28 @@
 const helpers = require('./helpers/helpers');
+const db = require('../src/dbConnection');
 
 const basketData = require('../src/repository/basket');
 const productData = require('../src/repository/products');
 
+const basketKey = '123';
+
 describe('GraphQL Basket', () => {
-  const basketKey = 'basketKey';
-  let basket;
   let apple;
   let orange;
   let pear;
-  let melon;
-  beforeEach(() => {
-    apple = { id: 1, title: 'apple', productId: 1 };
-    orange = { id: 2, title: 'orange', productId: 2 };
-    pear = { id: 3, title: 'pear', productId: 3, stocked: true };
-    melon = { id: 5, title: 'pear', productId: 5, stocked: false };
-    productData.clearProducts();
-    productData.addProducts([apple, orange, pear, melon]);
-    basketData.clearBasket(basketKey, true);
-    basketData.getOrCreateBasket(basketKey);
+  let lemon;
+  beforeEach(async () => {
+    // standard basket:
+    // [ { id: 1, productId: 1, quantity: 1 },
+    // { id: 2, productId: 2, quantity: 4 } ]
+    await db.connectToDb();
+    await db.dropDb();
+    apple = { _id: 1, title: 'apple', stocked: false };
+    orange = { _id: 2, title: 'orange', stocked: true };
+    pear = { _id: 3, title: 'pear', stocked: true };
+    lemon = { _id: 4, title: 'lemon', stocked: false };
+    await productData.addProducts([apple, orange, pear, lemon]);
+    await basketData.clearBasket(basketKey, true);
   });
 
   test('query basket', async () => {
@@ -105,7 +109,7 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 4 } }, 200);
+    const data = await helpers.executeMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 5 } }, 200);
 
     expect(data.data.addItemToBasket).toBe(null);
     expect(data.errors[0].extensions.exception.errors[0].message).toBe('Product not found');
@@ -135,7 +139,7 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 5 } }, 200);
+    const data = await helpers.executeMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 4 } }, 200);
 
     expect(data.data.addItemToBasket).toBe(null);
     expect(data.errors[0].extensions.exception.errors[0].message).toBe('Product not in stock');

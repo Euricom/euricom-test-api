@@ -1,36 +1,39 @@
-const { getOrCreateBasket, clearBasket } = require('../../repository/basket');
 const { UserInputError } = require('apollo-server-express');
-const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('../../repository/products');
+const { getOrCreateBasket, clearBasket } = require('../../repository/basket');
+const { getProduct } = require('../../repository/products');
+const mapper = require('../../api/mappers/basketToResource');
+const updateProductInBasketCommand = require('../../domain/commands/basket/updateProductInBasketCommand');
 
 const basketResolvers = {
   Query: {
-    basket: (root, { checkoutID }) => {
-      let basket = getOrCreateBasket(checkoutID);
-      // verify we still have a product for the items
-      basket = basket.filter((item) => {
+    basket: async (root, { checkoutID }) => {
+      let basket = await getOrCreateBasket(checkoutID);
+      basket = basket.items.filter((item) => {
         const product = getProduct(item.productId);
         return !!product;
       });
+      const resource = mapper.map(basket);
       return {
         checkoutID,
-        items: basket,
+        items: resource,
       };
     },
   },
   BasketItem: {
-    product: (item) => {
-      const product = getProduct(item.productId);
+    product: async (item) => {
+      const product = await getProduct(item.productId);
+      product.id = product._id;
+      delete product._id;
       return product;
     },
   },
   Mutation: {
-    addItemToBasket: (root, args) => {
-      const productId = args.input.item.productId;
-      let quantity = args.input.item.quantity;
-      const basket = getOrCreateBasket(args.input.checkoutID);
-      const product = getProduct(productId);
+    addItemToBasket: async (root, args) => {
+      const { productId } = args.input.item;
+      const { quantity } = args.input.item;
+      const product = await getProduct(productId);
 
-      let errors = [];
+      const errors = [];
       if (!product) {
         errors.push({
           key: 'id',
@@ -46,37 +49,32 @@ const basketResolvers = {
       }
 
       if (errors.length) {
-        throw new UserInputError('One or more validation failed.', {
+        throw new UserInputError('One or more validation(s) failed.', {
           errors,
         });
       }
-      let basketItem = basket.find((item) => item.productId === productId);
-      if (!basketItem) {
-        basketItem = {
-          id: basket.reduce((acc, item) => Math.max(acc, item.id), 0) + 1,
-          productId,
-          quantity: 0,
-        };
-        basket.push(basketItem);
+      const basket = await updateProductInBasketCommand.execute(args.input.checkoutID, productId, quantity, true);
+
+      if (!basket) {
+        throw new UserInputError('No basket found');
       }
-      basketItem.quantity = basketItem.quantity + quantity;
+      const resource = mapper.map(basket);
       return {
         basket: {
           checkoutID: args.input.checkoutID,
-          items: basket,
+          items: resource,
         },
       };
     },
 
-    removeItemFromBasket: (root, args) => {
+    removeItemFromBasket: async (root, args) => {
       const productId = Number(args.input.productId);
-      let basket = getOrCreateBasket(args.input.checkoutID);
-      const index = basket.find((item) => item.id === productId);
+      let basket = await getOrCreateBasket(args.input.checkoutID);
+      const index = basket.items.find((item) => item.id === productId);
       if (!index) {
         throw new UserInputError('Product not found');
       }
-      // console.log(index, basket.filter((item) => item.id !== index.id));
-      basket = basket.filter((item) => item.id !== index.id);
+      basket = basket.items.filter((item) => item.id !== index.id);
       const newBasket = {
         checkoutID: args.input.checkoutID,
         items: basket,
@@ -86,14 +84,12 @@ const basketResolvers = {
       };
     },
 
-    clearBasket: (root, { checkoutID }) => {
-      return {
-        basket: {
-          checkoutID,
-          items: clearBasket(checkoutID),
-        },
-      };
-    },
+    clearBasket: async (root, { checkoutID }) => ({
+      basket: {
+        checkoutID,
+        items: await clearBasket(checkoutID),
+      },
+    }),
   },
 };
 

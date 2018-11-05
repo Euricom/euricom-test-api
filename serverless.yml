@@ -20,6 +20,7 @@ service: Euricom-Test-Api # NOTE: update this with your service name
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
@@ -60,83 +61,19 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  getProducts:
-    handler: src/api/serverless/handlers/productHandler.getAll
-    events:
-        - http:
-            method: get
-            path: /products
-            cors: true
-  getProduct:
-    handler: src/api/serverless/handlers/productHandler.getById
-    events:
-        - http:
-            method: get
-            path: /products/{id}
-            cors: true
-  createProduct:
-    handler: src/api/serverless/handlers/productHandler.create
-    events:
-        - http:
-            method: post
-            path: /products
-            cors: true
-  updateProduct:
-    handler: src/api/serverless/handlers/productHandler.update
-    events:
-        - http:
-            method: put
-            path: /products/{id}
-            cors: true
-  deleteProduct:
-    handler: src/api/serverless/handlers/productHandler.delete
-    events:
-        - http:
-            method: delete
-            path: /products/{id}
-            cors: true
-  getBasket:
-    handler: src/api/serverless/handlers/basketHandler.get
+  seed:
+    handler: src/api/serverless/handlers/seedHandler.handler
+    timeout: 30
+  products:
+    handler: src/api/serverless/handlers/productHandler.handler
+    timeout: 30
     events:
       - http:
-          method: get
-          path: /basket/{checkoutID}
+          path: '/{proxy+}'
+          method: any
           cors: true
-  addProductToBasket:
-    handler: src/api/serverless/handlers/basketHandler.addProduct
-    events:
-      - http:
-          method: post
-          path: /basket/{checkoutID}/product/{productId}
-          cors: true
-  deleteProductFromBasket:
-      handler: src/api/serverless/handlers/basketHandler.deleteProduct
-      events:
-        - http:
-            method: delete
-            path: /basket/{checkoutID}/product/{productId}
-            cors: true
-  updateProductInBasket:
-    handler: src/api/serverless/handlers/basketHandler.updateProduct
-    events:
-      - http:
-          method: patch
-          path: /basket/{checkoutID}/product/{productId}
-          cors: true
-  clearBasket:
-    handler: src/api/serverless/handlers/basketHandler.clear
-    events:
-      - http:
-          method: delete
-          path: /basket/{checkoutID}
-          cors: true
-  resetBasket:
-    handler: src/api/serverless/handlers/basketHandler.reset
-    events:
-      - http:
-          method: delete
-          path: /basket/{checkoutID}/reset
-          cors: true
+
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

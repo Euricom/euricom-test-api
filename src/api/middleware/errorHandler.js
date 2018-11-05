@@ -7,7 +7,6 @@ function errorHandler(err, req, res, next) {
 
   // special case for 500 (internal server error)
   if (statusCode === httpStatus.INTERNAL_SERVER_ERROR) {
-    console.error(err);
     payload = {
       code: httpStatus.getStatusText(httpStatus.INTERNAL_SERVER_ERROR),
       message: 'Oops! something went wrong!',
@@ -19,8 +18,8 @@ function errorHandler(err, req, res, next) {
   }
 
   // return http error code with json response
-  res.status(statusCode);
-  res.json(payload);
+  res.status(statusCode).json(payload);
+  next();
 }
 
 module.exports = errorHandler;

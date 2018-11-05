@@ -2,9 +2,6 @@ require('dotenv').config();
 const express = require('./express');
 
 const productRepository = require('./repository/products');
-const { seedUsers } = require('./repository/users');
-
-const { seedTasks } = require('./repository/tasks');
 const db = require('./dbConnection');
 
 const generateSeedData = () => {

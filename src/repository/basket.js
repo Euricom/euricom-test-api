@@ -1,52 +1,10 @@
 const db = require('../dbConnection');
 
-let baskets = [];
+const baskets = [];
 
-const getOrCreateBasket = async (checkoutID) => {
-  // let basket = baskets[checkoutID];
-  // if (!baskets[checkoutID]) {
-  //   baskets[checkoutID] = [];
-  //   return seedBasket(checkoutID);
-  // }
-  let basket = await db.collection('baskets').findOne({ checkoutID: checkoutID });
-  if (!basket) {
-    return seedBasket(checkoutID);
-  }
-  return basket;
-};
-
-const updateProductInBasket = (checkoutID, productId, quantity, isCreating) => {
-  if (baskets[checkoutID]) {
-    const product = baskets[checkoutID].find((product) => product.productId === productId);
-    changeProductQuantity(checkoutID, product, productId, quantity, isCreating);
-    return baskets[checkoutID];
-  }
-  return;
-};
-
-const changeProductQuantity = (checkoutID, product, productId, quantity, isCreating) => {
-  const basketMaxId = baskets[checkoutID].reduce((acc, item) => Math.max(acc, item.id), 0);
-  if (!product) {
-    baskets[checkoutID].push({
-      id: basketMaxId + 1,
-      quantity: quantity,
-      productId: productId,
-    });
-  } else {
-    isCreating ? (quantity = (baskets[checkoutID][product.id - 1].quantity || 0) + quantity) : null;
-    baskets[checkoutID][product.id - 1].quantity = quantity;
-  }
-};
-
-const removeProductFromBasket = (checkoutID, productId) => {
-  return baskets[checkoutID]
-    ? (baskets[checkoutID] = baskets[checkoutID].filter((product) => product.id !== productId))
-    : baskets[checkoutID];
-};
-
-const seedBasket = async (checkoutID) => {
-  let basket = {
-    checkoutID: checkoutID,
+const seedBasket = (checkoutID) => {
+  const basket = {
+    checkoutID,
     items: [
       {
         id: 1,
@@ -61,8 +19,42 @@ const seedBasket = async (checkoutID) => {
     ],
   };
 
-  return await db.collection('baskets').insertOne(basket);
+  return db.collection('baskets').insertOne(basket);
 };
+
+const getOrCreateBasket = async (checkoutID) => {
+  const basket = await db.collection('baskets').findOne({ checkoutID });
+  if (!basket) {
+    return seedBasket(checkoutID);
+  }
+  return basket;
+};
+
+const changeProductQuantity = (checkoutID, product, productId, quantity, isCreating) => {
+  const basketMaxId = baskets[checkoutID].reduce((acc, item) => Math.max(acc, item.id), 0);
+  if (!product) {
+    baskets[checkoutID].push({
+      id: basketMaxId + 1,
+      quantity,
+      productId,
+    });
+  } else {
+    isCreating ? (quantity = (baskets[checkoutID][product.id - 1].quantity || 0) + quantity) : null; //eslint-disable-line
+    baskets[checkoutID][product.id - 1].quantity = quantity;
+  }
+};
+
+const updateProductInBasket = (checkoutID, productId, quantity, isCreating) => {
+  if (baskets[checkoutID]) {
+    const product = baskets[checkoutID].find((item) => item.productId === productId);
+    changeProductQuantity(checkoutID, product, productId, quantity, isCreating);
+    return baskets[checkoutID];
+  }
+};
+
+const removeProductFromBasket = (checkoutID, productId) => baskets[checkoutID]
+    ? (baskets[checkoutID] = baskets[checkoutID].filter((product) => product.id !== productId))
+    : baskets[checkoutID];
 
 module.exports = {
   removeProductFromBasket,

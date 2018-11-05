@@ -17,7 +17,7 @@ class HttpError extends Error {
 
 class InternalServerError extends HttpError {
   constructor(message = 'Oops, something went wrong on the server') {
-    super(httpStatus.InternalServerError);
+    super(httpStatus.InternalServerError, message);
   }
 }
 

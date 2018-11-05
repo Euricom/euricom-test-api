@@ -67,7 +67,7 @@ router.delete('/api/tasks/:id', async (req, res) => {
     return res.status(204).json();
   }
 
-  tasks = await deleteTask(task);
+  await deleteTask(task);
   return res.status(200).json(task);
 });
 

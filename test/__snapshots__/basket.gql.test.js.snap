@@ -3,7 +3,7 @@
 exports[`GraphQL Basket query basket 1`] = `
 Object {
   "basket": Object {
-    "checkoutID": "basketKey",
+    "checkoutID": "123",
     "items": Array [
       Object {
         "product": Object {
@@ -26,7 +26,7 @@ Object {
           "image": null,
           "price": null,
           "sku": null,
-          "stocked": false,
+          "stocked": true,
           "title": "orange",
         },
         "quantity": 4,

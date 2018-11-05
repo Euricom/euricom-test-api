@@ -1,5 +1,5 @@
 const inspector = require('schema-inspector');
-const { BadRequestError } = require('../../../httpErrors');
+const { BadRequestError } = require('../../httpErrors');
 
 const validate = (validationSchema) => (req, res, next) => {
   const result = inspector.validate(validationSchema, req.body);
@@ -19,7 +19,7 @@ const validate = (validationSchema) => (req, res, next) => {
     throw new BadRequestError(errorArray);
   }
 
-  next();
+  return next();
 };
 
 module.exports = validate;

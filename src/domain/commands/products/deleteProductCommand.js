@@ -1,7 +1,5 @@
 const { removeProduct } = require('../../../repository/products');
 
-const execute = async (productId) => {
-  return await removeProduct(productId);
-};
+const execute = (productId) => removeProduct(productId);
 
 module.exports = { execute };

@@ -2,9 +2,7 @@ const { getAllTasks, getTask, addTask, deleteTask } = require('../../repository/
 
 const taskResolvers = {
   Query: {
-    task: (root, args) => {
-      return getTask(args.id);
-    },
+    task: (root, args) => getTask(args.id),
     tasks: () => {
       const tasks = getAllTasks();
       return tasks;
@@ -44,7 +42,7 @@ const taskResolvers = {
           task: null,
         };
       }
-      tasks = deleteTask(task);
+      deleteTask(task);
       return {
         task,
       };

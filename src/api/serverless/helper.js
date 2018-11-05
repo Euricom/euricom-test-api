@@ -1,11 +1,23 @@
-const createResponse = (status, body) => {
-  return {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    statusCode: status,
-    body: JSON.stringify(body),
+/* eslint-disable no-param-reassign */
+const db = require('./../../dbConnection');
+
+const withParse = (handler) => async (event, context) => {
+  const response = await handler(event, context);
+  const parsedResponse = {
+    ...response,
+    body: JSON.parse(response.body),
   };
+  return parsedResponse;
 };
 
-module.exports = createResponse;
+const withDb = (handler) => async (event, context) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+  try {
+    await db.connectToDb();
+    return handler(event, context);
+  } catch (ex) {
+    return ex;
+  }
+};
+
+module.exports = { withParse, withDb };

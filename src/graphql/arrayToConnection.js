@@ -21,14 +21,7 @@ function getOffsetWithDefault(cursor, defaultOffset) {
     return defaultOffset;
   }
   const offset = cursorToOffset(cursor);
-  return isNaN(offset) ? defaultOffset : offset;
-}
-
-function arrayToConnection(data, args) {
-  return arrayToConnectionSlice(data, args, {
-    sliceStart: 0,
-    arrayLength: data.length,
-  });
+  return Number.isNaN(offset) ? defaultOffset : offset;
 }
 
 function arrayToConnectionSlice(arraySlice, args, meta) {
@@ -77,6 +70,13 @@ function arrayToConnectionSlice(arraySlice, args, meta) {
       hasNextPage: typeof first === 'number' ? endOffset < upperBound : false,
     },
   };
+}
+
+function arrayToConnection(data, args) {
+  return arrayToConnectionSlice(data, args, {
+    sliceStart: 0,
+    arrayLength: data.length,
+  });
 }
 
 module.exports = arrayToConnection;

@@ -2,11 +2,11 @@ const { MongoClient } = require('mongodb');
 
 let connection;
 
-const connect = async () => {
+const connect = () => {
   if (!process.env.MONGO_CONNECTION_STRING) {
     throw new Error('No connection string set for mongodb');
   }
-  return await MongoClient.connect(
+  return MongoClient.connect(
     process.env.MONGO_CONNECTION_STRING,
     { useNewUrlParser: true },
   );
@@ -19,19 +19,15 @@ const connectToDb = async () => {
     }
     return connection;
   } catch (ex) {
-    console.log(ex);
+    console.error(ex);
   }
 };
 
-const getConnection = () => {
-  return connection;
-};
+const getConnection = () => connection;
 
-const collection = (name) => {
-  return connection.collection(name);
-};
+const collection = (name) => connection.collection(name);
 
-const dropDb = async () => {
-  return await connection.dropDatabase();
-};
-module.exports = { connectToDb, collection, getConnection, dropDb };
+const dropDb = () => connection.dropDatabase();
+
+const closeConnection = () => connection.close();
+module.exports = { connectToDb, collection, getConnection, dropDb, closeConnection };

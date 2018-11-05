@@ -2,3 +2,4 @@ node_modules/
 .webpack/
 .serverless/
 .env
+.env.test

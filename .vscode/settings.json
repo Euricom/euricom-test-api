@@ -9,7 +9,7 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
-  "files.autoSave": "onFocusChange",
+  "files.autoSave": "off",
   // ===
   // Files
   // ===
@@ -33,5 +33,10 @@
   "tslint.enable": true,
   "tslint.autoFixOnSave": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "beautify.ignore": ["**/*.json", "**/*.js", "**/*.ts"],
+  "beautify.ignore": [
+    "**/*.json",
+    "**/*.js",
+    "**/*.ts"
+  ],
+  "eslint.autoFixOnSave": true,
 }

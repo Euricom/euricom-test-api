@@ -1,13 +1,11 @@
-const arrayToConnection = require('../arrayToConnection');
 const sortOn = require('sort-on');
+const arrayToConnection = require('../arrayToConnection');
 
 const { getAllUsers, getUser, deleteUser } = require('../../repository/users');
 
 const userResolver = {
   Query: {
-    user: (root, args) => {
-      return getUser(args.id);
-    },
+    user: (root, args) => getUser(args.id),
     allUsers: (root, args) => {
       const users = getAllUsers();
       let sortedUsers = users;
@@ -25,7 +23,7 @@ const userResolver = {
       const users = getAllUsers();
       let user = getUser(input.id);
       if (!user) {
-        const id = users.reduce((acc, user) => Math.max(acc, user.id), 0) + 1;
+        const id = users.reduce((acc, item) => Math.max(acc, item.id), 0) + 1;
         user = {
           id,
         };

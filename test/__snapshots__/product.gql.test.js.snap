@@ -7,7 +7,7 @@ Object {
       Object {
         "node": Object {
           "basePrice": null,
-          "id": 1,
+          "id": null,
           "price": null,
           "stocked": false,
           "title": "apple",
@@ -16,9 +16,9 @@ Object {
       Object {
         "node": Object {
           "basePrice": null,
-          "id": 2,
+          "id": null,
           "price": null,
-          "stocked": false,
+          "stocked": true,
           "title": "orange",
         },
       },

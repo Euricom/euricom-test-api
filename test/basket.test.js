@@ -1,23 +1,30 @@
-const fs = require('fs');
-const path = require('path');
-
 const request = require('supertest');
 const app = require('../src/express');
+const db = require('../src/dbConnection');
 
-const { clearBasket, seedBasket, getOrCreateBasket } = require('../src/repository/basket');
+const { clearBasket } = require('../src/repository/basket');
 
-const { seedProducts } = require('../src/repository/products');
+const { addProducts } = require('../src/repository/products');
 
 const basketKey = '123';
 
 describe('Basket Routes', () => {
-  seedProducts(10);
-  beforeEach(() => {
+  let apple;
+  let orange;
+  let pear;
+  let lemon;
+  beforeEach(async () => {
     // standard basket:
     // [ { id: 1, productId: 1, quantity: 1 },
     // { id: 2, productId: 2, quantity: 4 } ]
-
-    clearBasket(basketKey, true);
+    await db.connectToDb();
+    await db.dropDb();
+    apple = { _id: 1, title: 'apple', stocked: false };
+    orange = { _id: 2, title: 'orange', stocked: true };
+    pear = { _id: 3, title: 'pear', stocked: true };
+    lemon = { _id: 4, title: 'lemon', stocked: false };
+    await addProducts([apple, orange, pear, lemon]);
+    await clearBasket(basketKey, true);
   });
 
   it('fetches the basket', async () => {
@@ -33,12 +40,12 @@ describe('Basket Routes', () => {
 
   it('adds a product to the basket', async () => {
     const response = await request(app.app)
-      .post(`/api/basket/${basketKey}/product/6`)
+      .post(`/api/basket/${basketKey}/product/3`)
       .expect(201);
 
     expect(response.body[response.body.length - 1]).toHaveProperty('id');
     expect(response.body[response.body.length - 1]).toHaveProperty('quantity');
-    expect(response.body[response.body.length - 1].productId).toEqual(6);
+    expect(response.body[response.body.length - 1].productId).toEqual(3);
     expect(response.body[response.body.length - 1].quantity).toEqual(1);
   });
 
@@ -53,7 +60,7 @@ describe('Basket Routes', () => {
 
   it('should throw an error when trying to add an out of stock product', async () => {
     const response = await request(app.app)
-      .post(`/api/basket/${basketKey}/product/10`)
+      .post(`/api/basket/${basketKey}/product/4`)
       .expect(409);
 
     expect(response.body.code).toEqual('Conflict');
@@ -79,15 +86,15 @@ describe('Basket Routes', () => {
 
   it('updates a product from the basket', async () => {
     const response = await request(app.app)
-      .patch(`/api/basket/${basketKey}/product/1`)
+      .patch(`/api/basket/${basketKey}/product/2`)
       .send({
         quantity: 10,
       })
       .expect(200);
 
-    const item = response.body.find((item) => item.id === 1);
+    const basketItem = response.body.find((item) => item.id === 2);
 
-    expect(item.quantity).toEqual(10);
+    expect(basketItem.quantity).toEqual(10);
   });
 
   it('should throw an error on faulty product id on update product', async () => {
@@ -104,7 +111,7 @@ describe('Basket Routes', () => {
 
   it('should throw an error when trying to add an out of stock product', async () => {
     const response = await request(app.app)
-      .patch(`/api/basket/${basketKey}/product/10`)
+      .patch(`/api/basket/${basketKey}/product/1`)
       .send({
         quantity: 10,
       })

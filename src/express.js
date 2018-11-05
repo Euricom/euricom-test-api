@@ -2,21 +2,20 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
-const sortOn = require('sort-on');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const asyncify = require('express-asyncify');
+const { ApolloServer } = require('apollo-server-express');
+const showdown = require('showdown');
 
 const userRoutes = require('./api/express/routes/userRoutes');
 const taskRoutes = require('./api/express/routes/taskRoutes');
 const productRoutes = require('./api/express/routes/productRoutes');
 const basketRoutes = require('./api/express/routes/basketRoutes');
 
-const errorHandler = require('./api/express/middleware/errorHandler');
+const errorHandler = require('./api/middleware/errorHandler');
 
-const { ApolloServer, UserInputError } = require('apollo-server-express');
 const schema = require('./graphql/schema');
-const showdown = require('showdown');
 
 showdown.setFlavor('github');
 const converter = new showdown.Converter({
@@ -46,7 +45,6 @@ app.get('/', async (req, res) => {
 });
 
 app.delete('/api/system', async (req, res) => {
-  generateSeedData();
   res.json({
     code: 200,
     message: 'All the data is resetted',

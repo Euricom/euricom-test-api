@@ -1,18 +1,20 @@
 const helpers = require('./helpers/helpers');
 const productData = require('../src/repository/products');
+const db = require('../src/dbConnection');
 
 describe('GraphQL Products', () => {
   let apple;
   let orange;
-  beforeEach(() => {
-    productData.clearProducts();
-    apple = { id: 1, title: 'apple' };
-    orange = { id: 2, title: 'orange' };
+  beforeEach(async () => {
+    await db.connectToDb();
+    await db.dropDb();
+    apple = { _id: 1, title: 'apple', stocked: false };
+    orange = { _id: 2, title: 'orange', stocked: true };
   });
 
   test('query allProducts', async () => {
     // arrange
-    productData.addProducts([apple, orange]);
+    await productData.addProducts([apple, orange]);
     const query = `
       {
         allProducts {
@@ -46,7 +48,7 @@ describe('GraphQL Products', () => {
 
   test('query product', async () => {
     // arrange
-    productData.addProducts([apple, orange]);
+    await productData.addProducts([apple, orange]);
     const query = `
       query getProduct($id: Int!) {
         product(id: $id) {
@@ -61,7 +63,6 @@ describe('GraphQL Products', () => {
 
     // act
     const data = await helpers.executeQuery(query, { id: 1 }, 200);
-
     // assert
     expect(data.data.product.id).toBe(1);
     expect(data.data.product.title).toBe(apple.title);
@@ -97,7 +98,7 @@ describe('GraphQL Products', () => {
   });
 
   test('mutate deleteProduct', async () => {
-    productData.addProducts([apple, orange]);
+    await productData.addProducts([apple, orange]);
 
     const mutation = `mutation deleteProduct($productId: Int!) {
       deleteProduct(id: $productId) {
@@ -119,7 +120,7 @@ describe('GraphQL Products', () => {
   });
 
   test('return 200 when product was not found on deleteProduct', async () => {
-    productData.addProducts([apple, orange]);
+    await productData.addProducts([apple, orange]);
 
     const mutation = `mutation deleteProduct($productId: Int!) {
       deleteProduct(id: $productId) {

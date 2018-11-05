@@ -13,8 +13,6 @@ const router = asyncify(express.Router());
 router.get('/api/users', async (req, res) => {
   const page = req.query.page || 0;
   const pageSize = req.query.pageSize || 20;
-  // console.log('page:', page);
-  // console.log('pageSize:', pageSize);
 
   const users = await getAllUsers(page, pageSize);
   const total = await getUsersCount();
@@ -24,7 +22,7 @@ router.get('/api/users', async (req, res) => {
     total,
     page,
     pageSize,
-    users: users,
+    users,
   });
 });
 
@@ -99,12 +97,12 @@ router.put('/api/users/:id', async (req, res) => {
 
 // DELETE /api/users/12
 router.delete('/api/users/:id', async (req, res) => {
-  let user = getUser(Number(req.params.id));
+  const user = getUser(Number(req.params.id));
   if (!user) {
     return res.status(204).json();
   }
 
-  users = await deleteUser(user);
+  await deleteUser(user);
   return res.status(200).json(user);
 });
 

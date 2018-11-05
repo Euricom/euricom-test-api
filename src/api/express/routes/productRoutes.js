@@ -3,7 +3,7 @@ const asyncify = require('express-asyncify');
 
 const repository = require('../../../repository/products');
 const httpErrors = require('../../../httpErrors');
-const validate = require('../middleware/validator');
+const validate = require('../../middleware/validator');
 const mapper = require('../../mappers/productToResource');
 const productSchema = require('../../schemas/product');
 const createProductCommand = require('../../../domain/commands/products/createProductCommand');
@@ -46,7 +46,6 @@ router.get('/api/products/:id', async (req, res) => {
   }
 
   const resource = mapper.map(product);
-  //   if (!product) const product = await getProductById(req, res);
   return res.json(resource);
 });
 

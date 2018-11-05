@@ -1,4 +1,4 @@
-const { addProduct } = require('../../../repository/products');
+const repository = require('../../../repository/products');
 
 const createProduct = (productDTO) => {
   const product = {
@@ -14,10 +14,8 @@ const createProduct = (productDTO) => {
 };
 
 const execute = async (productDTO) => {
-  const product = createProduct(productDTO);
-  product.id = new Date().valueOf();
-  await addProduct(product);
-
+  const product = await createProduct(productDTO);
+  await repository.addProduct(product);
   return product;
 };
 

@@ -1,44 +1,55 @@
-const request = require('supertest');
-const app = require('../src/express');
+const { handler } = require('../src/api/serverless/handlers/productHandler');
+const { withParse } = require('../src/api/serverless/helper');
 const db = require('../src/dbConnection');
 
 const { seedProducts, getProduct, getAllProducts } = require('../src/repository/products');
 
+const productHandler = withParse(handler);
+
 describe('Product Routes', () => {
+  let event;
+  let context;
   beforeEach(async () => {
     await db.connectToDb();
     await db.dropDb();
+    event = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    context = {};
+  });
+
+  afterAll(() => {
+    db.closeConnection();
   });
 
   it('fetches products', async () => {
-    await seedProducts(3);
+    await seedProducts(5);
+    const newEvent = { ...event, path: `/products`, httpMethod: 'GET' };
+    const response = await productHandler(newEvent, context);
 
-    const response = await request(app.app)
-      .get('/api/products')
-      .expect(200);
-
-    expect(response.body.total).toBe(3);
-    expect(response.body.selectedProducts.length).toBe(3);
+    expect(response.statusCode).toBe(200);
+    expect(response.body.total).toBe(5);
+    expect(response.body.selectedProducts.length).toBe(5);
   });
 
   it('fetches a product', async () => {
     await seedProducts(1);
     const newProduct = await getProduct(1);
+    const newEvent = { ...event, path: `/products/${newProduct._id}`, httpMethod: 'GET' };
+    const response = await productHandler(newEvent, context);
 
-    const response = await request(app.app)
-      .get(`/api/products/${newProduct._id}`)
-      .expect(200);
-
+    expect(response.statusCode).toBe(200);
     expect(response.body).not.toBe(null);
     expect(response.body.id).toBe(newProduct._id);
   });
 
   it('throws a 404 on wrong product ID', async () => {
     await seedProducts(1);
-
-    const response = await request(app.app)
-      .get('/api/products/2')
-      .expect(404);
+    const newProduct = await getProduct(1);
+    const newEvent = { ...event, path: `/products/${newProduct._id + 1}`, httpMethod: 'GET' };
+    const response = await productHandler(newEvent, context);
 
     expect(response.body.code).toEqual('Not Found');
     expect(response.body.message).toEqual('Product not found');
@@ -54,14 +65,13 @@ describe('Product Routes', () => {
       price: 16.63,
     };
 
-    const response = await request(app.app)
-      .post('/api/products')
-      .send(product)
-      .expect(201);
+    const newEvent = { ...event, path: `/products`, httpMethod: 'POST', body: product };
+    const response = await productHandler(newEvent, context);
 
     const products = await getAllProducts();
 
     expect(products.length).toBe(1);
+    expect(response.statusCode).toBe(201);
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('image');
     expect(response.body.image).toBe('https://dummyimage.com/300x300.jpg');
@@ -78,11 +88,10 @@ describe('Product Routes', () => {
       price: 16.63,
     };
 
-    const response = await request(app.app)
-      .post('/api/products')
-      .send(product)
-      .expect(400);
+    const newEvent = { ...event, path: `/products`, httpMethod: 'POST', body: product };
+    const response = await productHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(400);
     expect(response.body.code).toEqual('Bad Request');
     expect(response.body.message).toEqual('One or more validations failed');
     expect(response.body.details.length).toBe(3);
@@ -103,11 +112,10 @@ describe('Product Routes', () => {
       price: 15,
     };
 
-    const response = await request(app.app)
-      .put(`/api/products/${oldProduct._id}`)
-      .send(newProduct)
-      .expect(200);
+    const newEvent = { ...event, path: `/products/${oldProduct._id}`, httpMethod: 'PUT', body: newProduct };
+    const response = await productHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(200);
     expect(response.body.id).toEqual(oldProduct._id);
     expect(response.body.sku).toEqual(oldProduct.sku);
     expect(response.body.title).toEqual(newProduct.title);
@@ -129,11 +137,10 @@ describe('Product Routes', () => {
       price: 'wow',
     };
 
-    const response = await request(app.app)
-      .put(`/api/products/${oldProduct._id}`)
-      .send(newProduct)
-      .expect(400);
+    const newEvent = { ...event, path: `/products/${oldProduct._id}`, httpMethod: 'PUT', body: newProduct };
+    const response = await productHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(400);
     expect(response.body.code).toEqual('Bad Request');
     expect(response.body.message).toEqual('One or more validations failed');
     expect(response.body.details.length).toBe(2);
@@ -143,9 +150,8 @@ describe('Product Routes', () => {
     await seedProducts(1);
     const oldProduct = await getProduct(1);
 
-    const response = await request(app.app)
-      .delete(`/api/products/${oldProduct._id}`)
-      .expect(200);
+    const newEvent = { ...event, path: `/products/${oldProduct._id}`, httpMethod: 'DELETE' };
+    const response = await productHandler(newEvent, context);
 
     const newProduct = await getProduct(1);
 
@@ -158,8 +164,11 @@ describe('Product Routes', () => {
     await seedProducts(1);
     const products = await getAllProducts();
 
-    await request(app.app)
-      .delete(`/api/products/${products.length + 1}`)
-      .expect(404);
+    const newEvent = { ...event, path: `/products/${products[0]._id + 1}`, httpMethod: 'DELETE' };
+    const response = await productHandler(newEvent, context);
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body.code).toEqual('Not Found');
+    expect(response.body.message).toEqual('Product not found');
   });
 });

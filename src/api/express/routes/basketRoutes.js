@@ -3,7 +3,7 @@ const asyncify = require('express-asyncify');
 
 const productRepository = require('../../../repository/products');
 const basketRepository = require('../../../repository/basket');
-const validate = require('../middleware/validator');
+const validate = require('../../middleware/validator');
 const httpErrors = require('../../../httpErrors');
 const addProductSchema = require('../../schemas/addProduct');
 const mapper = require('../../mappers/basketToResource');
@@ -35,7 +35,7 @@ router.get('/api/basket/:key', async (req, res) => {
 // {
 //    quantity: 10
 // }
-router.post('/api/basket/:key/product/:id', validate(addProductSchema), async (req, res, next) => {
+router.post('/api/basket/:key/product/:id', validate(addProductSchema), async (req, res) => {
   const id = Number(req.params.id);
   const quantity = Math.floor(Number(req.body.quantity) || 1);
   const product = await productRepository.getProduct(id);
@@ -96,7 +96,7 @@ router.patch('/api/basket/:key/product/:id', validate(addProductSchema), async (
 // DELETE /api/basket/xyz
 router.delete('/api/basket/:key', async (req, res) => {
   const basket = await clearBasketCommand.execute(req.params.key);
-  const resource = mapper.map(basket);
+  const resource = mapper.map(basket.items);
   return res.json(resource);
 });
 
@@ -104,7 +104,7 @@ router.delete('/api/basket/:key', async (req, res) => {
 // DELETE /api/basket/xyz/reset
 router.delete('/api/basket/:key/reset', async (req, res) => {
   const basket = await clearBasketCommand.execute(req.params.key, true);
-  const resource = mapper.map(basket);
+  const resource = mapper.map(basket.items);
   return res.json(resource);
 });
 

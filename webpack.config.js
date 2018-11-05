@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const slsw = require('serverless-webpack');
 
 const entries = {};
@@ -17,6 +18,11 @@ module.exports = {
     path: path.join(__dirname, '.webpack'),
     filename: '[name].js',
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'typeof window': '"object"',
+    }),
+  ],
   target: 'node',
   module: {
     rules: [],

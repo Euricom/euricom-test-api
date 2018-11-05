@@ -1,4 +1,7 @@
 require('expect-more-jest');
+const path = require('path');
+
+require('dotenv').config({ path: path.resolve(process.cwd(), '.env.test') }); // use test env
 
 const IntlPolyfill = require('intl'); // tslint:disable-line
 
