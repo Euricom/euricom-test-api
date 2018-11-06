@@ -5,7 +5,7 @@ const withParse = (handler) => async (event, context) => {
   const response = await handler(event, context);
   const parsedResponse = {
     ...response,
-    body: JSON.parse(response.body),
+    body: response.body ? JSON.parse(response.body) : null,
   };
   return parsedResponse;
 };

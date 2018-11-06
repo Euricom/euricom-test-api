@@ -1,50 +1,58 @@
-const { getAllTasks, getTask, addTask, deleteTask } = require('../../repository/tasks');
+const { getAllTasks, getTask } = require('../../repository/tasks');
+const mapper = require('../../api/mappers/taskToResource');
+const createTaskCommand = require('../../domain/commands/tasks/createTaskCommand');
+const updateTaskCommand = require('../../domain/commands/tasks/updateTaskCommand');
+const deleteTaskCommand = require('../../domain/commands/tasks/deleteTaskCommand');
 
 const taskResolvers = {
   Query: {
-    task: (root, args) => getTask(args.id),
-    tasks: () => {
-      const tasks = getAllTasks();
-      return tasks;
+    task: async (root, args) => {
+      const task = await getTask(args.id);
+      const resource = mapper.map(task);
+      return resource;
+    },
+    tasks: async () => {
+      const tasks = await getAllTasks();
+      const resource = tasks.map((item) => mapper.map(item));
+      return resource;
     },
   },
   Mutation: {
-    addTask: (root, { desc }) => {
-      const tasks = getAllTasks();
-      const id = tasks.reduce((acc, task) => Math.max(acc, task.id), 0) + 1;
-      const task = {
-        id,
-        desc,
-        completed: false,
-      };
-
-      addTask(task);
+    addTask: async (root, { desc }) => {
+      const task = await createTaskCommand.execute({ desc });
+      const resource = mapper.map(task);
       return {
-        task,
+        task: resource,
       };
     },
-    completeTask: (root, { id }) => {
-      const task = getTask(id);
+    completeTask: async (root, { id }) => {
+      const oldTask = await getTask(id);
+      if (!oldTask) {
+        return {
+          task: null,
+        };
+      }
+      const taskDto = {
+        ...oldTask,
+        completed: true,
+      };
+      const newTask = await updateTaskCommand.execute(taskDto, id);
+      const resource = mapper.map(newTask);
+      return {
+        task: resource,
+      };
+    },
+    deleteTask: async (root, { id }) => {
+      const task = await getTask(id);
       if (!task) {
         return {
           task: null,
         };
       }
-      task.completed = true;
+      await deleteTaskCommand.execute(id);
+      const resource = mapper.map(task);
       return {
-        task,
-      };
-    },
-    deleteTask: (root, { id }) => {
-      const task = getTask(id);
-      if (!task) {
-        return {
-          task: null,
-        };
-      }
-      deleteTask(task);
-      return {
-        task,
+        task: resource,
       };
     },
   },

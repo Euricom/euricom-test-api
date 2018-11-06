@@ -1,6 +1,5 @@
 const map = (basket) => {
   const resource = [...basket];
-
   return resource;
 };
 

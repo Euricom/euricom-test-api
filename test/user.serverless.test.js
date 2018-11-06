@@ -1,22 +1,32 @@
-const request = require('supertest');
-const app = require('../src/express');
+const { handler } = require('../src/api/serverless/handlers/userHandler');
+const { withParse } = require('../src/api/serverless/helper');
 const db = require('../src/dbConnection');
 
 const { seedUsers, getUser } = require('../src/repository/users');
 
+const userHandler = withParse(handler);
+
 describe('User Routes', () => {
+  let event;
+  let context;
   beforeEach(async () => {
     await db.connectToDb();
     await db.dropDb();
+    event = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    context = {};
   });
   afterAll(() => db.closeConnection());
 
   it('fetches users', async () => {
     await seedUsers(3);
-    const response = await request(app.app)
-      .get('/api/users')
-      .expect(200);
+    const newEvent = { ...event, path: `api/users`, httpMethod: 'GET' };
+    const response = await userHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('total');
     expect(response.body).toHaveProperty('users');
     expect(response.body.users.length).toBe(3);
@@ -26,20 +36,20 @@ describe('User Routes', () => {
     await seedUsers(1);
     const user = await getUser(1000);
 
-    const response = await request(app.app)
-      .get(`/api/users/${user._id}`)
-      .expect(200);
+    const newEvent = { ...event, path: `api/users/${user._id}`, httpMethod: 'GET' };
+    const response = await userHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(200);
     expect(response.body.id).toEqual(user._id);
   });
 
   it('throws a 404 on wrong user ID', async () => {
     await seedUsers(1);
 
-    const response = await request(app.app)
-      .get('/api/users/2')
-      .expect(404);
+    const newEvent = { ...event, path: `api/users/2`, httpMethod: 'GET' };
+    const response = await userHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(404);
     expect(response.body.code).toEqual('Not Found');
     expect(response.body.message).toEqual('User not found');
   });
@@ -53,11 +63,10 @@ describe('User Routes', () => {
       role: 'admin',
     };
 
-    const response = await request(app.app)
-      .post('/api/users')
-      .send(user)
-      .expect(201);
+    const newEvent = { ...event, path: `api/users`, httpMethod: 'POST', body: user };
+    const response = await userHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(201);
     expect(response.body).toHaveProperty('id');
     expect(response.body.firstName).toEqual(user.firstName);
     expect(response.body.lastName).toEqual(user.lastName);
@@ -74,11 +83,10 @@ describe('User Routes', () => {
       role: oldUser.role,
     };
 
-    const response = await request(app.app)
-      .put(`/api/users/${oldUser._id}`)
-      .send(newUser)
-      .expect(200);
+    const newEvent = { ...event, path: `api/users/${oldUser._id}`, httpMethod: 'PUT', body: newUser };
+    const response = await userHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('id');
     expect(response.body.firstName).toEqual(newUser.firstName);
     expect(response.body.lastName).toEqual(newUser.lastName);
@@ -95,11 +103,10 @@ describe('User Routes', () => {
       role: oldUser.role,
     };
 
-    const response = await request(app.app)
-      .put('/api/users/2')
-      .send(newUser)
-      .expect(404);
+    const newEvent = { ...event, path: `api/users/2`, httpMethod: 'PUT', body: newUser };
+    const response = await userHandler(newEvent, context);
 
+    expect(response.statusCode).toBe(404);
     expect(response.body.code).toEqual('Not Found');
     expect(response.body.message).toEqual('User not found');
   });
@@ -108,21 +115,22 @@ describe('User Routes', () => {
     await seedUsers(1);
     const user = await getUser(1000);
 
-    const response = await request(app.app)
-      .delete(`/api/users/${user._id}`)
-      .expect(200);
+    const newEvent = { ...event, path: `api/users/${user._id}`, httpMethod: 'DELETE' };
+    const response = await userHandler(newEvent, context);
 
     const newUser = await getUser(1000);
 
+    expect(response.statusCode).toBe(200);
     expect(response.body.id).toEqual(user._id);
     expect(newUser).toBe(null);
   });
 
-  it('throws a 404 on wrong user ID', async () => {
+  it('throws a 204 on wrong user ID', async () => {
     await seedUsers(1);
 
-    await request(app.app)
-      .delete('/api/users/2')
-      .expect(204);
+    const newEvent = { ...event, path: `api/users/2`, httpMethod: 'DELETE' };
+    const response = await userHandler(newEvent, context);
+
+    expect(response.statusCode).toBe(204);
   });
 });

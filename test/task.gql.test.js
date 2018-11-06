@@ -1,11 +1,12 @@
 const helpers = require('./helpers/helpers');
-
 const tasksData = require('../src/repository/tasks');
+const db = require('../src/dbConnection');
 
 describe('GraphQL Tasks', () => {
-  beforeEach(() => {
-    tasksData.clearTasks();
-    tasksData.seedTasks();
+  beforeEach(async () => {
+    await db.connectToDb();
+    await db.dropDb();
+    await tasksData.seedTasks();
   });
   test('query tasks', async () => {
     const query = `
@@ -70,7 +71,6 @@ describe('GraphQL Tasks', () => {
     `;
 
     const data = await helpers.executeMutation(mutation, { id: 1 }, 200);
-
     expect(data.data.completeTask.task.completed).toBe(true);
   });
 

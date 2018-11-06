@@ -2,7 +2,6 @@ const inspector = require('schema-inspector');
 
 const validate = async (validationSchema, body) => {
   const result = await inspector.validate(validationSchema, body);
-
   if (!result.valid) {
     const errorArray = [];
     const errors = result.error;

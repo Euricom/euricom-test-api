@@ -2,13 +2,14 @@ require('dotenv').config();
 const express = require('./express');
 
 const productRepository = require('./repository/products');
+const taskRepository = require('./repository/tasks');
 const db = require('./dbConnection');
 
 const generateSeedData = () => {
   productRepository.clearProducts();
   productRepository.seedProducts(100);
-  // seedUsers(50);
-  // seedTasks();
+  taskRepository.clearTasks();
+  taskRepository.seedTasks();
 };
 
 db.connectToDb()

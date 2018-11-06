@@ -15,7 +15,10 @@ const createProduct = (productDTO) => {
 
 const execute = async (productDTO) => {
   const product = await createProduct(productDTO);
+  console.log('1', product);
+  // FIX DIS
   await repository.addProduct(product);
+  console.log('2', product);
   return product;
 };
 

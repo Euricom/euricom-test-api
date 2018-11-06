@@ -82,24 +82,24 @@ functions:
             path: api/basket/{proxy+}
             method: ANY
             cors: true
-  # users:
-  #     handler: src/api/serverless/handlers/userHandler.handler
-  #     warmup: true
-  #     timeout: 30
-  #     events:
-  #       - http:
-  #           path: api/users/{proxy+}
-  #           method: ANY
-  #           cors: true
-  # tasks:
-  #       handler: src/api/serverless/handlers/taskHandler.handler
-  #       warmup: true
-  #       timeout: 30
-  #       events:
-  #         - http:
-  #             path: api/tasks/{proxy+}
-  #             method: ANY
-  #             cors: true
+  users:
+      handler: src/api/serverless/handlers/userHandler.handler
+      warmup: true
+      timeout: 30
+      events:
+        - http:
+            path: api/users/{proxy+}
+            method: ANY
+            cors: true
+  tasks:
+        handler: src/api/serverless/handlers/taskHandler.handler
+        warmup: true
+        timeout: 30
+        events:
+          - http:
+              path: api/tasks/{proxy+}
+              method: ANY
+              cors: true
 
 
 

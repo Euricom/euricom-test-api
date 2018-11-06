@@ -55,6 +55,7 @@ app.post('api/products', async (req, res) => {
     throw new httpErrors.BadRequestError(validationError);
   }
   const product = await createProductCommand.execute(req.body);
+  console.log('product', product);
   const resource = mapper.map(product);
 
   return res.status(201).json(resource);
@@ -72,7 +73,7 @@ app.put('api/products/:id', async (req, res) => {
     throw new httpErrors.NotFoundError('Product not found');
   }
   const newProduct = await updateProductCommand.execute(req.body, Number(req.params.id));
-  const resource = mapper.map(newProduct.value);
+  const resource = mapper.map(newProduct);
   return res.status(200).json(resource);
 });
 

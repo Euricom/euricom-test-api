@@ -81,7 +81,7 @@ router.put('/api/products/:id', validate(productSchema), async (req, res) => {
     throw new httpErrors.NotFoundError('Product not found');
   }
   const newProduct = await updateProductCommand.execute(req.body, Number(req.params.id));
-  const resource = mapper.map(newProduct.value);
+  const resource = mapper.map(newProduct);
   return res.status(200).json(resource);
 });
 

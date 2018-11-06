@@ -24,6 +24,7 @@ app.get('api/basket/:key', async (req, res) => {
     if (basket.length > 5) {
       throw new httpErrors.InternalServerError();
     }
+    console.log(basket);
     const resource = mapper.map(basket.items);
     return res.status(200).json(resource);
   } catch (ex) {

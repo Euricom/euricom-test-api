@@ -48,7 +48,7 @@ const productResolvers = {
       oldProduct.price = input.price;
 
       const newProduct = await updateProductCommand.execute(oldProduct, input.id);
-      const resource = mapper.map(newProduct.value);
+      const resource = mapper.map(newProduct);
       return {
         product: resource,
       };

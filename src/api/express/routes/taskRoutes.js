@@ -1,7 +1,14 @@
 const express = require('express');
 const asyncify = require('express-asyncify');
-const { getAllTasks, getTask, deleteTask, addTask } = require('../../../repository/tasks');
-
+const { getAllTasks, getTask } = require('../../../repository/tasks');
+const httpErrors = require('../../../httpErrors');
+const validate = require('../../middleware/validator');
+const mapper = require('../../mappers/taskToResource');
+const createTaskCommand = require('../../../domain/commands/tasks/createTaskCommand');
+const updateTaskCommand = require('../../../domain/commands/tasks/updateTaskCommand');
+const deleteTaskCommand = require('../../../domain/commands/tasks/deleteTaskCommand');
+const taskSchema = require('../../schemas/task');
+const updateTaskSchema = require('../../schemas/updateTask');
 //
 // task routes
 //
@@ -10,20 +17,19 @@ const router = asyncify(express.Router());
 
 router.get('/api/tasks', async (req, res) => {
   const tasks = await getAllTasks();
-  res.json(tasks);
+  const resource = tasks.map((item) => mapper.map(item));
+
+  return res.status(200).json(resource);
 });
 router.get('/api/tasks/:id', async (req, res) => {
-  // find user
   const task = await getTask(+req.params.id);
-  if (!task) {
-    return res.status(404).json({
-      code: 'Not Found',
-      message: 'Task not found',
-    });
-  }
 
+  if (!task) {
+    throw new httpErrors.NotFoundError('Task not found');
+  }
+  const resource = mapper.map(task);
   // return resource
-  return res.json(task);
+  return res.status(200).json(resource);
 });
 
 /* POST /api/tasks
@@ -31,13 +37,11 @@ router.get('/api/tasks/:id', async (req, res) => {
      "completed": true
    }
   */
-router.post('/api/tasks', async (req, res) => {
-  // Get resource
-  const resource = req.body;
-  resource.id = new Date().valueOf();
-  resource.completed = false;
-  await addTask(resource);
-  res.status(201).json(resource);
+router.post('/api/tasks', validate(taskSchema), async (req, res) => {
+  const task = await createTaskCommand.execute(req.body);
+  const resource = mapper.map(task);
+
+  return res.status(201).json(resource);
 });
 
 /* PATCH /api/tasks/12
@@ -45,19 +49,14 @@ router.post('/api/tasks', async (req, res) => {
      "completed": true
    }
   */
-router.patch('/api/tasks/:id', async (req, res) => {
-  // Get resource
-  const resource = req.body;
-  const task = await getTask(+req.params.id);
-  if (!task) {
-    return res.status(404).json({
-      code: 'Not Found',
-      message: 'Task not found',
-    });
+router.patch('/api/tasks/:id', validate(updateTaskSchema), async (req, res) => {
+  const oldTask = await getTask(+req.params.id);
+  if (!oldTask) {
+    throw new httpErrors.NotFoundError('Task not found');
   }
-
-  task.completed = resource.completed;
-  return res.status(200).json(task);
+  const newTask = await updateTaskCommand.execute(req.body, +req.params.id);
+  const resource = mapper.map(newTask);
+  return res.status(200).json(resource);
 });
 
 // DELETE /api/tasks/12
@@ -66,9 +65,9 @@ router.delete('/api/tasks/:id', async (req, res) => {
   if (!task) {
     return res.status(204).json();
   }
-
-  await deleteTask(task);
-  return res.status(200).json(task);
+  await deleteTaskCommand.execute(+req.params.id);
+  const resource = mapper.map(task);
+  return res.status(200).json(resource);
 });
 
 module.exports = router;

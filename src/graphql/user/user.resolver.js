@@ -1,53 +1,67 @@
-const sortOn = require('sort-on');
 const arrayToConnection = require('../arrayToConnection');
+const mapper = require('../../api/mappers/userToResource');
+const createUserCommand = require('../../domain/commands/users/createUserCommand');
+const updateUserCommand = require('../../domain/commands/users/updateUserCommand');
+const deleteUserCommand = require('../../domain/commands/users/deleteUserCommand');
 
-const { getAllUsers, getUser, deleteUser } = require('../../repository/users');
+const { getAllUsers, getUser } = require('../../repository/users');
 
 const userResolver = {
   Query: {
-    user: (root, args) => getUser(args.id),
-    allUsers: (root, args) => {
-      const users = getAllUsers();
-      let sortedUsers = users;
-      if (args.orderBy) {
-        sortedUsers = sortOn(sortedUsers, args.orderBy);
-      }
+    user: async (root, args) => {
+      const user = await getUser(args.id);
+      const resource = mapper.map(user);
+      return resource;
+    },
+    allUsers: async (root, args) => {
+      const users = await getAllUsers();
+      const resource = users.map((item) => mapper.map(item));
       return {
-        ...arrayToConnection(sortedUsers, args),
-        user: sortedUsers,
+        ...arrayToConnection(users, args),
+        user: resource,
       };
     },
   },
   Mutation: {
-    addOrUpdateUser: (root, { input }) => {
-      const users = getAllUsers();
-      let user = getUser(input.id);
-      if (!user) {
-        const id = users.reduce((acc, item) => Math.max(acc, item.id), 0) + 1;
-        user = {
-          id,
+    addOrUpdateUser: async (root, { input }) => {
+      const oldUser = await getUser(input.id);
+      if (!oldUser) {
+        const newUser = {
+          firstName: input.firstName,
+          lastName: input.lastName,
+          age: input.age,
+          role: input.role,
+          email: input.email,
         };
-        users.push(user);
+        const user = await createUserCommand.execute(newUser);
+        const resource = mapper.map(user);
+        return {
+          user: resource,
+        };
       }
-      user.firstName = input.firstName;
-      user.lastName = input.lastName;
-      user.email = input.email;
-      user.age = input.age;
-      user.company = input.company;
+      oldUser.firstName = input.firstName;
+      oldUser.lastName = input.lastName;
+      oldUser.email = input.email;
+      oldUser.age = input.age;
+      oldUser.role = input.role;
+
+      const newUser = await updateUserCommand.execute(oldUser, input.id);
+      const resource = mapper.map(newUser);
       return {
-        user,
+        user: resource,
       };
     },
-    deleteUser: (root, { id }) => {
-      const user = getUser(id);
+    deleteUser: async (root, { id }) => {
+      const user = await getUser(id);
       if (!user) {
         return {
           user: null,
         };
       }
-      deleteUser(user);
+      await deleteUserCommand.execute(id);
+      const resource = mapper.map(user);
       return {
-        user,
+        user: resource,
       };
     },
   },

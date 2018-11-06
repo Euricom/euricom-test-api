@@ -1,13 +1,14 @@
 const helpers = require('./helpers/helpers');
-
+const db = require('../src/dbConnection');
 const userData = require('../src/repository/users');
 
 describe('GraphQL User', () => {
-  beforeEach(() => {
-    userData.clearUsers();
-    userData.seedUsers(3);
+  beforeEach(async () => {
+    await db.connectToDb();
+    await db.dropDb();
+    await userData.seedUsers(3);
   });
-
+  afterAll(() => db.closeConnection());
   test('query users', async () => {
     const query = `
     {

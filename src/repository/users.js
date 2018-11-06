@@ -1,10 +1,13 @@
 const faker = require('faker');
-
-let users = [];
+const db = require('../dbConnection');
 
 function generateUsers(count) {
+  let userCount = count;
+  if (!userCount || !Number.isInteger(userCount)) {
+    userCount = 10;
+  }
   const users = [];
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < userCount; i += 1) {
     // eslint-disable-line
     let firstName;
     let imageUrl;
@@ -20,7 +23,7 @@ function generateUsers(count) {
       // imageUrl = `https://api.adorable.io/avatars/400/${firstName}-${lastName}`;
     }
     users.push({
-      id: 1000 + i,
+      _id: 1000 + i,
       firstName,
       lastName,
       age: faker.random.number(100),
@@ -33,37 +36,44 @@ function generateUsers(count) {
         city: faker.address.city(),
         zip: faker.address.zipCode(),
       },
+      role: 'user',
     });
   }
   return users;
 }
 
+const clearUsers = async () => db.collection('users').drop();
+
+const seedUsers = async (count) => {
+  const users = generateUsers(count);
+  return db.collection('users').insertMany(users);
+};
+
+const getUsersCount = async () => db.collection('users').countDocuments();
+
+const getAllUsers = async (page = 0, pageSize = 20) =>
+  db
+    .collection('users')
+    .find({})
+    .skip(page * pageSize)
+    .limit(pageSize)
+    .toArray();
+
+const getUser = (id) => db.collection('users').findOne({ _id: id });
+
+const deleteUser = (id) => db.collection('users').remove({ _id: id });
+
+const addUser = (user) => db.collection('users').insertOne(user);
+
+const saveUser = (user, id) => db.collection('users').findOneAndReplace({ _id: id }, user, { returnOriginal: false });
+
 module.exports = {
-  clearUsers() {
-    users = [];
-  },
-  seedUsers(numberOfUsers) {
-    users = generateUsers(numberOfUsers);
-  },
-  getUsersCount() {
-    return users.length;
-  },
-  getAllUsers(page = 0, pageSize = 20) {
-    let selectedUsers = users;
-
-    selectedUsers = selectedUsers.slice(page * pageSize, page * pageSize + pageSize);
-
-    return selectedUsers;
-  },
-  getUser(id) {
-    return users.find((user) => user.id === id);
-  },
-  deleteUser(user) {
-    users = users.filter((item) => user.id !== item.id);
-    return users;
-  },
-  addUser(user) {
-    users.push(user);
-    return user;
-  },
+  clearUsers,
+  seedUsers,
+  getUsersCount,
+  getAllUsers,
+  getUser,
+  deleteUser,
+  addUser,
+  saveUser,
 };
