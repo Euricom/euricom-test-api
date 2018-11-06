@@ -63,15 +63,44 @@ provider:
 functions:
   seed:
     handler: src/api/serverless/handlers/seedHandler.handler
+    warmup: true
     timeout: 30
   products:
     handler: src/api/serverless/handlers/productHandler.handler
     timeout: 30
     events:
       - http:
-          path: '/{proxy+}'
-          method: any
+          path: api/products/{proxy+}
+          method: ANY
           cors: true
+  basket:
+      handler: src/api/serverless/handlers/basketHandler.handler
+      warmup: true
+      timeout: 30
+      events:
+        - http:
+            path: api/basket/{proxy+}
+            method: ANY
+            cors: true
+  # users:
+  #     handler: src/api/serverless/handlers/userHandler.handler
+  #     warmup: true
+  #     timeout: 30
+  #     events:
+  #       - http:
+  #           path: api/users/{proxy+}
+  #           method: ANY
+  #           cors: true
+  # tasks:
+  #       handler: src/api/serverless/handlers/taskHandler.handler
+  #       warmup: true
+  #       timeout: 30
+  #       events:
+  #         - http:
+  #             path: api/tasks/{proxy+}
+  #             method: ANY
+  #             cors: true
+
 
 
 

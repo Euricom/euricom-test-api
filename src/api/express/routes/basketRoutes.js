@@ -21,8 +21,7 @@ const router = asyncify(express.Router());
 // GET /api/basket/xyz
 router.get('/api/basket/:key', async (req, res) => {
   const basket = await basketRepository.getOrCreateBasket(req.params.key);
-  // what does this even mean?z
-  // it's a test api, to simulate a 500 error
+
   if (basket.length > 5) {
     throw new httpErrors.InternalServerError();
   }

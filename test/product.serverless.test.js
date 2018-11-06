@@ -26,7 +26,7 @@ describe('Product Routes', () => {
 
   it('fetches products', async () => {
     await seedProducts(5);
-    const newEvent = { ...event, path: `/products`, httpMethod: 'GET' };
+    const newEvent = { ...event, path: `api/products`, httpMethod: 'GET' };
     const response = await productHandler(newEvent, context);
 
     expect(response.statusCode).toBe(200);
@@ -37,7 +37,7 @@ describe('Product Routes', () => {
   it('fetches a product', async () => {
     await seedProducts(1);
     const newProduct = await getProduct(1);
-    const newEvent = { ...event, path: `/products/${newProduct._id}`, httpMethod: 'GET' };
+    const newEvent = { ...event, path: `api/products/${newProduct._id}`, httpMethod: 'GET' };
     const response = await productHandler(newEvent, context);
 
     expect(response.statusCode).toBe(200);
@@ -48,7 +48,7 @@ describe('Product Routes', () => {
   it('throws a 404 on wrong product ID', async () => {
     await seedProducts(1);
     const newProduct = await getProduct(1);
-    const newEvent = { ...event, path: `/products/${newProduct._id + 1}`, httpMethod: 'GET' };
+    const newEvent = { ...event, path: `api/products/${newProduct._id + 1}`, httpMethod: 'GET' };
     const response = await productHandler(newEvent, context);
 
     expect(response.body.code).toEqual('Not Found');
@@ -65,7 +65,7 @@ describe('Product Routes', () => {
       price: 16.63,
     };
 
-    const newEvent = { ...event, path: `/products`, httpMethod: 'POST', body: product };
+    const newEvent = { ...event, path: `api/products`, httpMethod: 'POST', body: product };
     const response = await productHandler(newEvent, context);
 
     const products = await getAllProducts();
@@ -88,7 +88,7 @@ describe('Product Routes', () => {
       price: 16.63,
     };
 
-    const newEvent = { ...event, path: `/products`, httpMethod: 'POST', body: product };
+    const newEvent = { ...event, path: `api/products`, httpMethod: 'POST', body: product };
     const response = await productHandler(newEvent, context);
 
     expect(response.statusCode).toBe(400);
@@ -112,7 +112,7 @@ describe('Product Routes', () => {
       price: 15,
     };
 
-    const newEvent = { ...event, path: `/products/${oldProduct._id}`, httpMethod: 'PUT', body: newProduct };
+    const newEvent = { ...event, path: `api/products/${oldProduct._id}`, httpMethod: 'PUT', body: newProduct };
     const response = await productHandler(newEvent, context);
 
     expect(response.statusCode).toBe(200);
@@ -137,7 +137,7 @@ describe('Product Routes', () => {
       price: 'wow',
     };
 
-    const newEvent = { ...event, path: `/products/${oldProduct._id}`, httpMethod: 'PUT', body: newProduct };
+    const newEvent = { ...event, path: `api/products/${oldProduct._id}`, httpMethod: 'PUT', body: newProduct };
     const response = await productHandler(newEvent, context);
 
     expect(response.statusCode).toBe(400);
@@ -150,7 +150,7 @@ describe('Product Routes', () => {
     await seedProducts(1);
     const oldProduct = await getProduct(1);
 
-    const newEvent = { ...event, path: `/products/${oldProduct._id}`, httpMethod: 'DELETE' };
+    const newEvent = { ...event, path: `api/products/${oldProduct._id}`, httpMethod: 'DELETE' };
     const response = await productHandler(newEvent, context);
 
     const newProduct = await getProduct(1);
@@ -164,7 +164,7 @@ describe('Product Routes', () => {
     await seedProducts(1);
     const products = await getAllProducts();
 
-    const newEvent = { ...event, path: `/products/${products[0]._id + 1}`, httpMethod: 'DELETE' };
+    const newEvent = { ...event, path: `api/products/${products[0]._id + 1}`, httpMethod: 'DELETE' };
     const response = await productHandler(newEvent, context);
 
     expect(response.statusCode).toBe(404);

@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 
 app.use(errorHandler);
 
-app.get('/products', async (req, res) => {
+app.get('api/products', async (req, res) => {
   try {
     const page = Number(req.query.page) || 0;
     const pageSize = Number(req.query.pageSize) || 20;
@@ -38,7 +38,7 @@ app.get('/products', async (req, res) => {
   }
 });
 
-app.get('/products/:id', async (req, res) => {
+app.get('api/products/:id', async (req, res) => {
   const id = Number(req.params.id);
   const product = await repository.getProduct(id);
   if (!product) {
@@ -49,7 +49,7 @@ app.get('/products/:id', async (req, res) => {
   return res.status(200).json(resource);
 });
 
-app.post('/products', async (req, res) => {
+app.post('api/products', async (req, res) => {
   const validationError = await validate(productSchema, req.body);
   if (validationError) {
     throw new httpErrors.BadRequestError(validationError);
@@ -60,7 +60,7 @@ app.post('/products', async (req, res) => {
   return res.status(201).json(resource);
 });
 
-app.put('/products/:id', async (req, res) => {
+app.put('api/products/:id', async (req, res) => {
   const validationError = await validate(productSchema, req.body);
   if (validationError) {
     throw new httpErrors.BadRequestError(validationError);
@@ -76,7 +76,7 @@ app.put('/products/:id', async (req, res) => {
   return res.status(200).json(resource);
 });
 
-app.delete('/products/:id', async (req, res) => {
+app.delete('api/products/:id', async (req, res) => {
   const id = Number(req.params.id);
   const product = await repository.getProduct(id);
   if (!product) {

@@ -1,16 +1,17 @@
 /* eslint-disable no-param-reassign */
 
-const db = require('../../../dbConnection');
 const productRepository = require('../../../repository/products');
+const basketRepository = require('../../../repository/basket');
+const { withDb } = require('../helper');
 
-module.exports.handler = async (event, context) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-  try {
-    await db.connectToDb();
-    await productRepository.clearProducts();
-    await productRepository.seedProducts(event);
-    return 'Seeded Database';
-  } catch (ex) {
-    return ex;
-  }
+// eslint-disable-next-line
+const handler = async (event, context) => {
+  const seedCount = Number(event.seedCount);
+  await productRepository.clearProducts();
+  // event.seedCount should be a number for #-products to seed
+  await productRepository.seedProducts(seedCount);
+  await basketRepository.getOrCreateBasket('joswashere');
+  return 'Seeded Database';
 };
+
+module.exports.handler = withDb(handler);
