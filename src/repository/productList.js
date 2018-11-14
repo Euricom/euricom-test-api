@@ -16,7 +16,7 @@ module.exports = [
     desc:
       'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere ácubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus _id, turpis.',
     image: 'https://dummyimage.com/300x300.png/cc0000/ffffff',
-    stocked: false,
+    stocked: true,
     basePrice: 13.72,
     price: 6.31,
   },

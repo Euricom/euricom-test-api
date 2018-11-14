@@ -58,7 +58,7 @@ const basketResolvers = {
       if (!basket) {
         throw new UserInputError('No basket found');
       }
-      const resource = mapper.map(basket);
+      const resource = mapper.map(basket.items);
       return {
         basket: {
           checkoutID: args.input.checkoutID,

@@ -53,7 +53,7 @@ app.post('api/basket/:key/product/:id', async (req, res) => {
     if (!basket) {
       throw new httpErrors.NotFoundError('Basket not found');
     }
-    const resource = mapper.map(basket);
+    const resource = mapper.map(basket.items);
     return res.status(201).json(resource);
   } catch (ex) {
     res.error(ex);
@@ -71,7 +71,7 @@ app.delete('api/basket/:key/product/:id', async (req, res) => {
     if (!basket) {
       throw new httpErrors.NotFoundError('Basket not found');
     }
-    const resource = mapper.map(basket);
+    const resource = mapper.map(basket.items);
     return res.status(200).json(resource);
   } catch (ex) {
     res.error(ex);
@@ -97,7 +97,7 @@ app.patch('api/basket/:key/product/:id', async (req, res) => {
     if (!basket) {
       throw new httpErrors.NotFoundError('Basket not found');
     }
-    const resource = mapper.map(basket);
+    const resource = mapper.map(basket.items);
     return res.status(200).json(resource);
   } catch (ex) {
     res.error(ex);

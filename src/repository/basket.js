@@ -1,68 +1,111 @@
 const db = require('../dbConnection');
 
-const baskets = [];
+const seedBasket = async (checkoutID) => {
+  const seedBaskets = {
+    checkoutID,
+    items: [
+      {
+        id: 1,
+        productId: 1,
+        quantity: 1,
+      },
+      {
+        id: 2,
+        productId: 2,
+        quantity: 4,
+      },
+    ],
+  };
+  return db.collection('baskets').insertOne(seedBaskets);
+};
 
-const seedBasket = async (checkoutID) => db.collection('baskets').insertOne({ checkoutID, items: null });
-
-const getOrCreateBasket = async (checkoutID) => {
+const getOrCreateBasket = async (checkoutID, clear) => {
   const basket = await db.collection('baskets').findOne({ checkoutID });
-  if (!basket) {
-    return seedBasket(checkoutID);
+  if (!basket && !clear) {
+    const newBasket = await seedBasket(checkoutID);
+    return newBasket.ops[0];
   }
   return basket;
 };
 
-// const updateProductInBasket = async (checkoutID, productId, quantity) => {
-//   return db.collection('baskets').findOneAndReplace({ checkoutID }, newBasket, { returnOriginal: false });
-// };
+const updateBasketItems = async (checkoutID, productId, quantity, basket, item) => {
+  if (item) {
+    basket.items = basket.items.map((basketItem) => {
+      if (basketItem.productId === productId) {
+        basketItem.quantity += quantity;
+      }
+      return basketItem;
+    });
+  } else {
+    const basketItem = {
+      productId,
+      quantity,
+      id: basket.items.reduce((acc, prop) => Math.max(acc, prop.id), 0) + 1,
+    };
+    basket.items.push(basketItem);
+  }
+  const newBasket = await db.collection('baskets').findOneAndReplace({ checkoutID }, basket, { returnOriginal: false });
+  return newBasket.value;
+};
 
-// const changeProductQuantity = (checkoutID, product, productId, quantity, isCreating) => {
-//   const basketMaxId = baskets[checkoutID].reduce((acc, item) => Math.max(acc, item.id), 0);
-//   if (!product) {
-//     baskets[checkoutID].push({
-//       id: basketMaxId + 1,
-//       quantity,
-//       productId,
-//     });
-//   } else {
-//     isCreating ? (quantity = (baskets[checkoutID][product.id - 1].quantity || 0) + quantity) : null; //eslint-disable-line
-//     baskets[checkoutID][product.id - 1].quantity = quantity;
-//   }
-// };
+const changeProductQuantity = async (checkoutID, productId, quantity, basket, item) => {
+  if (quantity === 0) {
+    if (item) {
+      basket.items = basket.items.filter((basketItem) => basketItem.productId !== productId);
+    }
 
-// const updateProductInBasket = (checkoutID, productId, quantity, isCreating) => {
-//   if (baskets[checkoutID]) {
-//     const product = baskets[checkoutID].find((item) => item.productId === productId);
-//     changeProductQuantity(checkoutID, product, productId, quantity, isCreating);
-//     return baskets[checkoutID];
-//   }
-// };
+    const newBasket = await db
+      .collection('baskets')
+      .findOneAndReplace({ checkoutID }, basket, { returnOriginal: false });
+    return newBasket.value;
+  }
+  if (item) {
+    basket.items = basket.items.map((basketItem) => {
+      if (basketItem.productId === productId) {
+        basketItem.quantity = quantity;
+      }
+      return basketItem;
+    });
+    const newBasket = await db
+      .collection('baskets')
+      .findOneAndReplace({ checkoutID }, basket, { returnOriginal: false });
+    return newBasket.value;
+  }
+};
 
-const removeProductFromBasket = (checkoutID, productId) =>
-  baskets[checkoutID]
-    ? (baskets[checkoutID] = baskets[checkoutID].filter((product) => product.id !== productId))
-    : baskets[checkoutID];
+const updateProductInBasket = async (checkoutID, productId, quantity, isCreating) => {
+  const basket = await getOrCreateBasket(checkoutID);
+  const item = basket.items.find((basketItem) => basketItem.productId === productId);
+
+  if (isCreating) {
+    await updateBasketItems(checkoutID, productId, quantity, basket, item);
+  }
+  await changeProductQuantity(checkoutID, productId, quantity, basket, item);
+  return basket;
+};
+
+const removeProductFromBasket = async (checkoutID, productId) => {
+  const basket = await db.collection('baskets').findOne({ checkoutID });
+
+  basket.items = basket.items.filter((item) => item.productId !== productId);
+
+  const newBasket = await db.collection('baskets').findOneAndReplace({ checkoutID }, basket, { returnOriginal: false });
+  return newBasket.value;
+};
+
+const clearBasket = async (checkoutID, refill = false) => {
+  const previousBasket = await getOrCreateBasket(checkoutID, true);
+  await db.collection('baskets').deleteOne({ checkoutID });
+  if (refill) {
+    return seedBasket(checkoutID);
+  }
+  return previousBasket;
+};
 
 module.exports = {
   removeProductFromBasket,
-  // updateProductInBasket,
+  updateProductInBasket,
   seedBasket,
   getOrCreateBasket,
-  clearBasket(checkoutID, refill = false) {
-    const previousBasket = getOrCreateBasket(checkoutID);
-    baskets[checkoutID] = []; // clear basket
-    if (refill) {
-      baskets[checkoutID].push({
-        id: 1,
-        productId: 1,
-        quantity: 1,
-      });
-      baskets[checkoutID].push({
-        id: 2,
-        productId: 2,
-        quantity: 4,
-      });
-    }
-    return previousBasket;
-  },
+  clearBasket,
 };

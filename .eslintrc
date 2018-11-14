@@ -13,6 +13,7 @@
     "array-callback-return": "off",
     "consistent-return": "off",
     "no-return-assign": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-param-reassign": "off"
   }
 }

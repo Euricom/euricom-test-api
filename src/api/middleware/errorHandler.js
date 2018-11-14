@@ -1,4 +1,5 @@
 const httpStatus = require('http-status-codes');
+const logger = require('../../logger');
 
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
@@ -16,7 +17,7 @@ function errorHandler(err, req, res, next) {
       stack: err.stack,
     };
   }
-
+  logger.logError(err);
   // return http error code with json response
   res.status(statusCode).json(payload);
   next();

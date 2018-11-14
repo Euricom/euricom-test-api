@@ -48,7 +48,7 @@ router.post('/api/basket/:key/product/:id', validate(addProductSchema), async (r
   if (!basket) {
     throw new httpErrors.NotFoundError('Basket not found');
   }
-  const resource = mapper.map(basket);
+  const resource = mapper.map(basket.items);
   return res.status(201).json(resource);
 });
 
@@ -64,7 +64,7 @@ router.delete('/api/basket/:key/product/:id', async (req, res) => {
   if (!basket) {
     throw new httpErrors.NotFoundError('Basket not found');
   }
-  const resource = mapper.map(basket);
+  const resource = mapper.map(basket.items);
   return res.json(resource);
 });
 
@@ -87,7 +87,7 @@ router.patch('/api/basket/:key/product/:id', validate(addProductSchema), async (
   if (!basket) {
     throw new httpErrors.NotFoundError('Basket not found');
   }
-  const resource = mapper.map(basket);
+  const resource = mapper.map(basket.items);
   return res.status(200).json(resource);
 });
 
@@ -95,6 +95,9 @@ router.patch('/api/basket/:key/product/:id', validate(addProductSchema), async (
 // DELETE /api/basket/xyz
 router.delete('/api/basket/:key', async (req, res) => {
   const basket = await clearBasketCommand.execute(req.params.key);
+  if (!basket) {
+    throw new httpErrors.NotFoundError('Basket not found');
+  }
   const resource = mapper.map(basket.items);
   return res.json(resource);
 });
@@ -103,6 +106,10 @@ router.delete('/api/basket/:key', async (req, res) => {
 // DELETE /api/basket/xyz/reset
 router.delete('/api/basket/:key/reset', async (req, res) => {
   const basket = await clearBasketCommand.execute(req.params.key, true);
+  if (!basket) {
+    throw new httpErrors.NotFoundError('Basket not found');
+  }
+  console.log(basket);
   const resource = mapper.map(basket.items);
   return res.json(resource);
 });

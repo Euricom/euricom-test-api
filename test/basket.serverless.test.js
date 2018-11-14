@@ -53,6 +53,7 @@ describe('Basket Routes', () => {
   it('adds a product to the basket', async () => {
     const newEvent = { ...event, path: `api/basket/${basketKey}/product/3`, httpMethod: 'POST' };
     const response = await basketHandler(newEvent, context);
+    console.log('response', response);
 
     expect(response.statusCode).toBe(201);
     expect(response.body[response.body.length - 1]).toHaveProperty('id');
