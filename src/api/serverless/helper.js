@@ -1,6 +1,14 @@
 /* eslint-disable no-param-reassign */
 const db = require('./../../dbConnection');
 
+const createError = (status, body) => ({
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
+  statusCode: status || 500,
+  body: JSON.stringify(body),
+});
+
 const withParse = (handler) => async (event, context) => {
   const response = await handler(event, context);
   const parsedResponse = {
@@ -16,8 +24,8 @@ const withDb = (handler) => async (event, context) => {
     await db.connectToDb();
     return handler(event, context);
   } catch (ex) {
-    return ex;
+    return createError(ex.status, ex.stack);
   }
 };
 
-module.exports = { withParse, withDb };
+module.exports = { withParse, withDb, createError };

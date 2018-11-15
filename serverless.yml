@@ -65,10 +65,19 @@ functions:
     handler: src/api/serverless/handlers/seedHandler.handler
     warmup: true
     timeout: 30
+    events:
+      - http:
+          path: api/seed
+          method: GET
+          cors: true
   products:
     handler: src/api/serverless/handlers/productHandler.handler
     timeout: 30
     events:
+      - http:
+          path: api/products/
+          method: GET
+          cors: true
       - http:
           path: api/products/{proxy+}
           method: ANY
