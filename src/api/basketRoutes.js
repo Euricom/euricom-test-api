@@ -52,14 +52,15 @@ router.post('/api/basket/:key/product/:id', validate(addProductSchema), async (r
 
   let quantity = Math.floor(Number(req.body.quantity) || 1);
   const index = basket.find((item) => item.id === id);
+  console.log('index', index);
   if (!index) {
     basket.push({
       id: id,
       quantity: quantity,
     });
   } else {
-    quantity = (basket[index].quantity || 0) + quantity;
-    basket[index].quantity = quantity;
+    quantity = (basket[index.id - 1].quantity || 0) + quantity;
+    basket[index.id - 1].quantity = quantity;
   }
   res.status(201).json(basket);
 });
