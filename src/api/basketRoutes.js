@@ -52,10 +52,11 @@ router.post('/api/basket/:key/product/:id', validate(addProductSchema), async (r
 
   let quantity = Math.floor(Number(req.body.quantity) || 1);
   const index = basket.find((item) => item.id === id);
-  console.log('index', index);
+
   if (!index) {
     basket.push({
-      id: id,
+      id: basket.reduce((acc, prop) => Math.max(acc, prop.id), 0) + 1,
+      productId: id,
       quantity: quantity,
     });
   } else {
@@ -70,11 +71,11 @@ router.post('/api/basket/:key/product/:id', validate(addProductSchema), async (r
 router.delete('/api/basket/:key/product/:id', async (req, res) => {
   const id = Number(req.params.id);
   const basket = await getOrCreateBasket(req.params.key);
-  const index = basket.find((item) => item.id === id);
+  const index = basket.find((item) => item.productId === id);
   if (!index) {
     throw new httpErrors.NotFoundError('Product not found');
   }
-  basket.splice(index, 1);
+  basket.splice(index.id - 1, 1);
   res.json(basket);
 });
 

@@ -19,7 +19,14 @@ function getOrCreateBasket(checkoutID) {
   return basket;
 }
 
+const removeProductFromBaskets = (productId) => {
+  for (let prop in baskets) {
+    baskets[prop] = baskets[prop].filter((basket) => basket.productId !== productId);
+  }
+};
+
 module.exports = {
+  removeProductFromBaskets,
   seedBasket() {},
   getOrCreateBasket,
   clearBasket(checkoutID, refill = false) {

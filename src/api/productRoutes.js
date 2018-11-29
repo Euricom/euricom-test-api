@@ -5,6 +5,7 @@ const httpErrors = require('../httpErrors');
 const asyncify = require('express-asyncify');
 
 const { getAllProducts, getProduct, deleteProduct, addProduct } = require('../data/products');
+const { removeProductFromBaskets } = require('../data/basket');
 
 const productSchema = {
   type: 'object',
@@ -149,6 +150,7 @@ router.delete('/api/products/:id', async (req, res) => {
   }
 
   deleteProduct(product);
+  removeProductFromBaskets(product.id);
   return res.status(200).json(product);
 });
 
