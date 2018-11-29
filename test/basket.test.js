@@ -38,7 +38,7 @@ describe('Basket Routes', () => {
 
     expect(response.body[response.body.length - 1]).toHaveProperty('id');
     expect(response.body[response.body.length - 1]).toHaveProperty('quantity');
-    expect(response.body[response.body.length - 1].id).toEqual(6);
+    expect(response.body[response.body.length - 1].productId).toEqual(6);
     expect(response.body[response.body.length - 1].quantity).toEqual(1);
   });
 
