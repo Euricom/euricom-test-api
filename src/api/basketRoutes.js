@@ -51,7 +51,7 @@ router.post('/api/basket/:key/product/:id', validate(addProductSchema), async (r
   }
 
   let quantity = Math.floor(Number(req.body.quantity) || 1);
-  const index = basket.find((item) => item.id === id);
+  const index = basket.find((item) => item.productId === id);
 
   if (!index) {
     basket.push({
