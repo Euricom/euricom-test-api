@@ -6,7 +6,7 @@ class HttpError extends Error {
     this.name = this.constructor.name;
     this.statusCode = statusCode;
     this.payload = {
-      code: httpStatus.getStatusText(statusCode),
+      code: httpStatus.getStatusText(statusCode) || 500,
       message,
     };
     if (details) {
