@@ -1,6 +1,8 @@
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 
+// more scalar types: https://www.npmjs.com/package/graphql-custom-types
+
 module.exports.DateTime = new GraphQLScalarType({
   name: 'DateTime',
   description: 'Date custom scalar type',

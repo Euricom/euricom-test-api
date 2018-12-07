@@ -70,6 +70,13 @@ app.all('/api/*', async (req, res) =>
 
 const graphQlServer = new ApolloServer({
   schema,
+  formatError: (error) => {
+    // console.log(error);
+    // return new Error('Internal server error');
+    // Or, you can delete the exception information
+    // delete error.extensions.exception;
+    return error;
+  },
 });
 graphQlServer.applyMiddleware({
   app,
