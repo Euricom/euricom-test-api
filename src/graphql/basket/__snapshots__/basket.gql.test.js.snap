@@ -35,3 +35,21 @@ Object {
   },
 }
 `;
+
+exports[`GraphQL Basket throw error on faulty product id on addItemToBasket 1`] = `
+Object {
+  "extensions": Object {
+    "code": "PRODUCT_NOT_FOUND",
+  },
+  "locations": Array [
+    Object {
+      "column": 9,
+      "line": 3,
+    },
+  ],
+  "message": "Product not found",
+  "path": Array [
+    "addItemToBasket",
+  ],
+}
+`;

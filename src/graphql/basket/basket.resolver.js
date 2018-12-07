@@ -1,5 +1,7 @@
 const { getOrCreateBasket, clearBasket } = require('../../data/basket');
 const { UserInputError } = require('apollo-server-express');
+const { BusinessRuleError } = require('../errors');
+
 const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = require('../../data/products');
 
 const basketResolvers = {
@@ -32,20 +34,13 @@ const basketResolvers = {
 
       let errors = [];
       if (!product) {
-        errors.push({ key: 'id', message: 'Product not found' });
+        throw new BusinessRuleError('Product not found', 'PRODUCT_NOT_FOUND');
       }
-
-      // throw new Error('bad');
 
       if (product && !product.stocked) {
-        errors.push({ key: 'stocked', message: 'Product not in stock' });
+        throw new BusinessRuleError('Product not in stock', 'NO_STOCK');
       }
 
-      if (errors.length) {
-        throw new UserInputError('One or more validation failed.', {
-          errors,
-        });
-      }
       let basketItem = basket.find((item) => item.productId === productId);
       if (!basketItem) {
         basketItem = {

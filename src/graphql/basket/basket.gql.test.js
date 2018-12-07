@@ -84,8 +84,6 @@ describe('GraphQL Basket', () => {
     const res = await agent.postMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 3 } });
     expect(res).toHaveStatus(200);
 
-    // console.log(res.body);
-
     const product = res.body.data.addItemToBasket.basket.items.find((item) => item.product.id === 3);
     expect(product.quantity).toBe(2);
   });
@@ -118,9 +116,11 @@ describe('GraphQL Basket', () => {
 
     // assert
     expect(res).toHaveStatus(200);
-    // console.log(res.body);
     expect(res.body.data.addItemToBasket).toBe(null);
-    expect(res.body.errors[0].extensions.exception.errors[0].message).toBe('Product not found');
+    expect(res.body.errors[0].message).toBe('Product not found');
+    expect(res.body.errors[0].path[0]).toBe('addItemToBasket');
+    expect(res.body.errors[0].extensions.code).toBe('PRODUCT_NOT_FOUND');
+    expect(res.body.errors[0]).toMatchSnapshot();
   });
 
   test('throw error on product out of stock on addItemToBasket', async () => {
@@ -152,7 +152,10 @@ describe('GraphQL Basket', () => {
     // assert
     expect(res).toHaveStatus(200);
     expect(res.body.data.addItemToBasket).toBe(null);
-    expect(res.body.errors[0].extensions.exception.errors[0].message).toBe('Product not in stock');
+
+    expect(res.body.errors[0].message).toBe('Product not in stock');
+    expect(res.body.errors[0].path[0]).toBe('addItemToBasket');
+    expect(res.body.errors[0].extensions.code).toBe('NO_STOCK');
   });
 
   test('mutation removeItemFromBasket', async () => {
