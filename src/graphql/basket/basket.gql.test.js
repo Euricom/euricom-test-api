@@ -1,7 +1,11 @@
-const helpers = require('./helpers/helpers');
+const supertest = require('supertest');
+const gqltest = require('../../../test/gqltest');
+const app = require('../../express');
+const basketData = require('../../data/basket');
+const productData = require('../../data/products');
 
-const basketData = require('../src/data/basket');
-const productData = require('../src/data/products');
+const request = gqltest('/graphql', supertest);
+const agent = request(app);
 
 describe('GraphQL Basket', () => {
   const basketKey = 'basketKey';
@@ -43,11 +47,14 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeQuery(query, { checkoutID: basketKey }, 200);
+    const res = await agent.postQuery(query, { checkoutID: basketKey });
 
-    expect(data.data.basket.items.length).toBe(2);
-    expect(data.data.basket.checkoutID).toBe(basketKey);
-    expect(data.data).toMatchSnapshot();
+    // assert
+    expect(res).toHaveStatus(200);
+
+    expect(res.body.data.basket.items.length).toBe(2);
+    expect(res.body.data.basket.checkoutID).toBe(basketKey);
+    expect(res.body.data).toMatchSnapshot();
   });
 
   test('mutation addItemToBasket', async () => {
@@ -74,10 +81,12 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 3 } }, 200);
+    const res = await agent.postMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 3 } });
+    expect(res).toHaveStatus(200);
 
-    const product = data.data.addItemToBasket.basket.items.find((item) => item.product.id === 3);
+    // console.log(res.body);
 
+    const product = res.body.data.addItemToBasket.basket.items.find((item) => item.product.id === 3);
     expect(product.quantity).toBe(2);
   });
 
@@ -105,10 +114,13 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 4 } }, 200);
+    const res = await agent.postMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 4 } });
 
-    expect(data.data.addItemToBasket).toBe(null);
-    expect(data.errors[0].extensions.exception.errors[0].message).toBe('Product not found');
+    // assert
+    expect(res).toHaveStatus(200);
+    // console.log(res.body);
+    expect(res.body.data.addItemToBasket).toBe(null);
+    expect(res.body.errors[0].extensions.exception.errors[0].message).toBe('Product not found');
   });
 
   test('throw error on product out of stock on addItemToBasket', async () => {
@@ -135,10 +147,12 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 5 } }, 200);
+    const res = await agent.postMutation(mutation, { key: basketKey, item: { quantity: 2, productId: 5 } });
 
-    expect(data.data.addItemToBasket).toBe(null);
-    expect(data.errors[0].extensions.exception.errors[0].message).toBe('Product not in stock');
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.addItemToBasket).toBe(null);
+    expect(res.body.errors[0].extensions.exception.errors[0].message).toBe('Product not in stock');
   });
 
   test('mutation removeItemFromBasket', async () => {
@@ -165,8 +179,10 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { key: basketKey, productId: 2 }, 200);
-    const product = data.data.removeItemFromBasket.basket.items.find((item) => item.product.id === 2);
+    const res = await agent.postMutation(mutation, { key: basketKey, productId: 2 });
+    expect(res).toHaveStatus(200);
+
+    const product = res.body.data.removeItemFromBasket.basket.items.find((item) => item.product.id === 2);
     expect(product).toBe(undefined);
   });
 
@@ -194,9 +210,12 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { key: basketKey, productId: 10 }, 200);
-    expect(data.data.removeItemFromBasket).toBe(null);
-    expect(data.errors[0].message).toBe('Product not found');
+    const res = await agent.postMutation(mutation, { key: basketKey, productId: 10 });
+
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.removeItemFromBasket).toBe(null);
+    expect(res.body.errors[0].message).toBe('Product not found');
   });
 
   test('mutation clearBasket', async () => {
@@ -223,8 +242,10 @@ describe('GraphQL Basket', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { checkoutID: basketKey }, 200);
+    const res = await agent.postMutation(mutation, { checkoutID: basketKey });
 
-    expect(data.data.clearBasket).toHaveProperty('basket');
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.clearBasket).toHaveProperty('basket');
   });
 });

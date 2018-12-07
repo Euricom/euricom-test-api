@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const request = require('supertest');
-const app = require('../src/express');
+const app = require('../express');
+const { seedProducts, clearProducts, getProduct, getAllProducts } = require('../data/products');
 
-const { seedProducts, clearProducts, getProduct, getAllProducts } = require('../src/data/products');
+const agent = request(app);
 
 describe('Product Routes', () => {
   beforeEach(() => {
@@ -14,9 +15,7 @@ describe('Product Routes', () => {
   it('fetches products', async () => {
     seedProducts(3);
 
-    const response = await request(app.app)
-      .get('/api/products')
-      .expect(200);
+    const response = await agent.get('/api/products').expect(200);
 
     expect(response.body.total).toBe(3);
     expect(response.body.selectedProducts.length).toBe(3);
@@ -26,9 +25,7 @@ describe('Product Routes', () => {
     seedProducts(1);
     const newProduct = getProduct(1);
 
-    const response = await request(app.app)
-      .get(`/api/products/${newProduct.id}`)
-      .expect(200);
+    const response = await agent.get(`/api/products/${newProduct.id}`).expect(200);
 
     expect(response.body).not.toBe(null);
     expect(response.body.id).toBe(newProduct.id);
@@ -37,9 +34,7 @@ describe('Product Routes', () => {
   it('throws a 404 on wrong product ID', async () => {
     seedProducts(1);
 
-    const response = await request(app.app)
-      .get('/api/products/2')
-      .expect(404);
+    const response = await agent.get('/api/products/2').expect(404);
 
     expect(response.body.code).toEqual('Not Found');
     expect(response.body.message).toEqual('Product not found');
@@ -55,7 +50,7 @@ describe('Product Routes', () => {
       price: 16.63,
     };
 
-    const response = await request(app.app)
+    const response = await agent
       .post('/api/products')
       .send(product)
       .expect(200);
@@ -79,7 +74,7 @@ describe('Product Routes', () => {
       price: 16.63,
     };
 
-    const response = await request(app.app)
+    const response = await agent
       .post('/api/products')
       .send(product)
       .expect(400);
@@ -104,7 +99,7 @@ describe('Product Routes', () => {
       price: 15,
     };
 
-    const response = await request(app.app)
+    const response = await agent
       .put(`/api/products/${oldProduct.id}`)
       .send(newProduct)
       .expect(200);
@@ -130,7 +125,7 @@ describe('Product Routes', () => {
       price: 'wow',
     };
 
-    const response = await request(app.app)
+    const response = await agent
       .put(`/api/products/${oldProduct.id}`)
       .send(newProduct)
       .expect(400);
@@ -144,9 +139,7 @@ describe('Product Routes', () => {
     seedProducts(1);
     const oldProduct = getProduct(1);
 
-    const response = await request(app.app)
-      .delete(`/api/products/${oldProduct.id}`)
-      .expect(200);
+    const response = await agent.delete(`/api/products/${oldProduct.id}`).expect(200);
 
     const newProduct = getProduct(1);
 
@@ -159,8 +152,6 @@ describe('Product Routes', () => {
     seedProducts(1);
     const products = getAllProducts();
 
-    const response = await request(app.app)
-      .delete(`/api/products/${products.length + 1}`)
-      .expect(204);
+    const response = await agent.delete(`/api/products/${products.length + 1}`).expect(204);
   });
 });

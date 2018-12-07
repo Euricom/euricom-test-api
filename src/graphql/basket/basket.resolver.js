@@ -32,17 +32,13 @@ const basketResolvers = {
 
       let errors = [];
       if (!product) {
-        errors.push({
-          key: 'id',
-          message: 'Product not found',
-        });
+        errors.push({ key: 'id', message: 'Product not found' });
       }
 
+      // throw new Error('bad');
+
       if (product && !product.stocked) {
-        errors.push({
-          key: 'stocked',
-          message: 'Product not in stock',
-        });
+        errors.push({ key: 'stocked', message: 'Product not in stock' });
       }
 
       if (errors.length) {

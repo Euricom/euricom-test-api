@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server');
 
-const Product = gql`
+const typedefs = gql`
   type Product {
     id: Int
     sku: String
@@ -11,9 +11,7 @@ const Product = gql`
     basePrice: Float
     price: Float
   }
-`;
 
-const ProductInput = gql`
   input ProductInput {
     id: Int
     sku: String!
@@ -24,37 +22,27 @@ const ProductInput = gql`
     basePrice: Float
     price: Float!
   }
-`;
 
-const ProductEdge = gql`
   type ProductEdge {
     node: Product
     cursor: String!
   }
-`;
 
-const ProductConnection = gql`
   type ProductConnection {
     pageInfo: PageInfo!
     edges: [ProductEdge]
     totalCount: Int
     product: [Product]
   }
-`;
 
-const AddOrUpdateProductPayload = gql`
   type AddOrUpdateProductPayload {
     product: Product
   }
-`;
 
-const DeleteProductPayload = gql`
   type DeleteProductPayload {
     product: Product
   }
-`;
 
-const PageInfo = gql`
   type PageInfo {
     startCursor: String
     endCursor: String
@@ -63,18 +51,4 @@ const PageInfo = gql`
   }
 `;
 
-module.exports = {
-  getTypes() {
-    const moduleArray = [];
-    moduleArray[0] = Product;
-    moduleArray[1] = ProductEdge;
-    moduleArray[2] = ProductConnection;
-    moduleArray[3] = AddOrUpdateProductPayload;
-    moduleArray[4] = DeleteProductPayload;
-    moduleArray[5] = ProductInput;
-    moduleArray[6] = PageInfo;
-    return moduleArray;
-  },
-};
-
-// module.exports = [Product, ProductEdge, ProductConnection, AddOrUpdateProductPayload, DeleteProductPayload, ProductInput, PageInfo]
+module.exports = typedefs;

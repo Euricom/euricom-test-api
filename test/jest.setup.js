@@ -1,4 +1,5 @@
 require('expect-more-jest');
+require('./supertest.matcher');
 
 const IntlPolyfill = require('intl'); // tslint:disable-line
 

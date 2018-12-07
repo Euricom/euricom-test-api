@@ -1,6 +1,10 @@
-const helpers = require('./helpers/helpers');
+const supertest = require('supertest');
+const gqltest = require('../../../test/gqltest');
+const app = require('../../express');
+const tasksData = require('../../data/tasks');
 
-const tasksData = require('../src/data/tasks');
+const request = gqltest('/graphql', supertest);
+const agent = request(app);
 
 describe('GraphQL Tasks', () => {
   beforeEach(() => {
@@ -18,10 +22,12 @@ describe('GraphQL Tasks', () => {
       }
     `;
 
-    const data = await helpers.executeQuery(query, {}, 200);
+    const res = await agent.postQuery(query, {});
 
-    expect(data.data.tasks.length).toBeGreaterThan(0);
-    expect(data.data).toMatchSnapshot();
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.tasks.length).toBeGreaterThan(0);
+    expect(res.body.data).toMatchSnapshot();
   });
 
   test('query task', async () => {
@@ -34,9 +40,11 @@ describe('GraphQL Tasks', () => {
         }
       }`;
 
-    const data = await helpers.executeQuery(query, { id: 1 }, 200);
+    const res = await agent.postQuery(query, { id: 1 });
 
-    expect(data.data.task.id).toBe(1);
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.task.id).toBe(1);
   });
 
   test('mutation addTask', async () => {
@@ -52,8 +60,11 @@ describe('GraphQL Tasks', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { desc: 'an apple' }, 200);
-    expect(data.data.addTask.task.desc).toBe('an apple');
+    const res = await agent.postMutation(mutation, { desc: 'an apple' });
+
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.addTask.task.desc).toBe('an apple');
   });
 
   test('mutation completeTask', async () => {
@@ -69,9 +80,11 @@ describe('GraphQL Tasks', () => {
       }
     `;
 
-    const data = await helpers.executeMutation(mutation, { id: 1 }, 200);
+    const res = await agent.postMutation(mutation, { id: 1 });
 
-    expect(data.data.completeTask.task.completed).toBe(true);
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.completeTask.task.completed).toBe(true);
   });
 
   test('mutation deleteTask', async () => {
@@ -87,8 +100,10 @@ describe('GraphQL Tasks', () => {
     }
     `;
 
-    const data = await helpers.executeMutation(mutation, { id: 1 }, 200);
+    const res = await agent.postMutation(mutation, { id: 1 });
 
-    expect(data.data.deleteTask.task.id).toBe(1);
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.deleteTask.task.id).toBe(1);
   });
 });

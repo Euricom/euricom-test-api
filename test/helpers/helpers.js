@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../../src/express');
 
 const executeQuery = (query, variables, expectedStatus) => {
-  return request(app.app)
+  return request(app)
     .post('/graphql')
     .send({ query, variables })
     .then((res) => {
@@ -15,7 +15,7 @@ const executeQuery = (query, variables, expectedStatus) => {
 };
 
 const executeMutation = (mutation, variables, expectedStatus) => {
-  return request(app.app)
+  return request(app)
     .post('/graphql')
     .send({ query: mutation, variables })
     .then((res) => {

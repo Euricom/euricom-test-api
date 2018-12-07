@@ -2,7 +2,7 @@ const { seedProducts, getAllProducts, getProduct, deleteProduct, addProduct } = 
 const sortOn = require('sort-on');
 const arrayToConnection = require('../arrayToConnection');
 
-const productResolvers = {
+const resolvers = {
   Query: {
     product: (root, args) => {
       return getProduct(args.id);
@@ -57,4 +57,4 @@ const productResolvers = {
   },
 };
 
-module.exports = productResolvers;
+module.exports = resolvers;

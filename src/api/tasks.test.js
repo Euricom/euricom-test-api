@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const request = require('supertest');
-const app = require('../src/express');
+const app = require('../express');
+const { getAllTasks, getTask, clearTasks, seedTasks } = require('../data/tasks');
 
-const { getAllTasks, getTask, clearTasks, seedTasks } = require('../src/data/tasks');
+const agent = request(app);
 
 describe('Task Routes', () => {
   beforeEach(() => {
@@ -13,9 +14,7 @@ describe('Task Routes', () => {
   });
 
   it('fetches tasks', async () => {
-    const response = await request(app.app)
-      .get('/api/tasks')
-      .expect(200);
+    const response = await agent.get('/api/tasks').expect(200);
 
     expect(response.body.length).toBeGreaterThan(0);
   });
@@ -23,18 +22,14 @@ describe('Task Routes', () => {
   it('fetches a task', async () => {
     const task = getTask(1);
 
-    const response = await request(app.app)
-      .get(`/api/tasks/${task.id}`)
-      .expect(200);
+    const response = await agent.get(`/api/tasks/${task.id}`).expect(200);
 
     expect(response.body).not.toBe(null);
     expect(response.body.id).toBe(task.id);
   });
 
   it('throws a 404 on wrong task ID', async () => {
-    const response = await request(app.app)
-      .get('/api/tasks/122')
-      .expect(404);
+    const response = await agent.get('/api/tasks/122').expect(404);
 
     expect(response.body.code).toEqual('Not Found');
     expect(response.body.message).toEqual('Task not found');
@@ -45,7 +40,7 @@ describe('Task Routes', () => {
       desc: 'Eat Bagel',
     };
 
-    const response = await request(app.app)
+    const response = await agent
       .post('/api/tasks')
       .send(task)
       .expect(201);
@@ -63,7 +58,7 @@ describe('Task Routes', () => {
       completed: false,
     };
 
-    const response = await request(app.app)
+    const response = await agent
       .patch('/api/tasks/1')
       .send(task)
       .expect(200);
@@ -72,9 +67,7 @@ describe('Task Routes', () => {
   });
 
   it('throws a 404 on wrong task ID', async () => {
-    const response = await request(app.app)
-      .patch('/api/tasks/122')
-      .expect(404);
+    const response = await agent.patch('/api/tasks/122').expect(404);
 
     expect(response.body.code).toEqual('Not Found');
     expect(response.body.message).toEqual('Task not found');
@@ -83,9 +76,7 @@ describe('Task Routes', () => {
   it('deletes a task', async () => {
     const oldTask = getTask(1);
 
-    const response = await request(app.app)
-      .delete(`/api/tasks/${oldTask.id}`)
-      .expect(200);
+    const response = await agent.delete(`/api/tasks/${oldTask.id}`).expect(200);
 
     const newTask = getTask(1);
 
@@ -94,8 +85,6 @@ describe('Task Routes', () => {
   });
 
   it('throws a 204 on wrong task ID', async () => {
-    const response = await request(app.app)
-      .delete('/api/tasks/122')
-      .expect(204);
+    const response = await agent.delete('/api/tasks/122').expect(204);
   });
 });

@@ -6,25 +6,16 @@ const sortOn = require('sort-on');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const asyncify = require('express-asyncify');
+const { ApolloServer, UserInputError } = require('apollo-server-express');
+const showdown = require('showdown');
 
-const userRoutes = require('./api/userRoutes');
-const taskRoutes = require('./api/taskRoutes');
-const productRoutes = require('./api/productRoutes');
-const basketRoutes = require('./api/basketRoutes');
-
-const { getAllProducts, getProduct, deleteProduct, addProduct } = require('./data/products');
+const usersApi = require('./api/users');
+const tasksApi = require('./api/tasks');
+const productsApi = require('./api/products');
+const basketApi = require('./api/basket');
 
 const errorHandler = require('./api/middleware/errorHandler');
-
-const { getAllUsers, getUser, deleteUser, addUser } = require('./data/users');
-
-const { getAllTasks, getTask, deleteTask, addTask } = require('./data/tasks');
-
-const { getOrCreateBasket, clearBasket } = require('./data/basket');
-
-const { ApolloServer, UserInputError } = require('apollo-server-express');
 const schema = require('./graphql/schema');
-const showdown = require('showdown');
 
 showdown.setFlavor('github');
 const converter = new showdown.Converter({
@@ -61,10 +52,10 @@ app.delete('/api/system', async (req, res) => {
   });
 });
 
-app.use('/', userRoutes);
-app.use('/', taskRoutes);
-app.use('/', productRoutes);
-app.use('/', basketRoutes);
+app.use('/', usersApi);
+app.use('/', tasksApi);
+app.use('/', productsApi);
+app.use('/', basketApi);
 
 // Error handler
 app.use(errorHandler);
@@ -84,7 +75,4 @@ graphQlServer.applyMiddleware({
   app,
 });
 
-module.exports = {
-  app,
-  graphQlServer,
-};
+module.exports = app;

@@ -1,5 +1,10 @@
-const helpers = require('./helpers/helpers');
-const productData = require('../src/data/products');
+const supertest = require('supertest');
+const gqltest = require('../../../test/gqltest');
+const app = require('../../express');
+const productData = require('../../data/products');
+
+const request = gqltest('/graphql', supertest);
+const agent = request(app);
 
 describe('GraphQL Products', () => {
   let apple;
@@ -35,13 +40,14 @@ describe('GraphQL Products', () => {
     `;
 
     // act
-    const data = await helpers.executeQuery(query, {}, 200);
+    const res = await agent.postQuery(query, {});
 
     // assert
-    expect(data.data.allProducts.totalCount).toBe(2);
-    expect(data.data.allProducts.pageInfo.hasNextPage).toBe(false);
-    expect(data.data.allProducts.pageInfo.hasPreviousPage).toBe(false);
-    expect(data.data).toMatchSnapshot();
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.allProducts.totalCount).toBe(2);
+    expect(res.body.data.allProducts.pageInfo.hasNextPage).toBe(false);
+    expect(res.body.data.allProducts.pageInfo.hasPreviousPage).toBe(false);
+    expect(res.body.data).toMatchSnapshot();
   });
 
   test('query product', async () => {
@@ -60,12 +66,12 @@ describe('GraphQL Products', () => {
     `;
 
     // act
-    const data = await helpers.executeQuery(query, { id: 1 }, 200);
-    // console.log(data);
+    const res = await agent.postQuery(query, { id: 1 }, 200);
 
     // assert
-    expect(data.data.product.id).toBe(1);
-    expect(data.data.product.title).toBe(apple.title);
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.product.id).toBe(1);
+    expect(res.body.data.product.title).toBe(apple.title);
   });
 
   test('mutate addOrUpdateProduct', async () => {
@@ -90,11 +96,13 @@ describe('GraphQL Products', () => {
       }
     }`;
 
-    const data = await helpers.executeMutation(mutation, { product }, 200);
+    const res = await agent.postMutation(mutation, { product });
 
-    expect(data.data.addOrUpdateProduct.product.title).toBe(product.title);
-    expect(data.data.addOrUpdateProduct.product.sku).toBe(product.sku);
-    expect(data.data.addOrUpdateProduct.product.price).toBe(product.price);
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.addOrUpdateProduct.product.title).toBe(product.title);
+    expect(res.body.data.addOrUpdateProduct.product.sku).toBe(product.sku);
+    expect(res.body.data.addOrUpdateProduct.product.price).toBe(product.price);
   });
 
   test('mutate deleteProduct', async () => {
@@ -114,9 +122,11 @@ describe('GraphQL Products', () => {
       }
     }}`;
 
-    const data = await helpers.executeMutation(mutation, { productId: 1 }, 200);
+    const res = await agent.postMutation(mutation, { productId: 1 });
 
-    expect(data.data.deleteProduct.product.id).toBe(1);
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.deleteProduct.product.id).toBe(1);
   });
 
   test('return 200 when product was not found on deleteProduct', async () => {
@@ -136,8 +146,10 @@ describe('GraphQL Products', () => {
       }
     }}`;
 
-    const data = await helpers.executeMutation(mutation, { productId: 3 }, 200);
+    const res = await agent.postMutation(mutation, { productId: 3 });
 
-    expect(data.data.deleteProduct.product).toBe(null);
+    // assert
+    expect(res).toHaveStatus(200);
+    expect(res.body.data.deleteProduct.product).toBe(null);
   });
 });

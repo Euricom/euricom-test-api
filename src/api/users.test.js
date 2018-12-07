@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const request = require('supertest');
-const app = require('../src/express');
+const app = require('../express');
+const { seedUsers, getAllUsers, getUser, clearUsers } = require('../data/users');
 
-const { seedUsers, getAllUsers, getUser, clearUsers } = require('../src/data/users');
+const agent = request(app);
 
 describe('User Routes', () => {
   beforeEach(() => {
@@ -13,9 +14,7 @@ describe('User Routes', () => {
 
   it('fetches users', async () => {
     seedUsers(3);
-    const response = await request(app.app)
-      .get('/api/users')
-      .expect(200);
+    const response = await agent.get('/api/users').expect(200);
 
     expect(response.body).toHaveProperty('total');
     expect(response.body).toHaveProperty('users');
@@ -26,9 +25,7 @@ describe('User Routes', () => {
     seedUsers(1);
     const user = getUser(1000);
 
-    const response = await request(app.app)
-      .get(`/api/users/${user.id}`)
-      .expect(200);
+    const response = await agent.get(`/api/users/${user.id}`).expect(200);
 
     expect(response.body.id).toEqual(user.id);
   });
@@ -36,9 +33,7 @@ describe('User Routes', () => {
   it('throws a 404 on wrong user ID', async () => {
     seedUsers(1);
 
-    const response = await request(app.app)
-      .get('/api/users/2')
-      .expect(404);
+    const response = await agent.get('/api/users/2').expect(404);
 
     expect(response.body.code).toEqual('Not Found');
     expect(response.body.message).toEqual('User not found');
@@ -53,7 +48,7 @@ describe('User Routes', () => {
       role: 'admin',
     };
 
-    const response = await request(app.app)
+    const response = await agent
       .post('/api/users')
       .send(user)
       .expect(201);
@@ -74,7 +69,7 @@ describe('User Routes', () => {
       role: oldUser.role,
     };
 
-    const response = await request(app.app)
+    const response = await agent
       .put(`/api/users/${oldUser.id}`)
       .send(newUser)
       .expect(200);
@@ -87,9 +82,7 @@ describe('User Routes', () => {
   it('throws a 404 on wrong user ID', async () => {
     seedUsers(1);
 
-    const response = await request(app.app)
-      .put('/api/users/2')
-      .expect(404);
+    const response = await agent.put('/api/users/2').expect(404);
 
     expect(response.body.code).toEqual('Not Found');
     expect(response.body.message).toEqual('User not found');
@@ -99,9 +92,7 @@ describe('User Routes', () => {
     seedUsers(1);
     const user = getUser(1000);
 
-    const response = await request(app.app)
-      .delete(`/api/users/${user.id}`)
-      .expect(200);
+    const response = await agent.delete(`/api/users/${user.id}`).expect(200);
 
     const newUser = getUser(1000);
 
@@ -112,8 +103,6 @@ describe('User Routes', () => {
   it('throws a 404 on wrong user ID', async () => {
     seedUsers(1);
 
-    const response = await request(app.app)
-      .delete('/api/users/2')
-      .expect(204);
+    const response = await agent.delete('/api/users/2').expect(204);
   });
 });
