@@ -2,7 +2,7 @@
 
 Fake Online REST API for Testing and Prototyping
 Copyright (c) 2018 Euricom nv. Licensed under the [MIT license](https://opensource.org/licenses/MIT).
-v 0.4.3
+v 1.0.0
 
 ## GraphQL
 
@@ -43,6 +43,8 @@ DELETE /api/tasks/122
 GET [/api/users](/api/users)
 GET [/api/users/12](/api/users/12)
 GET [/api/users?page=0&pageSize=10](/api/users?page=0&pageSize=10)
+GET [/api/users?sort=firstName-](/api/users?sort=firstName-)
+GET [/api/users?sort=address.city](/api/users?sort=address.city)
 
 ```
 POST /api/users

@@ -1,31 +1,74 @@
 const express = require('express');
 const asyncify = require('express-asyncify');
 const { getAllUsers, getUser, deleteUser, addUser } = require('../data/users');
+const validate = require('./middleware/validator');
 const _ = require('underscore');
+const sortOn = require('sort-on');
 
 //
 // user routes
 //
+
+const userSchema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'number',
+      optional: true,
+    },
+    firstName: {
+      type: 'string',
+    },
+    lastName: {
+      type: 'string',
+    },
+    email: {
+      type: 'string',
+    },
+    image: {
+      type: 'string',
+      optional: true,
+    },
+    phone: {
+      type: 'string',
+      optional: true,
+    },
+    company: {
+      type: 'string',
+      optional: true,
+    },
+    age: {
+      type: 'number',
+    },
+  },
+};
 
 const router = asyncify(express.Router());
 
 // GET /api/users
 // GET /api/users?page=0&pageSize=10
 router.get('/api/users', async (req, res) => {
-  const page = req.query.page || 0;
-  const pageSize = req.query.pageSize || 20;
-  // console.log('page:', page);
-  // console.log('pageSize:', pageSize);
+  const page = Number(req.query.page || 0);
+  const pageSize = Number(req.query.pageSize || 20);
+  const sortBy = req.query.sort || '';
+  console.log('page:', page);
+  console.log('pageSize:', pageSize);
+  console.log('sortBy:', sortBy);
 
-  const users = await getAllUsers();
+  let users = await getAllUsers();
+  if (sortBy) {
+    users = sortOn(users, sortBy);
+  }
   const userSet = _.chain(users)
     .rest(page * pageSize)
     .first(pageSize)
     .value();
   // return all resource
   res.json({
-    total: userSet.length,
     users: userSet,
+    total: users.length,
+    page,
+    pageSize,
   });
 });
 
@@ -53,7 +96,7 @@ router.get('/api/users/:id', async (req, res) => {
   "role": "admin"
 }
 */
-router.post('/api/users', async (req, res) => {
+router.post('/api/users', validate(userSchema), async (req, res) => {
   // Get resource
   const resource = req.body;
 
@@ -76,7 +119,7 @@ router.post('/api/users', async (req, res) => {
   "role": "admin"
 }
 */
-router.put('/api/users/:id', async (req, res) => {
+router.put('/api/users/:id', validate(userSchema), async (req, res) => {
   // Get resource
   const resource = req.body;
 
