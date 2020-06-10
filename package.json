@@ -27,7 +27,7 @@
     "morgan": "^1.9.1",
     "node-gyp": "^5.0.3",
     "nodemon": "^1.18.7",
-    "schema-inspector": "^1.6.8",
+    "schema-inspector": "^1.6.9",
     "showdown": "^1.9.0",
     "sort-on": "^3.0.0",
     "underscore": "^1.8.3"
