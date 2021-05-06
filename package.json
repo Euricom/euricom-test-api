@@ -30,7 +30,7 @@
     "schema-inspector": "^1.6.8",
     "showdown": "^1.9.0",
     "sort-on": "^3.0.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "jest-matcher-utils": "^23.6.0",
