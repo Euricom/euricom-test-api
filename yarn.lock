@@ -693,15 +693,6 @@ async@^2.1.4:
   dependencies:
     lodash "^4.17.14"
 
-asyncawait@^1.0.7:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/asyncawait/-/asyncawait-1.0.8.tgz#ecd25d68d870ac36cd96338f844e2a4d2efb7242"
-  integrity sha512-yssMQjNRaFYJbJPXnZQ/G4o5uqBj6Ol7HqjEzjyO7306RHnqLGoenKaVbqUgqhk1QBXZSJ3yf2xhQCWcZjWt6w==
-  dependencies:
-    bluebird "^3.1.1"
-    fibers "^2.0.2"
-    lodash "^4.17.11"
-
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -924,11 +915,6 @@ binary-extensions@^1.0.0:
   version "1.13.1"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.13.1.tgz#598afe54755b2868a5330d2aff9d4ebb53209b65"
   integrity sha512-Un7MIEDdUC5gNpcGDV97op1Ywk748MpHcFTHoYs6qnj1Z3j7I53VG3nwZhKzoBZmbdRNnb6WRdFlwl7tSDuZGw==
-
-bluebird@^3.1.1:
-  version "3.5.5"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.5.tgz#a8d0afd73251effbbd5fe384a77d73003c17a71f"
-  integrity sha512-5am6HnnfN+urzt4yfg7IgTbotDjIT/u8AJpEt0sIU9FtXfVeezXAPKswrG+xKUCOYAINpSdgZVDU6QFh+cuH3w==
 
 body-parser@1.19.0, body-parser@^1.17.1, body-parser@^1.18.3:
   version "1.19.0"
@@ -1770,11 +1756,6 @@ fb-watchman@^2.0.0:
   integrity sha1-VOmr99+i8mzZsWNsWIwa/AXeXVg=
   dependencies:
     bser "^2.0.0"
-
-fibers@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/fibers/-/fibers-2.0.2.tgz#36db63ea61c543174e2264675fea8c2783371366"
-  integrity sha512-HfVRxhYG7C8Jl9FqtrlElMR2z/8YiLQVDKf67MLY25Ic+ILx3ecmklfT1v3u+7P5/4vEFjuxaAFXhr2/Afwk5g==
 
 filename-regex@^2.0.0:
   version "2.0.1"

@@ -13,7 +13,6 @@
   "dependencies": {
     "apollo-server": "^2.2.6",
     "apollo-server-express": "^2.2.6",
-    "asyncawait": "^1.0.7",
     "body-parser": "^1.17.1",
     "cors": "^2.8.5",
     "expect-more-jest": "^2.3.0",
