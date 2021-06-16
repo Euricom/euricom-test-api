@@ -1,6 +1,6 @@
 {
   "name": "euri-test-api",
-  "version": "0.4.3",
+  "version": "1.1.0",
   "license": "MIT",
   "scripts": {
     "start": "node ./src/server.js",

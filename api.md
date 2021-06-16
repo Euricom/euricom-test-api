@@ -1,26 +1,33 @@
 # euri-test-api
 
 Fake Online REST API for Testing and Prototyping
-Copyright (c) 2018 Euricom nv. Licensed under the [MIT license](https://opensource.org/licenses/MIT).
-v 1.0.0
 
-## GraphQL
+Copyright (c) 2018 - 2021 Euricom nv.
+
+Licensed under the [MIT license](https://opensource.org/licenses/MIT).
+v 1.1.0
+
+<hr>
+
+## GraphQL API
 
 Open [/graphql](/graphql) to view the graphQL playground
 
-## System
+<hr>
+
+## REST API
+
+### System
 
 ```json
 # reset all data
 DELETE /api/system
 ```
 
-<hr>
+### Tasks
 
-## Tasks
-
-GET [/api/tasks](/api/tasks)
-GET [/api/tasks/1](/api/tasks/1)
+* GET [/api/tasks](/api/tasks)
+* GET [/api/tasks/1](/api/tasks/1)
 
 ```
 POST /api/tasks
@@ -36,15 +43,13 @@ PATCH /api/tasks
 DELETE /api/tasks/122
 ```
 
-<hr>
+### Users
 
-## Users
-
-GET [/api/users](/api/users)
-GET [/api/users/12](/api/users/12)
-GET [/api/users?page=0&pageSize=10](/api/users?page=0&pageSize=10)
-GET [/api/users?sort=firstName-](/api/users?sort=firstName-)
-GET [/api/users?sort=address.city](/api/users?sort=address.city)
+* GET [/api/users](/api/users)
+* GET [/api/users/12](/api/users/12)
+* GET [/api/users?page=0&pageSize=10](/api/users?page=0&pageSize=10)
+* GET [/api/users?sort=firstName-](/api/users?sort=firstName-)
+* GET [/api/users?sort=address.city](/api/users?sort=address.city)
 
 ```
 POST /api/users
@@ -68,15 +73,13 @@ PUT /api/users/12
 DELETE /api/users/12
 ```
 
-<hr>
+### Products
 
-## Products
-
-GET [/api/products](/api/products)
-GET [/api/products/1](/api/products/1)
-GET [/api/products?page=0&pageSize=10](/api/products?page=0&pageSize=10)
-GET [/api/products?sort=price](/api/products?sort=price)
-GET [/api/products?sort=-price](/api/products?sort=-price)
+* GET [/api/products](/api/products)
+* GET [/api/products/1](/api/products/1)
+* GET [/api/products?page=0&pageSize=10](/api/products?page=0&pageSize=10)
+* GET [/api/products?sort=price](/api/products?sort=price)
+* GET [/api/products?sort=-price](/api/products?sort=-price)
 
 ```
 # create a new product
@@ -103,9 +106,9 @@ PUT /api/products/12
 DELETE /api/products/12
 ```
 
-## Basket
+### Basket
 
-GET [/api/basket/xyz](/api/basket/xyz)
+* GET [/api/basket/xyz](/api/basket/xyz)
 
 ```
 # Get the basket with key
