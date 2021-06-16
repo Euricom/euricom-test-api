@@ -77,6 +77,8 @@ const graphQlServer = new ApolloServer({
     // delete error.extensions.exception;
     return error;
   },
+  introspection: true,
+  playground: true,
 });
 graphQlServer.applyMiddleware({
   app,
