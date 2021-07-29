@@ -85,17 +85,17 @@ router.delete('/api/basket/:key/product/:id', async (req, res) => {
 //    quantity: 10
 // }
 router.patch('/api/basket/:key/product/:id', validate(addProductSchema), async (req, res) => {
-  const id = Number(req.params.id);
+  const productId = Number(req.params.id);
   let basket = await getOrCreateBasket(req.params.key);
   const quantity = Math.floor(Number(req.body.quantity)) || 0;
   let basketItemIndex;
   const basketItem = basket.find((item, i) => {
-    if (item.id === id) {
+    if (item.productId === productId) {
       basketItemIndex = i;
       return item;
     }
   });
-  const product = await getProduct(id);
+  const product = await getProduct(productId);
   if (!product) {
     throw new httpErrors.NotFoundError('Product not found');
   }
@@ -108,7 +108,8 @@ router.patch('/api/basket/:key/product/:id', validate(addProductSchema), async (
   }
   if (!basketItem && quantity)
     basket.push({
-      id: id,
+      id: basket.reduce((acc, prop) => Math.max(acc, prop.id), 0) + 1,
+      productId,
       quantity: quantity,
     });
   if (quantity == 0) {
