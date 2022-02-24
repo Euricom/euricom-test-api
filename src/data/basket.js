@@ -20,7 +20,9 @@ function getOrCreateBasket(checkoutID) {
 }
 
 const removeProductFromBaskets = (productId) => {
+  console.log('remove product with id', productId);
   for (let prop in baskets) {
+    console.log('for loop', (baskets[prop] = baskets[prop].filter((basket) => basket.productId !== productId)));
     baskets[prop] = baskets[prop].filter((basket) => basket.productId !== productId);
   }
 };
